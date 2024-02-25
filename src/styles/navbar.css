@@ -1,6 +1,12 @@
 /* Custom Zoo-themed styles for the menu bar */
+/* .navbar-container {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+} */
 .p-menubar {
-    background-color: #ffffff; /* Dark green background */
+    background-color: white; /* Make background transparent */
     color: #000000; /* White text color */
     border-bottom: 2px solid #24b844; /* Green border bottom */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 10); /* Add shadow for depth */
@@ -23,7 +29,7 @@
 }
 
 .p-menubar .p-menuitem-end .p-menuitem-link:hover {
-    background-color: transparent; /* Remove background color on hover for end menu items */
+    background-color: transparent; /* Make end menu item background transparent on hover */
 }
 
 .p-menubar .p-menuitem-end .p-menuitem-link i {

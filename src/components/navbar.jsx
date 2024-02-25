@@ -1,32 +1,30 @@
 import React from 'react';
 import { Menubar } from 'primereact/menubar';
 import { Link } from 'react-router-dom';
-import '../styles/navbar.css';
-// import Logo from '../assets/welcome.jpg';
+import '../styles/navbar.css'; // Assuming you have some custom styles
+import Logo from '../assets/welcome.jpg'; // Path to your logo image
 
-export default function TemplateDemo() {
+export default function AdminNavbar() {
   const items = [
-    { label: 'Home', icon: 'pi pi-home', url: '/' },
-    { label: 'Book Ticket', icon: 'pi pi-ticket', url: '/createticket' },
-    { label: 'Book Event', icon: 'pi pi-star-fill', url: '/event' },
+    { label: 'Dashboard', icon: 'pi pi-home', url: '/' },
+    { label: 'Manage Tickets', icon: 'pi pi-ticket', url: '/createtickets' },
+    { label: 'Manage Events', icon: 'pi pi-star', url: '/events' }, // Changed icon name
     { label: 'Profile', icon: 'pi pi-user', url: '/profile' },
-    { label: 'Contact', icon: 'pi pi-envelope', url: '/contact' },
-    { label: 'About Us', icon: 'pi pi-info-circle', url: '/about' },
-    { label: 'All Customers', icon: 'pi pi-info-circle', url: '/customers' },
-    { label: 'All Admins', icon: 'pi pi-info-circle', url: '/admin' },
-    { label: 'AllTickets', icon: 'pi pi-info-circle', url: '/tickets' },
-    { label: 'AllAnimals', icon: 'pi pi-info-circle', url: '/animals' },
-    { label: 'AllAnimalSpecies', icon: 'pi pi-info-circle', url: '/animalspecies' },
+    { label: 'All Customers', icon: 'pi pi-users', url: '/customers' }, // Changed icon name
+    { label: 'All Admins', icon: 'pi pi-users', url: '/admin' }, // Changed icon name
+    { label: 'All Tickets', icon: 'pi pi-ticket', url: '/tickets' }, // Changed icon name
+    { label: 'All Animals', icon: 'pi pi-paw', url: '/animals' }, // Changed icon name
+    { label: 'All Animal Species', icon: 'pi pi-clone', url: '/animalspecies' }, // Changed icon name
   ];
 
-  // const start = (
-  //   <img
-  //     alt="logo"
-  //     src={Logo}
-  //     height="40"
-  //     className="mr-2"
-  //   ></img>
-  // );
+  const start = (
+    <img
+      alt="logo"
+      src={Logo}
+      height="40"
+      className="mr-2"
+    />
+  );
 
   const end = (
     <div className="flex align-items-center">
@@ -39,15 +37,15 @@ export default function TemplateDemo() {
         <span>Log Out</span>
       </Link>
       <Link to="/signup" className="p-menuitem-link">
-        <i className="pi pi-angle-up"></i>
+        <i className="pi pi-user-plus"></i> {/* Changed icon name */}
         <span>Sign up</span>
       </Link>
     </div>
   );
 
   return (
-    <div className="card" style={{ width: '100%', position: '', top: 0, zIndex: 1000 , margin: 0 }}>
-      <Menubar model={items} end={end} />
+    <div className="navbar-container">
+      <Menubar model={items} start={start} end={end} />
     </div>
   );
 }
