@@ -14,6 +14,9 @@ export default function TemplateDemo() {
     { label: 'About Us', icon: 'pi pi-info-circle', url: '/about' },
     { label: 'All Customers', icon: 'pi pi-info-circle', url: '/customers' },
     { label: 'All Admins', icon: 'pi pi-info-circle', url: '/admin' },
+    { label: 'AllTickets', icon: 'pi pi-info-circle', url: '/tickets' },
+    { label: 'AllAnimals', icon: 'pi pi-info-circle', url: '/animals' },
+    { label: 'AllAnimalSpecies', icon: 'pi pi-info-circle', url: '/animalspecies' },
   ];
 
   // const start = (
