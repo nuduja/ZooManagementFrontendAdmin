@@ -10,6 +10,7 @@ import Customer from './components/AllCustomers';
 import Ticket from './components/AllTickets';
 import Animals from './components/AllAnimals';
 import AnimalSpecies from './components/AllAnimalSpecies';
+import CreateAnimalSpecies from './components/createAnimalSpecies';
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
                 <Route path="/tickets" element={<Ticket />} />
                 <Route path="/animals" element={<Animals />} />
                 <Route path="/animalspecies" element={<AnimalSpecies />} />
+                <Route path="/createanimalspecies" element={<CreateAnimalSpecies />} />
             </Routes>
         </Router>
     );
