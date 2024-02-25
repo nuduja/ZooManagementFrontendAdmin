@@ -21,7 +21,7 @@ const LoginPage = () => {
     const password = formData.password;
 
     try{
-      const response = await fetch("http://localhost:8080/user/login", {
+      const response = await fetch("http://localhost:8080/admin/login", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

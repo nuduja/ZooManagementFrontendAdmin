@@ -1,0 +1,31 @@
+/* Custom Zoo-themed styles for the menu bar */
+.p-menubar {
+    background-color: #ffffff; /* Dark green background */
+    color: #000000; /* White text color */
+    border-bottom: 2px solid #24b844; /* Green border bottom */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 10); /* Add shadow for depth */
+    font-family: 'Arial', sans-serif; /* Choose a suitable font */
+}
+
+.p-menubar .p-menuitem-link {
+    color: #000000; /* White text color for menu items */
+    font-weight: bold; /* Make menu item text bold */
+    text-transform: uppercase; /* Convert text to uppercase */
+}
+
+.p-menubar .p-menuitem-link:hover {
+    border-radius: 40px;
+    background-color: #1ccc24; /* Dark green background on hover */
+}
+
+.p-menubar .p-menuitem-end .p-menuitem-link {
+    margin-right: 20px; /* Add margin between menu items */
+}
+
+.p-menubar .p-menuitem-end .p-menuitem-link:hover {
+    background-color: transparent; /* Remove background color on hover for end menu items */
+}
+
+.p-menubar .p-menuitem-end .p-menuitem-link i {
+    margin-right: 10px; /* Add margin between icon and text */
+}

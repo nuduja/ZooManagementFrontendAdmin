@@ -1,0 +1,70 @@
+/* profile.css */
+
+/* Main container */
+.main-container {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px;
+  background: linear-gradient(to bottom, #f7f5f5, #e6e6e6);
+}
+
+/* Left sidebar */
+.left-sidebar {
+  flex: 0 0 20%;
+}
+
+/* Profile section */
+.profile-section {
+  flex: 20%;
+  padding: 20px;
+}
+
+/* Profile card */
+.profile-card {
+  width: 600px;
+  background-color: #f9f9f9; /* Light gray background color */
+  border: 1px solid #ddd; /* Light gray border */
+  padding: 20px;
+  border-radius: 15px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+}
+
+/* Error message */
+.error-message {
+  color: #ff6347; /* Tomato red */
+}
+
+/* Profile details */
+.profile-details {
+  margin-top: 20px;
+}
+
+/* Profile label */
+.profile-label {
+  font-weight: bold;
+  font-size: 18px;
+  color: #333; /* Dark gray */
+}
+
+/* Profile buttons */
+.profile-buttons {
+  width: 200px;
+  margin-top: 20px;
+}
+
+/* Zoo-themed button styles */
+.p-button {
+  margin-bottom: 20px;
+  background-color: #4caf50; /* Green */
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 25px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.p-button:hover {
+  background-color: #45a049; /* Darker green on hover */
+}

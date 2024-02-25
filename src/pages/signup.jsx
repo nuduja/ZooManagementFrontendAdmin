@@ -9,8 +9,6 @@ const SignUpPage = () => {
   const [formData, setFormData] = useState({
     name: '',
     username: '',
-    phone: '',
-    email: '',
     password: '',
   });
 
@@ -26,19 +24,18 @@ const SignUpPage = () => {
 
     const name = formData.name;
     const username = formData.username;
-    const phone = formData.phone;
-    const email = formData.email;
     const password = formData.password;
+    const role = "ADMIN";
 
     try{
-      if(!confPassword && name && username && phone && email && password) {
+      if(!confPassword && name && username && password) {
         console.log('here2')
-        const response = await fetch("http://localhost:8080/user/register", {
+        const response = await fetch("http://localhost:8080/admin/register", {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({name, username, phone, email, password})
+          body: JSON.stringify({name, username, password, role})
         });
         setSubmitted(false);
         navigate('/login');
@@ -71,25 +68,6 @@ const SignUpPage = () => {
                 id="username"
                 value={formData.username}
                 onChange={(e) => setFormData({ ...formData, username: e.target.value })}
-                className="p-inputtext-lg"
-              />
-            </div>
-            <div className="p-field">
-              <label htmlFor="username">Phone</label>
-              <InputText
-                id="phone"
-                value={formData.phone}
-                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                className="p-inputtext-lg"
-              />
-            </div>
-            <div className="p-field">
-              <label htmlFor="username">E-mail</label>
-              <InputText
-                id="email"
-                type='email'
-                value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 className="p-inputtext-lg"
               />
             </div>
