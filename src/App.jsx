@@ -6,6 +6,7 @@ import Login from './pages/login';
 import Signup from './pages/signup';
 import Profile from './components/profile';
 import Admin from './components/AllAdmins';
+import Customer from './components/AllCustomers';
 
 
 function App() {
@@ -18,7 +19,7 @@ function App() {
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/admin" element={<Admin />} />
-                {/* <Route path="/profile" element={<Profile />} /> */}
+                <Route path="/customers" element={<Customer />} />
             </Routes>
         </Router>
     );

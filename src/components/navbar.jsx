@@ -12,7 +12,7 @@ export default function TemplateDemo() {
     { label: 'Profile', icon: 'pi pi-user', url: '/profile' },
     { label: 'Contact', icon: 'pi pi-envelope', url: '/contact' },
     { label: 'About Us', icon: 'pi pi-info-circle', url: '/about' },
-    // { label: 'All Customers', icon: 'pi pi-info-circle', url: '/allcustomers' },
+    { label: 'All Customers', icon: 'pi pi-info-circle', url: '/customers' },
     { label: 'All Admins', icon: 'pi pi-info-circle', url: '/admin' },
   ];
 
