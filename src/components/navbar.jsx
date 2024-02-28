@@ -13,6 +13,7 @@ export default function AdminNavbar() {
     { label: 'All Customers', icon: 'pi pi-users', url: '/customers' }, // Changed icon name
     { label: 'All Admins', icon: 'pi pi-users', url: '/admin' }, // Changed icon name
     { label: 'All Tickets', icon: 'pi pi-ticket', url: '/tickets' }, // Changed icon name
+    { label: 'All Events', icon: 'pi pi-star', url: '/events' },
     { label: 'All Animals', icon: 'pi pi-paw', url: '/animals' }, // Changed icon name
     { label: 'All Animal Species', icon: 'pi pi-clone', url: '/animalspecies' }, // Changed icon name
   ];
