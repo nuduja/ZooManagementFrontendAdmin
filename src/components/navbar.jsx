@@ -7,17 +7,25 @@ import '../styles/navbar.css';
 export default function TemplateDemo() {
   const items = [
     { label: 'Home', icon: 'pi pi-home', url: '/' },
-    { label: 'Book Ticket', icon: 'pi pi-ticket', url: '/createticket' },
-    { label: 'Book Event', icon: 'pi pi-star-fill', url: '/event' },
+    { label: 'Book Ticket', icon: 'pi pi-ticket', url: '/createTicket' },
+    { label: 'Book Event', icon: 'pi pi-star-fill', url: '/createEvent' },
     { label: 'Profile', icon: 'pi pi-user', url: '/profile' },
-    { label: 'Contact', icon: 'pi pi-envelope', url: '/contact' },
     { label: 'About Us', icon: 'pi pi-info-circle', url: '/about' },
     { label: 'All Customers', icon: 'pi pi-info-circle', url: '/customers' },
     { label: 'All Admins', icon: 'pi pi-info-circle', url: '/admin' },
     { label: 'AllTickets', icon: 'pi pi-info-circle', url: '/tickets' },
+    { label: 'AllEvents', icon: 'pi pi-info-circle', url: '/events' },
     { label: 'AllAnimals', icon: 'pi pi-info-circle', url: '/animals' },
     { label: 'AllAnimalSpecies', icon: 'pi pi-info-circle', url: '/animalspecies' },
     { label: 'CreateAnimalSpecies', icon: 'pi pi-info-circle', url: '/createanimalspecies' },
+    { label: 'CreateAnimal', icon: 'pi pi-info-circle', url: '/createAnimal' },
+    { label: 'CreateCustomer', icon: 'pi pi-info-circle', url: '/createCustomer' },
+    { label: 'AdminSpecific', icon: 'pi pi-info-circle', url: '/adminSpecific' },
+    { label: 'AnimalSpecific', icon: 'pi pi-info-circle', url: '/animalSpecific' },
+    { label: 'AnimalSpeciesSpecific', icon: 'pi pi-info-circle', url: '/animalSpeciesSpecific' },
+    { label: 'TicketSpecific', icon: 'pi pi-info-circle', url: '/ticketSpecific' },
+    { label: 'EventSpecific', icon: 'pi pi-info-circle', url: '/eventSpecific' },
+    { label: 'CustomerSpecific', icon: 'pi pi-info-circle', url: '/customerSpecific' },
   ];
 
   // const start = (
