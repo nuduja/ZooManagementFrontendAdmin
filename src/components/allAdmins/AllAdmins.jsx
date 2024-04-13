@@ -37,7 +37,7 @@ const AllAdmins = () => {
       {
         Header: 'Actions',
         Cell: ({ row }) => (
-          <Link to={`/admin/${row.original.username}`} className="p-button p-button-text">
+          <Link to={`/adminSpecific/${row.original.username}`} className="p-button p-button-text">
             View Details
           </Link>
         ),
@@ -52,7 +52,7 @@ const AllAdmins = () => {
 
   return (
     <div>
-      <h3 className="section-title">Admins</h3>
+      <h3 className="section-title">All Admins</h3>
       <table {...getTableProps()} className="table">
         <thead>
           {headerGroups.map(headerGroup => (
