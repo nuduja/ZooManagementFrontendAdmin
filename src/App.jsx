@@ -1,6 +1,7 @@
 import React from 'react';
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import {QueryClientProvider, QueryClient} from 'react-query';
+import {ProtectedRoute} from './validators/ProtectedRoute.jsx'
 import Navbar from './components/navbar';
 import Home from './components/home';
 import Login from './pages/login';
@@ -34,24 +35,96 @@ function App() {
                     <Route path="/" element={<Home/>}/>
                     <Route path="/login" element={<Login/>}/>
                     <Route path="/signup" element={<Signup/>}/>
-                    <Route path="/profile" element={<Profile/>}/>
-                    <Route path="/admin" element={<Admin/>}/>
-                    <Route path="/customers" element={<Customer/>}/>
-                    <Route path="/tickets" element={<Ticket/>}/>
-                    <Route path="/events" element={<Event/>}/>
-                    <Route path="/animals" element={<Animals/>}/>
-                    <Route path="/animalspecies" element={<AnimalSpecies/>}/>
-                    <Route path="/createanimalspecies" element={<CreateAnimalSpecies/>}/>
-                    <Route path="/createAnimal" element={<CreateAnimal/>}/>
-                    <Route path="/createCustomer" element={<CreateCustomer/>}/>
-                    <Route path="/createTicket" element={<CreateTicket/>}/>
-                    <Route path="/createEvent" element={<CreateEvent/>}/>
-                    <Route path="/adminSpecific/:username" element={<AdminSpecific/>}/>
-                    <Route path="/animalSpecific/:name" element={<AnimalSpecific/>}/>
-                    <Route path="/animalSpeciesSpecific/:name" element={<AnimalSpeciesSpecific/>}/>
-                    <Route path="/ticketSpecific/:ticketId" element={<TicketSpecific/>}/>
-                    <Route path="/eventSpecific/:eventID" element={<EventSpecific/>}/>
-                    <Route path="/customerSpecific/:username" element={<CustomerSpecific/>}/>
+                    <Route path="/profile" element={
+                        <ProtectedRoute>
+                            <Profile/>
+                        </ProtectedRoute>
+                    }/>
+                    <Route path="/admin" element={
+                        <ProtectedRoute>
+                            <Admin/>
+                        </ProtectedRoute>
+                    }/>
+                    <Route path="/customers" element={
+                        <ProtectedRoute>
+                            <Customer/>
+                        </ProtectedRoute>
+                    }/>
+                    <Route path="/tickets" element={
+                        <ProtectedRoute>
+                            <Ticket/>
+                        </ProtectedRoute>
+                    }/>
+                    <Route path="/events" element={
+                        <ProtectedRoute>
+                            <Event/>
+                        </ProtectedRoute>
+                    }/>
+                    <Route path="/animals" element={
+                        <ProtectedRoute>
+                            <Animals/>
+                        </ProtectedRoute>
+                    }/>
+                    <Route path="/animalspecies" element={
+                        <ProtectedRoute>
+                            <AnimalSpecies/>
+                        </ProtectedRoute>
+                    }/>
+                    <Route path="/createanimalspecies" element={
+                        <ProtectedRoute>
+                            <CreateAnimalSpecies/>
+                        </ProtectedRoute>
+                    }/>
+                    <Route path="/createAnimal" element={
+                        <ProtectedRoute>
+                            <CreateAnimal/>
+                        </ProtectedRoute>
+                    }/>
+                    <Route path="/createCustomer" element={
+                        <ProtectedRoute>
+                            <CreateCustomer/>
+                        </ProtectedRoute>
+                    }/>
+                    <Route path="/createTicket" element={
+                        <ProtectedRoute>
+                            <CreateTicket/>
+                        </ProtectedRoute>
+                    }/>
+                    <Route path="/createEvent" element={
+                        <ProtectedRoute>
+                            <CreateEvent/>
+                        </ProtectedRoute>
+                    }/>
+                    <Route path="/adminSpecific/:username" element={
+                        <ProtectedRoute>
+                            <AdminSpecific/>
+                        </ProtectedRoute>
+                    }/>
+                    <Route path="/animalSpecific/:name" element={
+                        <ProtectedRoute>
+                            <AnimalSpecific/>
+                        </ProtectedRoute>
+                    }/>
+                    <Route path="/animalSpeciesSpecific/:animalSpeciesId" element={
+                        <ProtectedRoute>
+                            <AnimalSpeciesSpecific/>
+                        </ProtectedRoute>
+                    }/>
+                    <Route path="/ticketSpecific/:ticketId" element={
+                        <ProtectedRoute>
+                            <TicketSpecific/>
+                        </ProtectedRoute>
+                    }/>
+                    <Route path="/eventSpecific/:eventID" element={
+                        <ProtectedRoute>
+                            <EventSpecific/>
+                        </ProtectedRoute>
+                    }/>
+                    <Route path="/customerSpecific/:username" element={
+                        <ProtectedRoute>
+                            <CustomerSpecific/>
+                        </ProtectedRoute>
+                    }/>
                 </Routes>
             </Router>
         </QueryClientProvider>
