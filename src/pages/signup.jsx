@@ -30,7 +30,7 @@ const SignUpPage = () => {
     try{
       if(!confPassword && name && username && password) {
         console.log('here2')
-        const response = await fetch("http://localhost:8080/admin/register", {
+        const response = await fetch("http://localhost:8080/api/v1/admin/register", {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
