@@ -1,0 +1,58 @@
+/* ticketSpecific.css */
+
+.ticket-specific-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: url('../assets/zoo-background.jpg'); /* Add a zoo-themed background image */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.ticket-card {
+    width: 60%;
+    margin-top: 4rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    background-color: rgba(255, 255, 255, 0.9); /* Light background for the card */
+    border-radius: 15px; /* Rounded corners */
+}
+
+.ticket-card .p-card-title {
+    font-size: 2rem;
+    color: #333;
+    border-bottom: 1px solid #ccc;
+}
+
+.ticket-details {
+    padding: 2rem;
+    border-bottom: 2px dashed #888;
+}
+
+.ticket-details p {
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    color: #555;
+}
+
+.delete-button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+.delete-button-container .p-button-danger {
+    width: 70%;
+    font-size: 1.2rem;
+    padding: 1rem;
+    border-radius: 10px;
+    background-color: #d32f2f; /* Red color for the delete button */
+    border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.delete-button-container .p-button-danger:hover {
+    background-color: #b71c1c; /* Darker red on hover */
+}

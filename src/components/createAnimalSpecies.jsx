@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { Message } from 'primereact/message';
-
+import '../styles/createAnimalSpecies.css'
 function CreateAnimalSpecies() {
   const [animalSpeciesID, setAnimalSpeciesID] = useState('');
   const [animalId, setAnimalId] = useState('');
@@ -62,17 +62,11 @@ function CreateAnimalSpecies() {
 
   return (
     <div>
-      <header className="zoo-header">
-        <h1>Welcome to Our Zoo</h1>
-        <p>Discover the wonders of nature and wildlife at our amazing zoo. Come and experience a day filled with fun, education, and adventure!</p>
-        <p>Location: [Your Zoo's Location]</p>
-        <p>Opening Hours: [Your Zoo's Opening Hours]</p>
-        <hr />
-      </header>
+  
       <div className="ticket-section-container">
         <div className="ticket-section-background"></div> {/* Background image */}
-        <div className="create-ticket-container">
-          <h2>Book Online</h2>
+        <div className="create-animalSpec-container">
+          <h2>Enter Animal Species Details</h2>
           {errorMessage && <Message severity="error" text={errorMessage} />}
           <form onSubmit={handleSubmit}>
             <div className="input-container">
@@ -155,7 +149,7 @@ function CreateAnimalSpecies() {
                 className="zoo-input"
               />
             </div>            
-            <Button label="Buy Tickets" type="submit" className="zoo-button" />
+            <Button label="Save" type="submit" className="zoo-button" />
           </form>
         </div>
       </div>

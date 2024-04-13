@@ -1,17 +1,7 @@
-// import React from 'react';
-// import AllCustomersTable from "./AllCustomersTable.jsx";
-//
-// const AllCustomers = () => {
-//     return(
-//         <AllCustomersTable/>
-//     )
-// };
-//
-// export default AllCustomers;
-
-
 import React, { useEffect, useState, useMemo } from 'react';
 import { useTable } from 'react-table';
+import { DataTable } from 'primereact/datatable';
+import { Column } from 'primereact/column';
 import { Link } from 'react-router-dom';
 
 const AllCustomers = () => {
@@ -36,58 +26,21 @@ const AllCustomers = () => {
 
     const data = useMemo(() => customers, [customers]);
 
-    const columns = useMemo(
-        () => [
-            {
-                Header: 'Name',
-                accessor: 'name',
-            },
-            {
-                Header: 'Username',
-                accessor: 'username',
-            },
-            {
-                Header: 'Actions',
-                Cell: ({ row }) => (
-                    <Link to={`/customerSpecific/${row.original.username}`} className="p-button p-button-text">
-                        View Details
-                    </Link>
-                ),
-            },
-        ],
-        []
-    );
-
-    const tableInstance = useTable({ columns, data });
-
-    const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = tableInstance;
-
     return (
         <div>
             <h3 className="section-title">All Customers</h3>
-            <table {...getTableProps()} className="table">
-                <thead>
-                {headerGroups.map(headerGroup => (
-                    <tr {...headerGroup.getHeaderGroupProps()}>
-                        {headerGroup.headers.map(column => (
-                            <th {...column.getHeaderProps()}>{column.render('Header')}</th>
-                        ))}
-                    </tr>
-                ))}
-                </thead>
-                <tbody {...getTableBodyProps()}>
-                {rows.map(row => {
-                    prepareRow(row);
-                    return (
-                        <tr {...row.getRowProps()}>
-                            {row.cells.map(cell => {
-                                return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>;
-                            })}
-                        </tr>
-                    );
-                })}
-                </tbody>
-            </table>
+            <DataTable value={data} className="p-datatable-striped">
+                <Column field="name" header="Name"></Column>
+                <Column field="username" header="Username"></Column>
+                <Column
+                    header="Actions"
+                    body={(rowData) => (
+                        <Link to={`/customerSpecific/${rowData.username}`} className="p-button p-button-text">
+                            View Details
+                        </Link>
+                    )}
+                ></Column>
+            </DataTable>
         </div>
     );
 };

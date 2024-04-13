@@ -1,0 +1,39 @@
+.datatable-style {
+    font-family: 'Arial', sans-serif;
+    padding: 20px;
+  }
+  
+  .p-datatable-custom .p-datatable-thead > tr > th.ticket-id {
+    text-align: center;
+    background-color: #007bff;
+    color: #ffffff;
+  }
+  
+  .p-datatable-custom .p-datatable-thead > tr > th.ticket-type {
+    text-align: center;
+    background-color: #28a745;
+    color: #ffffff;
+  }
+  
+  .p-datatable-custom .p-datatable-tbody > tr > td.actions-column {
+    text-align: center;
+  }
+  
+  .p-datatable-custom .p-datatable-tbody > tr > td.actions-column > a {
+    color: #007bff;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  .p-datatable-custom .p-datatable-tbody > tr:hover {
+    background-color: #f0f0f0;
+  }
+  /* allTickets.css */
+
+.actions-column .p-button {
+  width: auto; /* Set the width to auto to fit the content */
+  padding: 0.5rem 1rem; /* Adjust padding for a smaller button */
+  font-size: 0.9rem; /* Decrease font size for a smaller button */
+}
+
+  

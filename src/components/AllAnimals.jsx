@@ -1,6 +1,11 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { useTable } from 'react-table';
 import { Link } from 'react-router-dom';
+import { DataTable } from 'primereact/datatable';
+import { Column } from 'primereact/column';
+import 'primereact/resources/themes/saga-blue/theme.css';
+import 'primereact/resources/primereact.min.css';
+import 'primeicons/primeicons.css';
 
 const AllAnimals = () => {
   const [animals, setAnimals] = useState([]);
@@ -22,34 +27,17 @@ const AllAnimals = () => {
     }
   };
 
-  const data = useMemo(() => animals, [animals]);
-
   const columns = useMemo(
     () => [
+      { field: 'id', header: 'ID' },
+      { field: 'animalSpecificId', header: 'Animal Specific ID' },
+      { field: 'name', header: 'Name' },
+      { field: 'enclosureId', header: 'Enclosure ID' },
+      { field: 'age', header: 'Age' },
       {
-        Header: 'ID',
-        accessor: 'id',
-      },
-      {
-        Header: 'animalSpecificId',
-        accessor: 'animalSpecificId',
-      },
-      {
-        Header: 'name',
-        accessor: 'name',
-      },
-      {
-        Header: 'enclosureId',
-        accessor: 'enclosureId',
-      },
-      {
-        Header: 'age',
-        accessor: 'age',
-      },
-      {
-        Header: 'Actions',
-        Cell: ({ row }) => (
-          <Link to={`/animal/${row.original.id}`} className="p-button p-button-text">
+        field: 'actions',
+        body: (rowData) => (
+          <Link to={`/animal/${rowData.id}`} className="p-button p-button-text">
             View Details
           </Link>
         ),
@@ -58,36 +46,14 @@ const AllAnimals = () => {
     []
   );
 
-  const tableInstance = useTable({ columns, data });
-
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = tableInstance;
-
   return (
-    <div>
-      <h3 className="section-title">Customers</h3>
-      <table {...getTableProps()} className="table">
-        <thead>
-          {headerGroups.map(headerGroup => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map(column => (
-                <th {...column.getHeaderProps()}>{column.render('Header')}</th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody {...getTableBodyProps()}>
-          {rows.map(row => {
-            prepareRow(row);
-            return (
-              <tr {...row.getRowProps()}>
-                {row.cells.map(cell => {
-                  return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>;
-                })}
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+    <div className="p-mb-4">
+      <h3 className="section-title">All Animals</h3>
+      <DataTable value={animals} className="p-datatable-striped">
+        {columns.map((col) => (
+          <Column key={col.field} field={col.field} header={col.header} body={col.body} />
+        ))}
+      </DataTable>
     </div>
   );
 };

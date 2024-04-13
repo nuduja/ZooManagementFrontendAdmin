@@ -8,34 +8,24 @@ export default function TemplateDemo() {
   const items = [
     { label: 'Home', icon: 'pi pi-home', url: '/' },
     { label: 'Book Ticket', icon: 'pi pi-ticket', url: '/createTicket' },
-    { label: 'Book Event', icon: 'pi pi-star-fill', url: '/createEvent' },
+    // { label: 'Book Event', icon: 'pi pi-star', url: '/createEvent' },
     { label: 'Profile', icon: 'pi pi-user', url: '/profile' },
     { label: 'About Us', icon: 'pi pi-info-circle', url: '/about' },
-    { label: 'All Customers', icon: 'pi pi-info-circle', url: '/customers' },
-    { label: 'All Admins', icon: 'pi pi-info-circle', url: '/admin' },
-    { label: 'AllTickets', icon: 'pi pi-info-circle', url: '/tickets' },
-    { label: 'AllEvents', icon: 'pi pi-info-circle', url: '/events' },
-    { label: 'AllAnimals', icon: 'pi pi-info-circle', url: '/animals' },
-    { label: 'AllAnimalSpecies', icon: 'pi pi-info-circle', url: '/animalspecies' },
-    { label: 'CreateAnimalSpecies', icon: 'pi pi-info-circle', url: '/createanimalspecies' },
-    { label: 'CreateAnimal', icon: 'pi pi-info-circle', url: '/createAnimal' },
-    { label: 'CreateCustomer', icon: 'pi pi-info-circle', url: '/createCustomer' },
-    { label: 'AdminSpecific', icon: 'pi pi-info-circle', url: '/adminSpecific' },
-    { label: 'AnimalSpecific', icon: 'pi pi-info-circle', url: '/animalSpecific' },
-    { label: 'AnimalSpeciesSpecific', icon: 'pi pi-info-circle', url: '/animalSpeciesSpecific' },
-    { label: 'TicketSpecific', icon: 'pi pi-info-circle', url: '/ticketSpecific' },
-    { label: 'EventSpecific', icon: 'pi pi-info-circle', url: '/eventSpecific' },
-    { label: 'CustomerSpecific', icon: 'pi pi-info-circle', url: '/customerSpecific' },
+    { label: 'All Customers', icon: 'pi pi-users', url: '/customers' },
+    { label: 'All Admins', icon: 'pi pi-user-plus', url: '/admin' },
+    { label: 'AllTickets', icon: 'pi pi-ticket', url: '/tickets' },
+    // { label: 'AllEvents', icon: 'pi pi-calendar', url: '/events' },
+    { label: 'CreateAnimalSpecies', icon: 'pi pi-paw', url: '/createanimalspecies' },
+    // { label: 'CreateAnimal', icon: 'pi pi-plus', url: '/createAnimal' },
+    // { label: 'CreateCustomer', icon: 'pi pi-user-plus', url: '/createCustomer' },
+    // { label: 'AdminSpecific', icon: 'pi pi-user-edit', url: '/adminSpecific' },
+    // { label: 'AnimalSpecific', icon: 'pi pi-paw', url: '/animalSpecific' },
+    // { label: 'AnimalSpeciesSpecific', icon: 'pi pi-paw', url: '/animalSpeciesSpecific' },
+    { label: 'TicketSpecific', icon: 'pi pi-ticket', url: '/ticketSpecific' },
+    // { label: 'EventSpecific', icon: 'pi pi-calendar-plus', url: '/eventSpecific' },
+    // { label: 'CustomerSpecific', icon: 'pi pi-user', url: '/customerSpecific' },
+    { label: 'Animals', icon: 'pi pi-paw', url: '/animals' },
   ];
-
-  // const start = (
-  //   <img
-  //     alt="logo"
-  //     src={Logo}
-  //     height="40"
-  //     className="mr-2"
-  //   ></img>
-  // );
 
   const end = (
     <div className="flex align-items-center">
@@ -48,7 +38,7 @@ export default function TemplateDemo() {
         <span>Log Out</span>
       </Link>
       <Link to="/signup" className="p-menuitem-link">
-        <i className="pi pi-angle-up"></i>
+        <i className="pi pi-user-plus"></i>
         <span>Sign up</span>
       </Link>
     </div>
