@@ -4,14 +4,26 @@ import { Link } from 'react-router-dom';
 
 const AllAnimalSpecies = () => {
   const [animalsSpecies, setAnimalsSpecies] = useState([]);
+  const [animalSpeciesId, setAnimalSpeciesId] = useState('');
+  const [animalSpeciesName, setAnimalSpeciesName] = useState('');
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    fetchData();
+      const delayDebounce = setTimeout(() => {
+          fetchData();
+      }, 500);
+
+      return () => clearTimeout(delayDebounce);
   }, []);
 
   const fetchData = async () => {
+      setLoading(true);
+      const queryParams = new URLSearchParams({
+          animalSpeciesId: animalSpeciesId,
+          animalSpeciesName: animalSpeciesName
+      });
     try {
-      const response = await fetch('http://localhost:8080/animalspecies');
+      const response = await fetch(`http://localhost:8080/api/v1/animalspecies/searchAnimalSpecies?${queryParams}`);
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
@@ -49,7 +61,7 @@ const AllAnimalSpecies = () => {
       {
         Header: 'Actions',
         Cell: ({ row }) => (
-          <Link to={`/animal/${row.original.id}`} className="p-button p-button-text">
+          <Link to={`/animalSpeciesSpecific/${row.original.animalSpeciesId}`} className="p-button p-button-text">
             View Details
           </Link>
         ),
@@ -65,6 +77,18 @@ const AllAnimalSpecies = () => {
   return (
     <div>
       <h3 className="section-title">AllAnimalSpecies</h3>
+        <input
+            type="text"
+            value={animalSpeciesId}
+            onChange={e => setAnimalSpeciesId(e.target.value)}
+            placeholder="Search by Animal Species Id"
+        />
+        <input
+            type="text"
+            value={animalSpeciesName}
+            onChange={e => setAnimalSpeciesName(e.target.value)}
+            placeholder="Search by Animal Species Name"
+        />
       <table {...getTableProps()} className="table">
         <thead>
           {headerGroups.map(headerGroup => (
@@ -76,7 +100,8 @@ const AllAnimalSpecies = () => {
           ))}
         </thead>
         <tbody {...getTableBodyProps()}>
-          {rows.map(row => {
+        {rows.length > 0 ? (
+            rows.map(row => {
             prepareRow(row);
             return (
               <tr {...row.getRowProps()}>
@@ -85,7 +110,14 @@ const AllAnimalSpecies = () => {
                 })}
               </tr>
             );
-          })}
+          })
+        ) : (
+            <tr>
+                <td colSpan={columns.length} style={{ textAlign: 'center' }}>
+                    No data available
+                </td>
+            </tr>
+        )}
         </tbody>
       </table>
     </div>

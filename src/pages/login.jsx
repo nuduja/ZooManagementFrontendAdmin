@@ -21,7 +21,7 @@ const LoginPage = () => {
     const password = formData.password;
 
     try{
-      const response = await fetch("http://localhost:8080/admin/login", {
+      const response = await fetch("http://localhost:8080/api/v1/admin/login", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -31,16 +31,20 @@ const LoginPage = () => {
 
       const data = await response.json();
 
-      if(data){        
-        sessionStorage.setItem('loggedUser', true);
-        sessionStorage.setItem('loggedUserDetails', username);
-        navigate('www.google.com');
-      } else{
-        alert('Login failed');
+      if (data) {
+        sessionStorage.setItem("loginStatus", "true");
+        sessionStorage.setItem("username", username);
+        alert("Login successful!");
+        navigate('/');
+      } else {
+        alert("Login unsuccessful. Please check your credentials.");
       }
+
+      setSubmitted(false);
 
     }catch(error){
       console.error("Login Error: ", error);
+      alert("An error occurred during the process.");
       setSubmitted(true);
     }
   };

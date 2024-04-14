@@ -36,7 +36,7 @@ const Profile = () => {
     useEffect(() => {
         const fetchData = async (username) => {
             try {
-                const response = await fetch(`http://localhost:8080/admin/${username}`);
+                const response = await fetch(`http://localhost:8080/api/v1/admin/${username}`);
                 const data = await response.json();
                 setUserDetails({
                     name: data.name || '',
@@ -71,7 +71,6 @@ const Profile = () => {
                     <div className="profile-details">
                         <p><span className="profile-label">Name:</span> {userDetails.name}</p>
                         <p><span className="profile-label">Username:</span> {userDetails.username}</p>
-                        <p><span className="profile-label">Password:</span> {userDetails.password}</p>
                     </div>
                 </Card>
                 <div className="profile-buttons">

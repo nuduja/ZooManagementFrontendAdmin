@@ -1,7 +1,7 @@
 import React from 'react';
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import {QueryClientProvider, QueryClient} from 'react-query';
-// import './index.css'; // or import './App.css';
+import {ProtectedRoute} from './validators/ProtectedRoute.jsx'
 import Navbar from './components/navbar';
 import Home from './components/home';
 import Login from './pages/login';
@@ -39,20 +39,20 @@ function App() {
                     <Route path="/admin" element={<Admin/>}/>
                     <Route path="/customers" element={<Customer/>}/>
                     <Route path="/tickets" element={<Ticket/>}/>
-                    {/* <Route path="/events" element={<Event/>}/> */}
+                    <Route path="/events" element={<Event/>}/>
                     <Route path="/animals" element={<Animals/>}/>
                     <Route path="/animalspecies" element={<AnimalSpecies/>}/>
                     <Route path="/createanimalspecies" element={<CreateAnimalSpecies/>}/>
-                    {/* <Route path="/createAnimal" element={<CreateAnimal/>}/> */}
+                    <Route path="/createAnimal" element={<CreateAnimal/>}/>
                     <Route path="/createCustomer" element={<CreateCustomer/>}/>
                     <Route path="/createTicket" element={<CreateTicket/>}/>
-                    {/* <Route path="/createEvent" element={<CreateEvent/>}/> */}
-                    {/* <Route path="/adminSpecific/:username" element={<AdminSpecific/>}/> */}
-                    {/* <Route path="/animalSpecific/:name" element={<AnimalSpecific/>}/> */}
-                    {/* <Route path="/animalSpeciesSpecific/:name" element={<AnimalSpeciesSpecific/>}/> */}
+                    <Route path="/createEvent" element={<CreateEvent/>}/>
+                    <Route path="/adminSpecific/:username" element={<AdminSpecific/>}/>
+                    <Route path="/animalSpecific/:name" element={<AnimalSpecific/>}/>
+                    <Route path="/animalSpeciesSpecific/:name" element={<AnimalSpeciesSpecific/>}/>
                     <Route path="/ticketSpecific/:ticketId" element={<TicketSpecific/>}/>
-                    {/* <Route path="/eventSpecific/:eventID" element={<EventSpecific/>}/> */}
-                    {/* <Route path="/customerSpecific/:username" element={<CustomerSpecific/>}/> */}
+                    <Route path="/eventSpecific/:eventID" element={<EventSpecific/>}/>
+                    <Route path="/customerSpecific/:username" element={<CustomerSpecific/>}/>
                 </Routes>
             </Router>
         </QueryClientProvider>

@@ -11,10 +11,37 @@ function CreateCustomer() {
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
+  const validateEmail = (email) => {
+    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+  };
+
+  const validatePhone = (phone) => {
+    const re = /^\d{10}$/;
+    return re.test(String(phone));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const role = "USER"
+
+    if (!name || !username || !phone || !email || !password) {
+      setErrorMessage('Please fill in all fields');
+      return;
+    }
+
+    if (!validateEmail(email)) {
+      setErrorMessage('Invalid email format');
+      return;
+    }
+
+    if (!validatePhone(phone)) {
+      setErrorMessage('Invalid phone number');
+      return;
+    }
+
     try {
-      const response = await fetch('http://localhost:8080/user/register', {
+      const response = await fetch('http://localhost:8080/api/v1/user/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -24,7 +51,8 @@ function CreateCustomer() {
           username: username,
           phone: phone,
           email: email,
-          password: password
+          password: password,
+          role: role
         }),
       });
       if (!response.ok) {
@@ -48,9 +76,6 @@ function CreateCustomer() {
 
   return (
     <div>
-      {/*<header className="zoo-header">*/}
-      {/*  <hr />*/}
-      {/*</header>*/}
       <div className="ticket-section-container">
         <div className="ticket-section-background"></div> {/* Background image */}
         <div className="create-ticket-container">
@@ -103,7 +128,7 @@ function CreateCustomer() {
               />
             </div>
 
-            <Button label="Create Animal" type="submit" className="zoo-button" />
+            <Button label="Create Customer" type="submit" className="zoo-button" />
           </form>
         </div>
       </div>

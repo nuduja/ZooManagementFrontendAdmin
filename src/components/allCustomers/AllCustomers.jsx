@@ -6,14 +6,28 @@ import { Link } from 'react-router-dom';
 
 const AllCustomers = () => {
     const [customers, setCustomers] = useState([]);
+    const [userId, setAdminId] = useState('');
+    const [name, setName] = useState('');
+    const [username, setUsername] = useState('');
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        fetchData();
-    }, []);
+        const delayDebounce = setTimeout(() => {
+            fetchData();
+        }, 500);
+
+        return () => clearTimeout(delayDebounce);
+    }, [userId, name, username]);
 
     const fetchData = async () => {
+        setLoading(true);
+        const queryParams = new URLSearchParams({
+            userId: userId,
+            name: name,
+            username: username
+        });
         try {
-            const response = await fetch('http://localhost:8080/user');
+            const response = await fetch(`http://localhost:8080/api/v1/user/searchUser?${queryParams}`);;
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
@@ -21,6 +35,8 @@ const AllCustomers = () => {
             setCustomers(data);
         } catch (error) {
             console.error('Error fetching Customers data:', error);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -29,18 +45,56 @@ const AllCustomers = () => {
     return (
         <div>
             <h3 className="section-title">All Customers</h3>
-            <DataTable value={data} className="p-datatable-striped">
-                <Column field="name" header="Name"></Column>
-                <Column field="username" header="Username"></Column>
-                <Column
-                    header="Actions"
-                    body={(rowData) => (
-                        <Link to={`/customerSpecific/${rowData.username}`} className="p-button p-button-text">
-                            View Details
-                        </Link>
-                    )}
-                ></Column>
-            </DataTable>
+            <input
+                type="text"
+                value={userId}
+                onChange={e => setAdminId(e.target.value)}
+                placeholder="Search by User ID"
+            />
+            <input
+                type="text"
+                value={username}
+                onChange={e => setUsername(e.target.value)}
+                placeholder="Search by User username"
+            />
+            <input
+                type="text"
+                value={name}
+                onChange={e => setName(e.target.value)}
+                placeholder="Search by User Name"
+            />
+            {loading && <div>Loading...</div>}
+            <table {...getTableProps()} className="table">
+                <thead>
+                {headerGroups.map(headerGroup => (
+                    <tr {...headerGroup.getHeaderGroupProps()}>
+                        {headerGroup.headers.map(column => (
+                            <th {...column.getHeaderProps()}>{column.render('Header')}</th>
+                        ))}
+                    </tr>
+                ))}
+                </thead>
+                <tbody {...getTableBodyProps()}>
+                {rows.length > 0 ? (
+                    rows.map(row => {
+                    prepareRow(row);
+                    return (
+                        <tr {...row.getRowProps()}>
+                            {row.cells.map(cell => {
+                                return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>;
+                            })}
+                        </tr>
+                    );
+                })
+                ) : (
+                    <tr>
+                        <td colSpan={columns.length} style={{ textAlign: 'center' }}>
+                            No data available
+                        </td>
+                    </tr>
+                )}
+                </tbody>
+            </table>
         </div>
     );
 };
