@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { Card } from 'primereact/card';
+import { Button } from 'primereact/button';
+import { ProgressSpinner } from 'primereact/progressspinner';
+import '../styles/ticketSpecific.css';
 
 const TicketSpecific = () => {
     const navigate = useNavigate();
     const { ticketId } = useParams();
     const [ticketData, setTicketData] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchTicketData = async () => {
@@ -17,6 +22,8 @@ const TicketSpecific = () => {
                 setTicketData(data);
             } catch (error) {
                 console.error('Error fetching Ticket data:', error);
+            } finally {
+                setLoading(false);
             }
         };
 
@@ -38,24 +45,36 @@ const TicketSpecific = () => {
     };
 
     return (
-        <div>
+        <div className="p-d-flex p-flex-column p-jc-center p-ai-center">
             <h1>Ticket Specific data</h1>
-            {ticketData ? (
-                <div>
-                    <div>
-                        <p>ID: {ticketData.id}</p>
-                        <p>ticketID: ${ticketData.ticketID}</p>
-                        <p>ticketType: {ticketData.ticketType}</p>
-                        <p>availability: {ticketData.status}</p>
-                        <p>price: {ticketData.price}</p>
-                        <p>price: {ticketData.username}</p>
-                    </div>
-                    <div>
-                        <button onClick={() => handleDelete(ticketData.id)} />
-                    </div>
-                    </div>
+            {loading ? (
+                <ProgressSpinner style={{ width: '50px', height: '50px' }} />
             ) : (
-                <p>Loading Ticket data...</p>
+                <Card style={{ width: '400px' }} className="p-mb-2">
+                    <div className="p-grid p-dir-col p-p-2">
+                        <div className="p-col">
+                            <strong>ID:</strong> {ticketData?.id}
+                        </div>
+                        <div className="p-col">
+                            <strong>Ticket ID:</strong> {ticketData?.ticketID}
+                        </div>
+                        <div className="p-col">
+                            <strong>Ticket Type:</strong> {ticketData?.ticketType}
+                        </div>
+                        <div className="p-col">
+                            <strong>Availability:</strong> {ticketData?.status}
+                        </div>
+                        <div className="p-col">
+                            <strong>Price:</strong> {ticketData?.price}
+                        </div>
+                        <div className="p-col">
+                            <strong>Username:</strong> {ticketData?.username}
+                        </div>
+                        <div className="p-col">
+                            <Button label="Delete" icon="pi pi-trash" className="p-button-danger" onClick={() => handleDelete(ticketData?.id)} />
+                        </div>
+                    </div>
+                </Card>
             )}
         </div>
     );

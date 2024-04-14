@@ -1,8 +1,11 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { useTable } from 'react-table';
+import { Link } from 'react-router-dom';
+import { InputText } from 'primereact/inputtext';
+import { Button } from 'primereact/button';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
-import { Link } from 'react-router-dom';
+import { ProgressSpinner } from 'primereact/progressspinner';
 
 const AllCustomers = () => {
     const [customers, setCustomers] = useState([]);
@@ -27,7 +30,7 @@ const AllCustomers = () => {
             username: username
         });
         try {
-            const response = await fetch(`http://localhost:8080/api/v1/user/searchUser?${queryParams}`);;
+            const response = await fetch(`http://localhost:8080/api/v1/user/searchUser?${queryParams}`);
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
@@ -40,61 +43,69 @@ const AllCustomers = () => {
         }
     };
 
-    const data = useMemo(() => customers, [customers]);
+    const columns = useMemo(
+        () => [
+            { field: 'name', header: 'Name' },
+            { field: 'username', header: 'Username' },
+            {
+                header: 'Actions',
+                body: ({ username }) => (
+                    <Link to={`/customerSpecific/${username}`} className="p-button p-button-text">
+                        View Details
+                    </Link>
+                ),
+            },
+        ],
+        []
+    );
 
     return (
-        <div>
-            <h3 className="section-title">All Customers</h3>
-            <input
-                type="text"
-                value={userId}
-                onChange={e => setAdminId(e.target.value)}
-                placeholder="Search by User ID"
-            />
-            <input
-                type="text"
-                value={username}
-                onChange={e => setUsername(e.target.value)}
-                placeholder="Search by User username"
-            />
-            <input
-                type="text"
-                value={name}
-                onChange={e => setName(e.target.value)}
-                placeholder="Search by User Name"
-            />
-            {loading && <div>Loading...</div>}
-            <table {...getTableProps()} className="table">
-                <thead>
-                {headerGroups.map(headerGroup => (
-                    <tr {...headerGroup.getHeaderGroupProps()}>
-                        {headerGroup.headers.map(column => (
-                            <th {...column.getHeaderProps()}>{column.render('Header')}</th>
-                        ))}
-                    </tr>
-                ))}
-                </thead>
-                <tbody {...getTableBodyProps()}>
-                {rows.length > 0 ? (
-                    rows.map(row => {
-                    prepareRow(row);
-                    return (
-                        <tr {...row.getRowProps()}>
-                            {row.cells.map(cell => {
-                                return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>;
-                            })}
-                        </tr>
-                    );
-                })
-                ) : (
-                    <tr>
-                        <td colSpan={columns.length} style={{ textAlign: 'center' }}>
-                            No data available
-                        </td>
-                    </tr>
-                )}
-                </tbody>
-            </table>
+        <div className="p-grid p-fluid">
+            <div className="p-col-12">
+                <h3 className="section-title">All Customers</h3>
+                <div className="p-grid p-formgrid">
+                    <div className="p-col-4">
+                        <InputText
+                            value={userId}
+                            onChange={(e) => setAdminId(e.target.value)}
+                            placeholder="Search by User ID"
+                            className="p-inputtext-sm"
+                        />
+                    </div>
+                    <div className="p-col-4">
+                        <InputText
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            placeholder="Search by Username"
+                            className="p-inputtext-sm"
+                        />
+                    </div>
+                    <div className="p-col-4">
+                        <InputText
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            placeholder="Search by Name"
+                            className="p-inputtext-sm"
+                        />
+                    </div>
+                    <div className="p-col-12">
+                        {loading && <ProgressSpinner />}
+                        <DataTable value={customers} loading={loading} emptyMessage="No data found">
+                            {columns.map((col) => (
+                                <Column key={col.field} field={col.field} header={col.header} />
+                            ))}
+                            <Column
+                                header="Actions"
+                                body={(rowData) => (
+                                    <Link to={`/customerSpecific/${rowData.username}`} className="p-button p-button-text">
+                                        View Details
+                                    </Link>
+                                )}
+                            />
+                        </DataTable>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 };

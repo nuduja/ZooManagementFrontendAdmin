@@ -1,58 +1,42 @@
 /* ticketSpecific.css */
 
-.ticket-specific-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-image: url('../assets/zoo-background.jpg'); /* Add a zoo-themed background image */
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
+/* Container styles */
+.p-d-flex {
+    background-color: #f5f5f5; /* Light gray background */
+    height: 100vh; /* Full viewport height */
+    padding: 20px;
+    font-family: 'Arial', sans-serif; /* Fallback font */
 }
 
-.ticket-card {
-    width: 60%;
-    margin-top: 4rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    background-color: rgba(255, 255, 255, 0.9); /* Light background for the card */
-    border-radius: 15px; /* Rounded corners */
+/* Title styles */
+h1 {
+    color: #333; /* Dark gray text color */
+    margin-bottom: 20px;
+    font-size: 24px;
 }
 
-.ticket-card .p-card-title {
-    font-size: 2rem;
-    color: #333;
-    border-bottom: 1px solid #ccc;
+/* Card styles */
+.p-card {
+    background-color: #ffffff; /* White card background */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow for depth */
 }
 
-.ticket-details {
-    padding: 2rem;
-    border-bottom: 2px dashed #888;
+/* Text styles */
+.p-col {
+    margin-bottom: 15px;
+    font-size: 18px;
+    color: #555; /* Medium gray text color */
 }
 
-.ticket-details p {
-    margin-bottom: 1rem;
-    font-size: 1.2rem;
-    color: #555;
+/* Delete button styles */
+.p-button-danger {
+    background-color: #d32f2f; /* Dark red background */
+    border-color: #d32f2f;
+    color: #fff; /* White text color */
+    margin-top: 20px;
 }
 
-.delete-button-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 2rem;
-}
-
-.delete-button-container .p-button-danger {
-    width: 70%;
-    font-size: 1.2rem;
-    padding: 1rem;
-    border-radius: 10px;
-    background-color: #d32f2f; /* Red color for the delete button */
-    border: none;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.delete-button-container .p-button-danger:hover {
-    background-color: #b71c1c; /* Darker red on hover */
+.p-button-danger:hover {
+    background-color: #c62828; /* Slightly lighter red on hover */
 }
