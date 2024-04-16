@@ -13,6 +13,9 @@ function CreateAnimal() {
   const [animalSpecies, setAnimalSpecies] = useState([]);
   const [selectedAnimalSpeciesId, setSelectedAnimalSpeciesId] = useState('');
   const [selectedAnimalSpeciesName, setSelectedAnimalSpeciesName] = useState('');
+  const [birthCountry, setBirthCountry] = useState('');
+  const [birthDate, setBirthDate] = useState('');
+  const [description, setDescription] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
@@ -36,17 +39,19 @@ function CreateAnimal() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:8080/api/v1/createAnimal', {
+      const response = await fetch('http://localhost:8080/api/v1/animal/createAnimal', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          animalSpecificId: selectedAnimalSpeciesId,
+          animalSpeciesId: selectedAnimalSpeciesId,
           animalSpeciesName: selectedAnimalSpeciesName,
           name: name,
           enclosureId: enclosureId,
-          age: age
+          birthDate: birthDate,
+          birthCountry: birthCountry,
+          description: description                    
         }),
       });
       if (!response.ok) {
@@ -59,6 +64,9 @@ function CreateAnimal() {
       setSelectedAnimalSpeciesName('');
       setEnclosureId('');
       setAge('');
+      setBirthCountry('');
+      setBirthDate('');
+      setDescription('');
     } catch (error) {
       console.error('Error creating Animal:', error);
       setErrorMessage('Failed to create Animal. Please try again.');
@@ -84,14 +92,14 @@ function CreateAnimal() {
           <h2>Enter Animal Details</h2>
           {errorMessage && <Message severity="error" text={errorMessage} />}
           <form onSubmit={handleSubmit}>
-            <div className="input-container">
-              <label>animalId:</label>
+            {/* <div className="input-container">
+              <label>Animal ID:</label>
               <InputText
                 value={animalId}
                 onChange={handleInput(setAnimalId)}
                 className="zoo-input"
               />
-            </div>
+            </div> */}
             <div className="input-container">
               <label>Name:</label>
               <InputText
@@ -114,7 +122,7 @@ function CreateAnimal() {
               />
             </div>
             <div className="input-container">
-              <label>enclosureId:</label>
+              <label>Enclosure ID:</label>
               <InputText
                 value={enclosureId}
                 onChange={handleInput(setEnclosureId)}
@@ -126,6 +134,30 @@ function CreateAnimal() {
               <InputText
                 value={age}
                 onChange={handleInput(setAge)}
+                className="zoo-input"
+              />
+            </div>
+            <div className="input-container">
+              <label>Birth Country:</label>
+              <InputText
+                value={birthCountry}
+                onChange={handleInput(setBirthCountry)}
+                className="zoo-input"
+              />
+            </div>
+            <div className="input-container">
+              <label>Birth Date:</label>
+              <InputText
+                value={birthDate}
+                onChange={handleInput(setBirthDate)}
+                className="zoo-input"
+              />
+            </div>
+            <div className="input-container">
+              <label>Description:</label>
+              <InputText
+                value={description}
+                onChange={handleInput(setDescription)}
                 className="zoo-input"
               />
             </div>

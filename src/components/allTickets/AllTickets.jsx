@@ -1,11 +1,11 @@
 import React, { useEffect, useState, useMemo } from 'react';
-import { useTable } from 'react-table';
-import { Link } from 'react-router-dom';
-import { InputText } from 'primereact/inputtext';
-import { Dropdown } from 'primereact/dropdown';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
+import { InputText } from 'primereact/inputtext';
+import { Dropdown } from 'primereact/dropdown';
 import { ProgressSpinner } from 'primereact/progressspinner';
+import { Paginator } from 'primereact/paginator';
+import { Link } from 'react-router-dom';
 
 const AllTickets = () => {
     const [tickets, setTickets] = useState([]);
@@ -13,21 +13,21 @@ const AllTickets = () => {
     const [ticketType, setTicketType] = useState('');
     const [ticketStatus, setTicketStatus] = useState('');
     const [loading, setLoading] = useState(false);
+    const [first, setFirst] = useState(0);
+    const [rows, setRows] = useState(5);
 
     useEffect(() => {
-        const delayDebounce = setTimeout(() => {
-            fetchData();
-        }, 500);
-
-        return () => clearTimeout(delayDebounce);
-    }, [ticketID, ticketType, ticketStatus]);
+        fetchData();
+    }, [ticketID, ticketType, ticketStatus, first, rows]);
 
     const fetchData = async () => {
         setLoading(true);
         const queryParams = new URLSearchParams({
             ticketID: ticketID,
             ticketType: ticketType,
-            ticketStatus: ticketStatus
+            ticketStatus: ticketStatus,
+            first: first,
+            rows: rows
         });
         try {
             const response = await fetch(`http://localhost:8080/api/v1/ticket/search?${queryParams}`);
@@ -45,17 +45,15 @@ const AllTickets = () => {
 
     const columns = useMemo(
         () => [
-            { field: 'ticketID', header: 'Ticket ID' },
-            { field: 'ticketType', header: 'Ticket Type' },
-            { field: 'price', header: 'Price' },
-            { field: 'status', header: 'Status' },
-            { field: 'ticketDate', header: 'Ticket Date' },
-            { field: 'username', header: 'Username' },
-            
+            { field: 'ticketID', header: 'Ticket ID', sortable: true },
+            { field: 'ticketType', header: 'Ticket Type', sortable: true },
+            { field: 'price', header: 'Price', sortable: true },
+            { field: 'status', header: 'Status', sortable: true },
+            { field: 'ticketDate', header: 'Ticket Date', sortable: true },
+            { field: 'username', header: 'Username', sortable: true },
         ],
         []
     );
-    
 
     return (
         <div className="p-grid p-fluid">
@@ -100,9 +98,9 @@ const AllTickets = () => {
                     </div>
                     <div className="p-col-12">
                         {loading && <ProgressSpinner />}
-                        <DataTable value={tickets} loading={loading} emptyMessage="No data found">
+                        <DataTable value={tickets} loading={loading} emptyMessage="No data found" paginator rows={rows} first={first} onPage={(e) => setFirst(e.first)} rowsPerPageOptions={[5, 10]} totalRecords={1000}>
                             {columns.map((col) => (
-                                <Column key={col.field} field={col.field} header={col.header} />
+                                <Column key={col.field} field={col.field} header={col.header} sortable={col.sortable} />
                             ))}
                             <Column
                                 header="Actions"

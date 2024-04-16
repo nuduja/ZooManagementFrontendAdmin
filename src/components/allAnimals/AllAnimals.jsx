@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { InputText } from 'primereact/inputtext';
+import { Paginator } from 'primereact/paginator';
 
 const AllAnimals = () => {
   const [animals, setAnimals] = useState([]);
@@ -10,21 +11,21 @@ const AllAnimals = () => {
   const [animalSpeciesId, setAnimalSpeciesId] = useState('');
   const [name, setName] = useState('');
   const [loading, setLoading] = useState(false);
+  const [first, setFirst] = useState(0);
+  const [rows, setRows] = useState(5); // Change pagination step to 5
 
   useEffect(() => {
-    const delayDebounce = setTimeout(() => {
-      fetchData();
-    }, 500);
-
-    return () => clearTimeout(delayDebounce);
-  }, [animalId, animalSpeciesId, name]);
+    fetchData();
+  }, [animalId, animalSpeciesId, name, first, rows]);
 
   const fetchData = async () => {
     setLoading(true);
     const queryParams = new URLSearchParams({
       animalId: animalId,
       animalSpeciesId: animalSpeciesId,
-      name: name
+      name: name,
+      first: first,
+      rows: rows
     });
     try {
       const response = await fetch(`http://localhost:8080/api/v1/animal/searchAnimal?${queryParams}`);
@@ -48,7 +49,6 @@ const AllAnimals = () => {
       { field: 'animalSpeciesName', header: 'Species Name' },
       { field: 'name', header: 'Name' },
       { field: 'enclosureId', header: 'Enclosure ID' },
-      // { field: 'actions', header: 'Actions' }
     ],
     []
   );
@@ -82,9 +82,9 @@ const AllAnimals = () => {
       </div>
 
       {loading && <div>Loading...</div>}
-      <DataTable value={animals} loading={loading} className="table">
+      <DataTable value={animals} loading={loading} className="table" paginator rows={rows} first={first} onPage={(e) => setFirst(e.first)} rowsPerPageOptions={[5, 10]} totalRecords={1000}>
         {columns.map(col => (
-          <Column key={col.field} field={col.field} header={col.header} />
+          <Column key={col.field} field={col.field} header={col.header} sortable />
         ))}
         <Column
           header="Actions"
@@ -93,7 +93,6 @@ const AllAnimals = () => {
               <Link to={`../animalSpecific/${rowData.name}`} className="p-button p-button-text">
                 View Details
               </Link>
-              
             </React.Fragment>
           )}
         />
