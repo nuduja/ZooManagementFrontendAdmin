@@ -1,0 +1,43 @@
+/* createAnimal.css */
+
+.ticket-section-container1 {
+  margin-top: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  
+  
+  .create-ticket-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .create-ticket-container h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .input-container {
+    margin-bottom: 20px;
+  }
+  
+  .input-container label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .zoo-input,
+  .zoo-dropdown {
+    width: 100%;
+  }
+  
+  .zoo-button {
+    width: 100%;
+  }
+  

@@ -1,15 +1,13 @@
 import React, { useEffect, useState, useMemo } from 'react';
-import { useTable } from 'react-table';
 import { Link } from 'react-router-dom';
 import { InputText } from 'primereact/inputtext';
-import { Button } from 'primereact/button';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { ProgressSpinner } from 'primereact/progressspinner';
 
 const AllCustomers = () => {
     const [customers, setCustomers] = useState([]);
-    const [userId, setAdminId] = useState('');
+    const [userId, setUserId] = useState('');
     const [name, setName] = useState('');
     const [username, setUsername] = useState('');
     const [loading, setLoading] = useState(false);
@@ -45,16 +43,12 @@ const AllCustomers = () => {
 
     const columns = useMemo(
         () => [
+            { field: 'userId', header: 'User ID' },
             { field: 'name', header: 'Name' },
             { field: 'username', header: 'Username' },
-            {
-                header: 'Actions',
-                body: ({ username }) => (
-                    <Link to={`/customerSpecific/${username}`} className="p-button p-button-text">
-                        View Details
-                    </Link>
-                ),
-            },
+            { field: 'phone', header: 'Phone' },
+            { field: 'email', header: 'Email' },
+            
         ],
         []
     );
@@ -67,7 +61,7 @@ const AllCustomers = () => {
                     <div className="p-col-4">
                         <InputText
                             value={userId}
-                            onChange={(e) => setAdminId(e.target.value)}
+                            onChange={(e) => setUserId(e.target.value)}
                             placeholder="Search by User ID"
                             className="p-inputtext-sm"
                         />

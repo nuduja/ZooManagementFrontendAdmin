@@ -1,5 +1,8 @@
+// Import necessary dependencies
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { Card } from 'primereact/card';
+import { Button } from 'primereact/button';
 
 const AdminSpecific = () => {
     const navigate = useNavigate();
@@ -9,7 +12,7 @@ const AdminSpecific = () => {
     useEffect(() => {
         const fetchAdminData = async () => {
             try {
-                const response = await fetch(`http://localhost:8080/admin/${username}`);
+                const response = await fetch(`http://localhost:8080/api/v1/admin/${username}`);
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
@@ -25,7 +28,7 @@ const AdminSpecific = () => {
 
     const handleDelete = async () => {
         try {
-            const response = await fetch(`http://localhost:8080/admin/${username}`, {
+            const response = await fetch(`http://localhost:8080/api/v1/admin/${username}`, {
                 method: 'DELETE',
             });
             if (!response.ok) {
@@ -37,26 +40,31 @@ const AdminSpecific = () => {
         }
     };
 
+    // Function to navigate to the edit page
+    const handleEdit = () => {
+        navigate(`/admin/edit/${username}`);
+    };
+
     return (
         <div>
-            <h1>Admin Specif data</h1>
-            {username}
+            <h1>See Details</h1>
+            
             {adminData ? (
-                // <Card title="Admin Specific Details" className="ticket-card">
-                <div>
+                <Card title="Admin Specific Details" className="ticket-card">
                     <div>
                         <p>ID: {adminData.id}</p>
-                        <p>Price: ${adminData.name}</p>
-                        <p>Availability: {adminData.username}</p>
-                        <p>Ticket ID: {adminData.password}</p>
-                        <p>Ticket Type: {adminData.role}</p>
+                        <p>Name: {adminData.name}</p>
+                        <p>Username: {adminData.username}</p>
+                        {/* <p>Password: {adminData.password}</p> */}
+                        <p>Role: {adminData.role}</p>
                     </div>
                     <div>
-                        {/*<Button label="Edit" className="p-button-raised p-button-info p-mr-2" onClick={() => navigate(`/editticket/${ticketData.ticketID}`)} />*/}
-                        <button onClick={handleDelete} />
+                        {/* Edit button */}
+                        <Button label="Edit" className="p-button-raised p-button-primary p-mr-2" onClick={handleEdit} />
+                        {/* Delete button */}
+                        <Button label="Delete" className="p-button-raised p-button-danger p-mr-2" onClick={handleDelete} />
                     </div>
-                    </div>
-                // </Card>
+                </Card>
             ) : (
                 <p>Loading admin data...</p>
             )}

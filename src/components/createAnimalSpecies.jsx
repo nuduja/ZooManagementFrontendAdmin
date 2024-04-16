@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { Message } from 'primereact/message';
-import '../styles/createAnimalSpecies.css'
+import '../styles/createAnimalSpecies.css'; // Import CSS file for custom styling
+
 function CreateAnimalSpecies() {
   const [animalSpeciesName, setAnimalSpeciesName] = useState('');
   const [taxonomy_kingdom, setTaxonomy_kingdom] = useState('');
@@ -60,7 +61,6 @@ function CreateAnimalSpecies() {
 
   return (
     <div>
-  
       <div className="ticket-section-container">
         <div className="ticket-section-background"></div> {/* Background image */}
         <div className="create-animalSpec-container">
@@ -70,9 +70,9 @@ function CreateAnimalSpecies() {
             <div className="input-container">
               <label>animalSpeciesName:</label>
               <InputText
-                  value={animalSpeciesName}
-                  onChange={handleInput(setAnimalSpeciesName)}
-                  className="zoo-input"
+                value={animalSpeciesName}
+                onChange={handleInput(setAnimalSpeciesName)}
+                className="zoo-input"
               />
             </div>
             <div className="input-container">
@@ -80,7 +80,6 @@ function CreateAnimalSpecies() {
               <InputText
                 value={taxonomy_kingdom}
                 onChange={handleInput(setTaxonomy_kingdom)}
-                // disabled
                 className="zoo-input"
               />
             </div>
@@ -89,7 +88,6 @@ function CreateAnimalSpecies() {
               <InputText
                 value={taxonomy_scientific_name}
                 onChange={handleInput(setTaxonomy_scientific_name)}
-                // disabled
                 className="zoo-input"
               />
             </div>
@@ -98,7 +96,6 @@ function CreateAnimalSpecies() {
               <InputText
                 value={characteristics_group_behavior}
                 onChange={handleInput(setCharacteristics_group_behavior)}
-                // disabled
                 className="zoo-input"
               />
             </div>
@@ -107,7 +104,6 @@ function CreateAnimalSpecies() {
               <InputText
                 value={characteristics_diet}
                 onChange={handleInput(setCharacteristics_diet)}
-                // disabled
                 className="zoo-input"
               />
             </div>
@@ -116,16 +112,14 @@ function CreateAnimalSpecies() {
               <InputText
                 value={characteristics_skin_type}
                 onChange={handleInput(setCharacteristics_skin_type)}
-                // disabled
                 className="zoo-input"
               />
             </div>
             <div className="input-container">
-              <label>setCharacteristics_top_speed:</label>
+              <label>characteristics_top_speed:</label>
               <InputText
                 value={characteristics_top_speed}
                 onChange={handleInput(setCharacteristics_top_speed)}
-                // disabled
                 className="zoo-input"
               />
             </div>
@@ -134,7 +128,6 @@ function CreateAnimalSpecies() {
               <InputText
                 value={characteristics_lifespan}
                 onChange={handleInput(setCharacteristics_lifespan)}
-                // disabled
                 className="zoo-input"
               />
             </div>
@@ -143,7 +136,6 @@ function CreateAnimalSpecies() {
               <InputText
                 value={characteristics_weight}
                 onChange={handleInput(setCharacteristics_weight)}
-                // disabled
                 className="zoo-input"
               />
             </div>            

@@ -1,284 +1,68 @@
-/* createticket.css */
+/* createTicket.css */
 
-
-
-/* .zoo-header h1 {
-  font-size: 50px;
-  margin-bottom: 10px;
-} */
-
-.zoo-header p {
-  /* margin-top: 200px; */
-  color: #008000;
-  font-size: 22px;
-  margin-bottom: 5px;
-}
-/* .overlay {
-	position: absolute;
-	left: 0;
-	width: 100%;
-	height: 30vh;
-	z-index: 1;
-
-	background: rgb(255, 255, 255);
-	background: linear-gradient(
-		0deg,
-		rgba(255, 255, 255, 1) 75%,
-		rgba(255, 255, 255, 0.9) 80%,
-		rgba(255, 255, 255, 0.25) 95%,
-		rgba(255, 255, 255, 0) 100%
-	);
-}
-
-.text {
-	font-family: "Yanone Kaffeesatz";
-	font-size: 100px;
-	display: flex;
-	position: absolute;
-	bottom: 20vh;
-	left: 50%;
-	transform: translateX(-50%);
-	user-select: none;
-
-	.wrapper {
-		padding-left: 20px;
-		padding-right: 20px;
-		padding-top: 20px;
-		.letter {
-			transition: ease-out 1s;
-			transform: translateY(40%);
-		}
-		.shadow {
-			transform: scale(1, -1);
-			color: #999;
-			transition: ease-in 5s, ease-out 5s;
-		}
-		&:hover {
-			.letter {
-				transform: translateY(-200%);
-			}
-			.shadow {
-				opacity: 0;
-				transform: translateY(200%);
-			}
-		}
-	}
-} */
-
-.zoo-header {
-  /* margin-top: 600px; */
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-  text-align: center;
-  background-color: #e3e9e4; /* Green background color */
-  color: #1e241f; /* White text color */
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Shadow effect */
-  margin-bottom: 50px;
-}
-.zoo-header h1 {
-  
-	margin: auto;
-	letter-spacing: 0.0015em;
-	font-size: 5em;
-	text-shadow: 0 1px #8da1ff, -1px 0 #c0cbff, -1px 2px #8da1ff, -2px 1px #c0cbff,
-		-2px 3px #8da1ff, -3px 2px #c0cbff, -3px 4px #8da1ff, -4px 3px #c0cbff,
-		-4px 5px #8da1ff, -5px 4px #c0cbff, -5px 6px #8da1ff, -6px 5px #c0cbff,
-		-6px 7px #8da1ff, -7px 6px #c0cbff, -7px 8px #8da1ff, -8px 7px #c0cbff;
-	text-align: center;
-}
-
-
-
-.zoo-header hr {
-  border: none;
-  border-top: 1px solid #fff; /* White border */
-  margin: 20px auto;
-  width: 50%;
-}
-
-.create-ticket-container {
-  /* margin-top: -400px; */
-  margin-left: 400px;
-  /* margin-bottom: -300px; */
-  font-size: 30px;
-  
-  color: #000000;
-  padding: 35px;
-  border: 4px solid #070707;
-  border-radius: 30px;
-  width: 500px;
-  height: 700px;
-  text-align: center;
-  background-image: url('../assets/ticketback1.webp');
-  background-repeat: no-repeat;
+/* Background */
+.ticket-section-background {
+  background-image: url('path/to/your/image.jpg');
   background-size: cover;
-  background-position: center;
-  background-blend-mode: lighten;
-  /* margin: 0 auto; */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.9);
-}
-.h2{
-  color: rgb(0, 0, 0);
-  /* background-color: #44b927; */
-  margin: 30px;
-  border-radius: 50px;
-  text-shadow: -1px -1px 0 #000,  
-                1px -1px 0 #ffffff,
-               -1px 1px 0 #ffffff,
-                1px 1px 0 #ffffff; /* Add stroke effect */
- 
-}
-.t{
-  color: #000000;
-  background-color: #159435;
-  opacity: 0.9;
-  margin: 40px;
-  text-shadow: -1px -1px 0 #ffffff,  
-                1px -1px 0 #ffffff,
-               -1px 1px 0 #ffffff,
-                1px 1px 0 #ffffff; /* Add stroke effect */
-  
-  border-radius: 40px;
-}
-.input-container {
-  margin-bottom: 30px;
-}
-
-label {
-  font-weight: bold;
-}
-
-.zoo-dropdown {
+  position: absolute;
   width: 100%;
-}
-
-.zoo-input {
-  color: #000000;
-  width: calc(100% - 20px); /* Adjust width */
-}
-
-.zoo-button {
-  background-color: #148b14; /* Green */
-  color: white;
-  border-radius: 5px;
-}
-
-.additional-content {
-  background-color: #f2f2f2;
-  padding: 20px;
-  border-radius: 10px;
-  margin-top: 50px;
-  border: 2px solid #083d0f; /* Add border with a dark green color */
-}
-
-.additional-content h3 {
-  font-size: 50px;
-  color: #080808;
-  margin-bottom: 20px;
-  text-align: center; /* Center-align the heading */
-}
-
-.additional-content p {
-  font-size: 30px;
-  color: #555;
-  margin-bottom: 20px;
-  text-align: justify; /* Justify-align the paragraphs */
-}
-
-.additional-content ul {
-  list-style-type: disc;
-  margin-left: 300px;
-}
-
-.additional-content ul li {
-  font-size: 20px;
-  color: #083d0f;
-}
-
-/* Additional zoo-themed styles */
-.additional-content {
-  background-image: url('../assets/welcomecard.jpg'); /* Add a background pattern */
-  background-size: cover;
-}
-
-.additional-content h3::before {
-  content: "🐾"; /* Add a paw icon before the heading */
-  font-size: 60px;
-  margin-right: 10px;
-}
-
-.additional-content h3::after {
-  content: "🌿"; /* Add a leaf icon after the heading */
-  font-size: 40px;
-  margin-left: 10px;
-}
-
-.additional-content ul {
-  margin-left: 0; /* Reset margin */
-}
-
-.additional-content ul li::before {
-  content: "🐾"; 
-  font-size: 30px;
-  margin-right: 10px;
-}
-
-
-.additional-content ul li {
-  font-size: 25px;
-  color: #ffffff;
-  margin-left: 200px;
- 
-  padding: 5px 10px; /* Add padding inside the border */
-  text-shadow: -1px -1px 0 #000,  
-                1px -1px 0 #000,
-               -1px 1px 0 #000,
-                1px 1px 0 #000; /* Add stroke effect */
-}
-
-
-.additional-content p {
-  background-color: rgba(255, 255, 255, 0.8); /* Add a semi-transparent white background */
-  padding: 10px; /* Add padding */
-}
-
-.blob {
-  position: cover;
-  opacity: 0.7;
-  width: 400px;
-  aspect-ratio: 1/1;
-  animation: animate 10s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite
-    alternate forwards;
-  filter: blur(40px);
+  height: 100%;
   z-index: -1;
-  background: linear-gradient(
-    47deg,
-    rgb(29, 221, 23) 21%,
-    rgb(147, 158, 158) 67%,
-    rgb(207, 207, 199) 81%
-  );
-
-  /*  Optional  */
-  /*   box-shadow: inset 50px 50px 17px 0px #ff588b,
-    inset 100px 100px 17px 0px #66319f; */
 }
 
-@keyframes animate {
-  0% {
-    translate: 40% -25%;
-    border-radius: 60% 40% 30% 70% / 100% 85% 92% 74%;
-  }
-  50% {
-    translate: 0% 13%;
-    border-radius: 20% 71% 47% 70% / 81% 15% 22% 54%;
-    rotate: 41deg;
-    scale: 1.15;
-  }
-  100% {
-    translate: -45% 39%;
-    border-radius: 100% 75% 92% 74% / 60% 80% 30% 70%;
-    rotate: -60deg;
-    scale: 1.05;
-  }
+/* Form Container */
+.create-ticket-container {
+  background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 400px; /* Adjust based on your layout */
+  margin: 50px 500px; 
+}
+
+/* Form Title */
+.create-ticket-container h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #333; /* Dark text color */
+}
+
+/* Labels */
+.input-container label {
+  font-weight: bold;
+  color: #555; /* Medium dark text color */
+}
+
+/* Dropdown */
+.zoo-dropdown,
+.zoo-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc; /* Light gray border */
+  border-radius: 5px;
+  margin-top: 5px;
+  box-sizing: border-box; /* Include padding in width */
+}
+
+/* Button */
+.zoo-button {
+  width: 100%;
+  margin-top: 20px;
+  background-color: #007bff; /* Primary button color */
+  color: #fff; /* Text color */
+  border: none;
+  border-radius: 5px;
+  padding: 12px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.zoo-button:hover {
+  background-color: #0056b3; /* Darker color on hover */
+}
+
+/* Error Message */
+.p-error {
+  color: #dc3545; /* Error text color */
+  margin-top: 10px;
 }

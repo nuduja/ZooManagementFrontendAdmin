@@ -44,6 +44,11 @@ const TicketSpecific = () => {
         }
     };
 
+    // Function to handle edit button click
+    const handleEdit = () => {
+        navigate(`/ticket/edit/${ticketId}`);
+    };
+
     return (
         <div className="p-d-flex p-flex-column p-jc-center p-ai-center">
             <h1>Ticket Specific data</h1>
@@ -71,6 +76,9 @@ const TicketSpecific = () => {
                             <strong>Username:</strong> {ticketData?.username}
                         </div>
                         <div className="p-col">
+                            {/* Edit button */}
+                            <Button label="Edit" icon="pi pi-pencil" className="p-button-primary p-mr-2" onClick={handleEdit} />
+                            {/* Delete button */}
                             <Button label="Delete" icon="pi pi-trash" className="p-button-danger" onClick={() => handleDelete(ticketData?.id)} />
                         </div>
                     </div>

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { Message } from 'primereact/message';
+import '../styles/createCustomer.css'; // Import CSS file for custom styling
 
 function CreateCustomer() {
   const [name, setName] = useState('');
@@ -75,63 +76,58 @@ function CreateCustomer() {
   }
 
   return (
-    <div>
-      <div className="ticket-section-container">
-        <div className="ticket-section-background"></div> {/* Background image */}
-        <div className="create-ticket-container">
-          <h2>Book Online</h2>
-          {errorMessage && <Message severity="error" text={errorMessage} />}
-          <form onSubmit={handleSubmit}>
-            <div className="input-container">
-              <label>name:</label>
-              <InputText
-                value={name}
-                onChange={handleInput(setName)}
-                // disabled
-                className="zoo-input"
-              />
-            </div>
-            <div className="input-container">
-              <label>username:</label>
-              <InputText
-                value={username}
-                onChange={handleInput(setUsername)}
-                // disabled
-                className="zoo-input"
-              />
-            </div>
-            <div className="input-container">
-              <label>phone:</label>
-              <InputText
-                  value={phone}
-                  onChange={handleInput(setPhone)}
-                  // disabled
-                  className="zoo-input"
-              />
-            </div>
-            <div className="input-container">
-              <label>email:</label>
-              <InputText
-                value={email}
-                onChange={handleInput(setEmail)}
-                // disabled
-                className="zoo-input"
-              />
-            </div>
-            <div className="input-container">
-              <label>password:</label>
-              <InputText
-                value={password}
-                onChange={handleInput(setPassword)}
-                // disabled
-                className="zoo-input"
-              />
-            </div>
-
-            <Button label="Create Customer" type="submit" className="zoo-button" />
-          </form>
+    <div className="create-customer-container">
+      <h2>Enter Customer Details</h2>
+      {errorMessage && <Message severity="error" text={errorMessage} />}
+      <form onSubmit={handleSubmit} className="create-customer-form">
+        <div className="p-field">
+          <label htmlFor="name">Name:</label>
+          <InputText
+            id="name"
+            value={name}
+            onChange={handleInput(setName)}
+            className="p-inputtext p-component p-filled"
+          />
         </div>
-      </div>
+        <div className="p-field">
+          <label htmlFor="username">Username:</label>
+          <InputText
+            id="username"
+            value={username}
+            onChange={handleInput(setUsername)}
+            className="p-inputtext p-component p-filled"
+          />
+        </div>
+        <div className="p-field">
+          <label htmlFor="phone">Phone:</label>
+          <InputText
+            id="phone"
+            value={phone}
+            onChange={handleInput(setPhone)}
+            className="p-inputtext p-component p-filled"
+          />
+        </div>
+        <div className="p-field">
+          <label htmlFor="email">Email:</label>
+          <InputText
+            id="email"
+            value={email}
+            onChange={handleInput(setEmail)}
+            className="p-inputtext p-component p-filled"
+          />
+        </div>
+        <div className="p-field">
+          <label htmlFor="password">Password:</label>
+          <InputText
+            id="password"
+            value={password}
+            onChange={handleInput(setPassword)}
+            type="password"
+            className="p-inputtext p-component p-filled"
+          />
+        </div>
+        <Button label="Create Customer" type="submit" className="p-button p-component p-filled p-button-rounded p-button-success" />
+      </form>
     </div>
   );
 }

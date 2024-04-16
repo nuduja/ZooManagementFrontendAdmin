@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useMemo } from 'react';
-import { useTable } from 'react-table';
 import { Link } from 'react-router-dom';
+import { DataTable } from 'primereact/datatable';
+import { Column } from 'primereact/column';
+import { InputText } from 'primereact/inputtext';
 
 const AllAnimals = () => {
   const [animals, setAnimals] = useState([]);
@@ -10,20 +12,20 @@ const AllAnimals = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-      const delayDebounce = setTimeout(() => {
-          fetchData();
-      }, 500);
+    const delayDebounce = setTimeout(() => {
+      fetchData();
+    }, 500);
 
-      return () => clearTimeout(delayDebounce);
+    return () => clearTimeout(delayDebounce);
   }, [animalId, animalSpeciesId, name]);
 
   const fetchData = async () => {
-      setLoading(true);
-      const queryParams = new URLSearchParams({
-          animalId: animalId,
-          animalSpeciesId: animalSpeciesId,
-          name: name
-      });
+    setLoading(true);
+    const queryParams = new URLSearchParams({
+      animalId: animalId,
+      animalSpeciesId: animalSpeciesId,
+      name: name
+    });
     try {
       const response = await fetch(`http://localhost:8080/api/v1/animal/searchAnimal?${queryParams}`);
       if (!response.ok) {
@@ -34,104 +36,68 @@ const AllAnimals = () => {
     } catch (error) {
       console.error('Error fetching AllAnimals data:', error);
     } finally {
-        setLoading(false);
+      setLoading(false);
     }
   };
 
-  const data = useMemo(() => animals, [animals]);
-
   const columns = useMemo(
     () => [
-      {
-        Header: 'ID',
-        accessor: 'id',
-      },
-      {
-        Header: 'animalSpecificId',
-        accessor: 'animalSpecificId',
-      },
-      {
-        Header: 'name',
-        accessor: 'name',
-      },
-      {
-        Header: 'enclosureId',
-        accessor: 'enclosureId',
-      },
-      {
-        Header: 'age',
-        accessor: 'age',
-      },
-      {
-        Header: 'Actions',
-        Cell: ({ row }) => (
-          <Link to={`/animalSpecific/${row.original.name}`} className="p-button p-button-text">
-            View Details
-          </Link>
-        ),
-      },
+      { field: 'id', header: 'ID' },
+      { field: 'animalId', header: 'Animal ID' },
+      { field: 'animalSpeciesId', header: 'Species ID' },
+      { field: 'animalSpeciesName', header: 'Species Name' },
+      { field: 'name', header: 'Name' },
+      { field: 'enclosureId', header: 'Enclosure ID' },
+      // { field: 'actions', header: 'Actions' }
     ],
     []
   );
-
-  const tableInstance = useTable({ columns, data });
-
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = tableInstance;
 
   return (
     <div>
       <h3 className="section-title">All Animals</h3>
 
-        <input
-            type="text"
+      <div className="p-grid p-justify-between p-mb-4">
+        <div className="p-col-12 p-md-4">
+          <InputText
             value={animalId}
-            onChange={e => setAnimalId(e.target.value)}
+            onChange={(e) => setAnimalId(e.target.value)}
             placeholder="Search by Animal ID"
-        />
-        <input
-            type="text"
+          />
+        </div>
+        <div className="p-col-12 p-md-4">
+          <InputText
             value={animalSpeciesId}
-            onChange={e => setAnimalSpeciesId(e.target.value)}
+            onChange={(e) => setAnimalSpeciesId(e.target.value)}
             placeholder="Search by Animal Species Id"
-        />
-        <input
-            type="text"
+          />
+        </div>
+        <div className="p-col-12 p-md-4">
+          <InputText
             value={name}
-            onChange={e => setName(e.target.value)}
+            onChange={(e) => setName(e.target.value)}
             placeholder="Search by Animal Name"
-        />
+          />
+        </div>
+      </div>
+
       {loading && <div>Loading...</div>}
-      <table {...getTableProps()} className="table">
-        <thead>
-          {headerGroups.map(headerGroup => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map(column => (
-                <th {...column.getHeaderProps()}>{column.render('Header')}</th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody {...getTableBodyProps()}>
-            {rows.length > 0 ? (
-              rows.map(row => {
-                prepareRow(row);
-                return (
-                  <tr {...row.getRowProps()}>
-                    {row.cells.map(cell => {
-                      return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>;
-                    })}
-                  </tr>
-                );
-              })
-            ) : (
-                <tr>
-                    <td colSpan={columns.length} style={{ textAlign: 'center' }}>
-                        No data available
-                    </td>
-                </tr>
-            )}
-        </tbody>
-      </table>
+      <DataTable value={animals} loading={loading} className="table">
+        {columns.map(col => (
+          <Column key={col.field} field={col.field} header={col.header} />
+        ))}
+        <Column
+          header="Actions"
+          body={(rowData) => (
+            <React.Fragment>
+              <Link to={`../animalSpecific/${rowData.name}`} className="p-button p-button-text">
+                View Details
+              </Link>
+              
+            </React.Fragment>
+          )}
+        />
+      </DataTable>
     </div>
   );
 };

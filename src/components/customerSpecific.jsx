@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { Card } from 'primereact/card';
+import { Button } from 'primereact/button';
 
 const CustomerSpecific = () => {
     const navigate = useNavigate();
@@ -9,7 +11,7 @@ const CustomerSpecific = () => {
     useEffect(() => {
         const fetchCustomerData = async () => {
             try {
-                const response = await fetch(`http://localhost:8080/user/${username}`);
+                const response = await fetch(`http://localhost:8080/api/v1/user/${username}`);
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
@@ -21,11 +23,11 @@ const CustomerSpecific = () => {
         };
 
         fetchCustomerData();
-    }, [name]);
+    }, [username]);
 
     const handleDelete = async () => {
         try {
-            const response = await fetch(`http://localhost:8080/user/${username}`, {
+            const response = await fetch(`http://localhost:8080/api/v1/user/${username}`, {
                 method: 'DELETE',
             });
             if (!response.ok) {
@@ -41,21 +43,19 @@ const CustomerSpecific = () => {
         <div>
             <h1>Customer Specific data</h1>
             {customerData ? (
-                <div>
+                <Card title="Customer Details" className="p-col-12 p-md-6 p-lg-4">
                     <div>
                         <p>ID: {customerData.id}</p>
-                        <p>name: ${customerData.name}</p>
-                        <p>username: {customerData.username}</p>
-                        <p>phone: {customerData.phone}</p>
-                        <p>email: {customerData.email}</p>
-                        <p>role: {customerData.role}</p>
+                        <p>Name: {customerData.name}</p>
+                        <p>Username: {customerData.username}</p>
+                        <p>Phone: {customerData.phone}</p>
+                        <p>Email: {customerData.email}</p>
+                        {/* <p>Role: {customerData.role}</p> */}
                     </div>
                     <div>
-                        {/*<Button label="Edit" className="p-button-raised p-button-info p-mr-2" onClick={() => navigate(`/editticket/${ticketData.ticketID}`)} />*/}
-                        <button onClick={handleDelete}> Delete </button>
+                        <Button label="Delete" className="p-button-danger" onClick={handleDelete} />
                     </div>
-                    </div>
-                // </Card>
+                </Card>
             ) : (
                 <p>Loading Customer data...</p>
             )}

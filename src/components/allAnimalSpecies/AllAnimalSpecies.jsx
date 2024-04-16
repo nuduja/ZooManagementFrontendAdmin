@@ -1,6 +1,10 @@
 import React, { useEffect, useState, useMemo } from 'react';
-import { useTable } from 'react-table';
+import { DataTable } from 'primereact/datatable';
+import { Column } from 'primereact/column';
 import { Link } from 'react-router-dom';
+import 'primereact/resources/themes/saga-blue/theme.css';
+import 'primereact/resources/primereact.min.css';
+import 'primeicons/primeicons.css';
 
 const AllAnimalSpecies = () => {
   const [animalsSpecies, setAnimalsSpecies] = useState([]);
@@ -34,92 +38,32 @@ const AllAnimalSpecies = () => {
     }
   };
 
-  const data = useMemo(() => animalsSpecies, [animalsSpecies]);
-
   const columns = useMemo(
     () => [
-      {
-        Header: 'ID',
-        accessor: 'id',
-      },
-      {
-        Header: 'animalId',
-        accessor: 'animalId',
-      },
-      {
-        Header: 'name',
-        accessor: 'name',
-      },
-      {
-        Header: 'taxonomy_kingdom',
-        accessor: 'taxonomy_kingdom',
-      },
-      {
-        Header: 'taxonomy_scientific_name',
-        accessor: 'taxonomy_scientific_name',
-      },
-      {
-        Header: 'Actions',
-        Cell: ({ row }) => (
-          <Link to={`/animalSpeciesSpecific/${row.original.animalSpeciesId}`} className="p-button p-button-text">
-            View Details
-          </Link>
-        ),
-      },
+      { field: 'id', header: 'ID' },
+      { field: 'animalSpeciesId', header: 'Animal Species ID' },
+      { field: 'animalSpeciesName', header: 'Animal Species Name' },
+      { field: 'actions', header: 'Actions' },
     ],
     []
   );
 
-  const tableInstance = useTable({ columns, data });
-
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = tableInstance;
+  const actionTemplate = (rowData) => (
+    
+    <Link to={`/animalSpeciesSpecific/${rowData.animalSpeciesId}`} className="p-button p-button-text">
+      View Details
+    </Link>
+  );
 
   return (
     <div>
       <h3 className="section-title">AllAnimalSpecies</h3>
-        <input
-            type="text"
-            value={animalSpeciesId}
-            onChange={e => setAnimalSpeciesId(e.target.value)}
-            placeholder="Search by Animal Species Id"
-        />
-        <input
-            type="text"
-            value={animalSpeciesName}
-            onChange={e => setAnimalSpeciesName(e.target.value)}
-            placeholder="Search by Animal Species Name"
-        />
-      <table {...getTableProps()} className="table">
-        <thead>
-          {headerGroups.map(headerGroup => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map(column => (
-                <th {...column.getHeaderProps()}>{column.render('Header')}</th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody {...getTableBodyProps()}>
-        {rows.length > 0 ? (
-            rows.map(row => {
-            prepareRow(row);
-            return (
-              <tr {...row.getRowProps()}>
-                {row.cells.map(cell => {
-                  return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>;
-                })}
-              </tr>
-            );
-          })
-        ) : (
-            <tr>
-                <td colSpan={columns.length} style={{ textAlign: 'center' }}>
-                    No data available
-                </td>
-            </tr>
-        )}
-        </tbody>
-      </table>
+      <DataTable value={animalsSpecies}>
+        {columns.map((column) => (
+          <Column key={column.field} field={column.field} header={column.header} />
+        ))}
+        <Column body={actionTemplate} />
+      </DataTable>
     </div>
   );
 };

@@ -3,18 +3,16 @@ import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { Message } from 'primereact/message';
 import { Dropdown } from 'primereact/dropdown';
+import '../styles/createAnimal.css'; // Import CSS file for custom styling
 
 function CreateAnimal() {
   const [animalId, setAnimalId] = useState('');
   const [name, setName] = useState('');
-  // const [animalSpeciesID, setAnimalSpeciesID] = useState('');
-  // const [animalSpeciesName, setAnimalSpeciesName] = useState('');
   const [enclosureId, setEnclosureId] = useState('');
   const [age, setAge] = useState('');
   const [animalSpecies, setAnimalSpecies] = useState([]);
   const [selectedAnimalSpeciesId, setSelectedAnimalSpeciesId] = useState('');
   const [selectedAnimalSpeciesName, setSelectedAnimalSpeciesName] = useState('');
-
   const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
@@ -26,10 +24,6 @@ function CreateAnimal() {
         }
         const data = await response.json();
         setAnimalSpecies(data);
-        // setSpeciesOptions(data.map(species => ({
-        //   label: species.name,
-        //   value: species.id
-        // })));
       } catch (error) {
         console.error('Error fetching species:', error);
         setErrorMessage('Failed to fetch species data.');
@@ -42,7 +36,7 @@ function CreateAnimal() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:8080/animal/createAnimal', {
+      const response = await fetch('http://localhost:8080/api/v1/createAnimal', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -50,14 +44,13 @@ function CreateAnimal() {
         body: JSON.stringify({
           animalSpecificId: selectedAnimalSpeciesId,
           animalSpeciesName: selectedAnimalSpeciesName,
-          // animalSpeciesName: speciesOptions.find(species => species.value === animalSpeciesID)?.label,
           name: name,
           enclosureId: enclosureId,
           age: age
         }),
       });
       if (!response.ok) {
-        throw new Error('Failed to create ticket');
+        throw new Error('Failed to create animal');
       }
       alert('Animal created successfully');
       setAnimalId('');
@@ -77,11 +70,7 @@ function CreateAnimal() {
   }
 
   const handleDropdownChange = (e) => {
-    // const selectedSpecies = speciesOptions.find(species => species.value === e.value);
-    // setAnimalSpeciesID(e.value);
-    // // setAnimalSpeciesName(speciesOptions.find(species => species.value === e.value)?.label);
-    // setAnimalSpeciesName(selectedSpecies ? selectedSpecies.label : '');
-    const { value } = event.target;
+    const { value } = e.target;
     const selectedSpecies = animalSpecies.find(species => species.animalSpeciesId === value);
     setSelectedAnimalSpeciesId(selectedSpecies.animalSpeciesId);
     setSelectedAnimalSpeciesName(selectedSpecies.animalSpeciesName);
@@ -89,13 +78,10 @@ function CreateAnimal() {
 
   return (
     <div>
-      {/*<header className="zoo-header">*/}
-      {/*  <hr />*/}
-      {/*</header>*/}
-      <div className="ticket-section-container">
+      <div className="ticket-section-container1">
         <div className="ticket-section-background"></div> {/* Background image */}
         <div className="create-ticket-container">
-          <h2>Book Online</h2>
+          <h2>Enter Animal Details</h2>
           {errorMessage && <Message severity="error" text={errorMessage} />}
           <form onSubmit={handleSubmit}>
             <div className="input-container">
@@ -103,7 +89,6 @@ function CreateAnimal() {
               <InputText
                 value={animalId}
                 onChange={handleInput(setAnimalId)}
-                // disabled
                 className="zoo-input"
               />
             </div>
@@ -112,57 +97,38 @@ function CreateAnimal() {
               <InputText
                 value={name}
                 onChange={handleInput(setName)}
-                // disabled
                 className="zoo-input"
               />
             </div>
-            {/*<div className="input-container">*/}
-            {/*  <label>animalSpeciesID:</label>*/}
-            {/*  <InputText*/}
-            {/*      value={animalSpeciesID}*/}
-            {/*      onChange={handleInput(setAnimalSpeciesID)}*/}
-            {/*      // disabled*/}
-            {/*      className="zoo-input"*/}
-            {/*  />*/}
-            {/*</div>*/}
-            {/*<div className="input-container">*/}
-            {/*  <label>animalSpeciesName:</label>*/}
-            {/*  <InputText*/}
-            {/*    value={animalSpeciesName}*/}
-            {/*    onChange={handleInput(setAnimalSpeciesName)}*/}
-            {/*    // disabled*/}
-            {/*    className="zoo-input"*/}
-            {/*  />*/}
-            {/*</div>*/}
-
-            {/*<div className="input-container">*/}
-            {/*  <label>Animal Species:</label>*/}
-            {/*  <Dropdown*/}
-            {/*      value={animalSpeciesID}*/}
-            {/*      options={speciesOptions}*/}
-            {/*      onChange={handleDropdownChange}*/}
-            {/*      placeholder="Select a Species"*/}
-            {/*      className="zoo-dropdown"*/}
-            {/*  />*/}
-            {/*</div>*/}
-
-            <select id="animalSpeciesDropdown" onChange={handleDropdownChange} value={selectedAnimalSpeciesId}>
-              {animalSpecies.map(species => (
-                  <option key={species.animalSpeciesId} value={species.animalSpeciesId}>
-                    {species.animalSpeciesName}
-                  </option>
-              ))}
-            </select>
+            <div className="input-container">
+              <label>Animal Species:</label>
+              <Dropdown
+                value={selectedAnimalSpeciesId}
+                options={animalSpecies.map(species => ({
+                  label: species.animalSpeciesName,
+                  value: species.animalSpeciesId
+                }))}
+                onChange={handleDropdownChange}
+                placeholder="Select an Animal Species"
+                className="zoo-dropdown"
+              />
+            </div>
             <div className="input-container">
               <label>enclosureId:</label>
               <InputText
                 value={enclosureId}
                 onChange={handleInput(setEnclosureId)}
-                // disabled
                 className="zoo-input"
               />
             </div>
-
+            <div className="input-container">
+              <label>Age:</label>
+              <InputText
+                value={age}
+                onChange={handleInput(setAge)}
+                className="zoo-input"
+              />
+            </div>
             <Button label="Create Animal" type="submit" className="zoo-button" />
           </form>
         </div>

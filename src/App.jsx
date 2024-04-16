@@ -24,6 +24,7 @@ import CustomerSpecific from "./components/customerSpecific.jsx";
 import AnimalSpeciesSpecific from "./components/animalSpeciesSpecific.jsx";
 import CreateTicket from "./components/createTickets.jsx";
 // import CreateEvent from "./components/createEvent.jsx";
+import Footer from './components/footer.jsx';
 
 const queryClient = new QueryClient()
 function App() {
@@ -125,7 +126,13 @@ function App() {
                             <CustomerSpecific/>
                         </ProtectedRoute>
                     }/>
+                    <Route path="/AllAnimalSpecies" element={
+                        <ProtectedRoute>
+                            <AnimalSpecies/>
+                        </ProtectedRoute>
+                    }/>
                 </Routes>
+                <Footer/>
             </Router>
         </QueryClientProvider>
     );

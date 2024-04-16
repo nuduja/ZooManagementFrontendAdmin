@@ -44,19 +44,15 @@ const AllAdmins = () => {
 
     const columns = useMemo(
         () => [
+            { field: 'id', header: 'ID' },
             { field: 'name', header: 'Name' },
             { field: 'username', header: 'Username' },
-            {
-                header: 'Actions',
-                body: ({ username }) => (
-                    <Link to={`/adminSpecific/${username}`} className="p-button p-button-text">
-                        View Details
-                    </Link>
-                ),
-            },
+            { field: 'adminId', header: "Admin Id"},
+            
         ],
         []
     );
+    ;
 
     return (
         <div className="p-grid p-fluid">

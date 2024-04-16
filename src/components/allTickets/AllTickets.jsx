@@ -45,19 +45,17 @@ const AllTickets = () => {
 
     const columns = useMemo(
         () => [
-            { field: 'ticketID', header: 'TicketID' },
-            { field: 'ticketType', header: 'TicketType' },
-            {
-                header: 'Actions',
-                body: ({ ticketID }) => (
-                    <Link to={`/ticketSpecific/${ticketID}`} className="p-button p-button-text">
-                        View Details
-                    </Link>
-                ),
-            },
+            { field: 'ticketID', header: 'Ticket ID' },
+            { field: 'ticketType', header: 'Ticket Type' },
+            { field: 'price', header: 'Price' },
+            { field: 'status', header: 'Status' },
+            { field: 'ticketDate', header: 'Ticket Date' },
+            { field: 'username', header: 'Username' },
+            
         ],
         []
     );
+    
 
     return (
         <div className="p-grid p-fluid">

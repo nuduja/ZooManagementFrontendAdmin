@@ -12,11 +12,11 @@ const Profile = () => {
     let navigate = useNavigate();
 
     // Menu items
-    const items = [
-        { label: 'Profile', icon: 'pi pi-palette', url: '/profile' },
-        { label: 'Booked Events', icon: 'pi pi-link', url: '/profile/event' },
-        { label: 'Booked Tickets', icon: 'pi pi-home', url: '/ticketprofile' }
-    ];
+    // const items = [
+    //     { label: 'Profile', icon: 'pi pi-palette', url: '/profile' },
+    //     { label: 'Booked Events', icon: 'pi pi-link', url: '/profile/event' },
+    //     { label: 'Booked Tickets', icon: 'pi pi-home', url: '/ticketprofile' }
+    // ];
 
     // State for user details
     const [userDetails, setUserDetails] = useState({
@@ -61,9 +61,9 @@ const Profile = () => {
 
     return (
         <div className="main-container">
-            <div className="left-sidebar">
+            {/* <div className="left-sidebar">
                 <Menu model={items} />
-            </div>
+            </div> */}
             <div className="profile-section">
                 <Divider />
                 <Card title={<Avatar label={userDetails.name.charAt(0)} style={{ width: '100px', height: '100px', fontSize: '50px'}} />} className="profile-card"> {/* Avatar component */}
