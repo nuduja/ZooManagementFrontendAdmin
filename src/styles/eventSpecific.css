@@ -1,0 +1,42 @@
+/* ticketSpecific.css */
+
+/* Container styles */
+.p-d-flex {
+    background-color: #f5f5f5; /* Light gray background */
+    height: 100vh; /* Full viewport height */
+    padding: 20px;
+    font-family: 'Arial', sans-serif; /* Fallback font */
+}
+
+/* Title styles */
+h1 {
+    color: #333; /* Dark gray text color */
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+/* Card styles */
+.p-card {
+    background-color: #ffffff; /* White card background */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+}
+
+/* Text styles */
+.p-col {
+    margin-bottom: 15px;
+    font-size: 18px;
+    color: #555; /* Medium gray text color */
+}
+
+/* Delete button styles */
+.p-button-danger {
+    background-color: #d32f2f; /* Dark red background */
+    border-color: #d32f2f;
+    color: #fff; /* White text color */
+    margin-top: 20px;
+}
+
+.p-button-danger:hover {
+    background-color: #c62828; /* Slightly lighter red on hover */
+}

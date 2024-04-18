@@ -10,7 +10,7 @@ import Profile from './components/profile';
 import Admin from './components/allAdmins/AllAdmins.jsx';
 import Customer from './components/allCustomers/AllCustomers.jsx';
 import Ticket from './components/allTickets/AllTickets.jsx';
-// import Event from './components/allEvents/AllEvents.jsx';
+import Event from './components/allEvents/AllEvent.jsx';
 import Animals from './components/allAnimals/AllAnimals.jsx';
 import AnimalSpecies from './components/allAnimalSpecies/AllAnimalSpecies.jsx';
 import CreateAnimalSpecies from './components/createAnimalSpecies';
@@ -20,10 +20,10 @@ import AdminSpecific from "./components/adminSpecific.jsx";
 import AnimalSpecific from "./components/animalSpecific.jsx";
 import TicketSpecific from "./components/ticketSpecific.jsx";
 import CustomerSpecific from "./components/customerSpecific.jsx";
-// import EventSpecific from "./components/eventSpecific.jsx";
+import EventSpecific from "./components/eventSpecific.jsx";
 import AnimalSpeciesSpecific from "./components/animalSpeciesSpecific.jsx";
 import CreateTicket from "./components/createTickets.jsx";
-// import CreateEvent from "./components/createEvent.jsx";
+import CreateEvent from "./components/createEvent.jsx";
 import Footer from './components/footer.jsx';
 
 const queryClient = new QueryClient()
@@ -91,11 +91,11 @@ function App() {
                             <CreateTicket/>
                         </ProtectedRoute>
                     }/>
-                    {/* <Route path="/createEvent" element={
+                    <Route path="/createEvent" element={
                         <ProtectedRoute>
                             <CreateEvent/>
                         </ProtectedRoute>
-                    }/> */}
+                    }/>
                     <Route path="/adminSpecific/:username" element={
                         <ProtectedRoute>
                             <AdminSpecific/>
@@ -116,11 +116,16 @@ function App() {
                             <TicketSpecific/>
                         </ProtectedRoute>
                     }/>
-                    {/* <Route path="/eventSpecific/:eventID" element={
+                    <Route path="/event" element={
+                        <ProtectedRoute>
+                            <Event/>
+                        </ProtectedRoute>
+                    }/>
+                    <Route path="/eventSpecific/:eventID" element={
                         <ProtectedRoute>
                             <EventSpecific/>
                         </ProtectedRoute>
-                    }/> */}
+                    }/>
                     <Route path="/customerSpecific/:username" element={
                         <ProtectedRoute>
                             <CustomerSpecific/>
