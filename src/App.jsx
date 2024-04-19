@@ -30,6 +30,10 @@ import EditAdmin from './components/editAdmin.jsx';
 import EditCustomer from './components/editCustomer.jsx';
 import EditAnimalSpeciesSpecific from './components/editAnimalSpeciesSpecific.jsx';
 import EditAnimal from './components/editAnimal.jsx';
+import AllEmployees from './components/AllEmployees.jsx';
+import EmployeeSpecific from './components/employeeSpecific.jsx';
+import EditEmployee from './components/editEmployee.jsx';
+
 
 const queryClient = new QueryClient()
 function App() {
@@ -69,6 +73,21 @@ function App() {
                     <Route path="/animals" element={
                         <ProtectedRoute>
                             <Animals/>
+                        </ProtectedRoute>
+                    }/>E
+                    <Route path="/allemployees" element={
+                        <ProtectedRoute>
+                            <AllEmployees/>
+                        </ProtectedRoute>
+                    }/>
+                    <Route path="/employeeSpecific/:employeeId" element={
+                        <ProtectedRoute>
+                            <EmployeeSpecific/>
+                        </ProtectedRoute>
+                    }/>
+                    <Route path="/employee/edit/:employeeId" element={
+                        <ProtectedRoute>
+                            <EditEmployee/>
                         </ProtectedRoute>
                     }/>
                     <Route path="/animalspecies" element={

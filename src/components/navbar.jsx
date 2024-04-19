@@ -16,6 +16,7 @@ export default function TemplateDemo() {
     { label: 'AllEvents', icon: 'pi pi-ticket', url: '/event' },
     { label: 'Animals', icon: 'pi pi-paw', url: '/animals' },
     { label: 'AnimalSpecies', icon: 'pi pi-image', url: '/AllAnimalSpecies' },
+    { label: 'All Employees', icon: 'pi pi-image', url: '/allemployees' },
     { label: 'Create Animal Species', icon: 'pi pi-paw', url: '/createanimalspecies' },
     { label: 'Create Animal', icon: 'pi pi-plus', url: '/createAnimal' },
     { label: 'Create Customer', icon: 'pi pi-user-plus', url: '/createCustomer' }

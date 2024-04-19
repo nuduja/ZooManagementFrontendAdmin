@@ -1,0 +1,167 @@
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { Button } from 'primereact/button';
+import { InputText } from 'primereact/inputtext';
+import { Dropdown } from 'primereact/dropdown';
+import { Dialog } from 'primereact/dialog';
+import '../styles/editEmployee.css'; // Import CSS file
+
+const EditEmployee = () => {
+    const navigate = useNavigate();
+    const { employeeId } = useParams();
+    const [employeeData, setEmployeeData] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [editedEmployeeData, setEditedEmployeeData] = useState({
+        name: '',
+        position: '',
+        nic: '',
+        address: '',
+        phone: '',
+        gender: '',
+        dob: '',
+    });
+
+    const [errorMsg, setErrorMsg] = useState('');
+    const [successMsg, setSuccessMsg] = useState('');
+    const [showSuccessDialog, setShowSuccessDialog] = useState(false);
+    const [showErrorDialog, setShowErrorDialog] = useState(false);
+
+    useEffect(() => {
+        const fetchEmployeeData = async () => {
+            try {
+                const response = await fetch(`http://localhost:8080/api/v1/employee/${employeeId}`);
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const data = await response.json();
+                setEmployeeData(data);
+                setEditedEmployeeData({
+                    name: data.name,
+                    position: data.position,
+                    nic: data.nic,
+                    address: data.address,
+                    phone: data.phone,
+                    gender: data.gender,
+                    dob: data.dob,
+                });
+            } catch (error) {
+                console.error('Error fetching Employee data:', error);
+                setErrorMsg('Failed to fetch Employee data');
+                setShowErrorDialog(true);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchEmployeeData();
+    }, [employeeId]);
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setEditedEmployeeData(prevData => ({
+            ...prevData,
+            [name]: value
+        }));
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await fetch(`http://localhost:8080/api/v1/employee/updatebyemployeeid/${employeeId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(editedEmployeeData),
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to update Employee data');
+            }
+
+            setSuccessMsg('Employee data updated successfully');
+            setErrorMsg('');
+            setShowSuccessDialog(true);
+        } catch (error) {
+            console.error('Error updating Employee data:', error);
+            setErrorMsg('Failed to update Employee data');
+            setShowErrorDialog(true);
+        }
+    };
+
+    const onHideDialog = () => {
+        setShowSuccessDialog(false);
+        setShowErrorDialog(false);
+        if (successMsg) {
+            navigate(-1);
+        }
+    };
+
+    return (
+        <div className="edit-employee-container">
+            <h1>Edit Employee Data</h1>
+            {loading ? (
+                <p>Loading...</p>
+            ) : (
+                <form className="edit-employee-form" onSubmit={handleSubmit}>
+                    <div className="p-field">
+                        <label htmlFor="name">Name:</label>
+                        <InputText id="name" name="name" value={editedEmployeeData.name} onChange={handleInputChange} />
+                    </div>
+                    <div className="p-field">
+                        <label htmlFor="position">Position:</label>
+                        <InputText id="position" name="position" value={editedEmployeeData.position} onChange={handleInputChange} />
+                    </div>
+                    <div className="p-field">
+                        <label htmlFor="nic">NIC:</label>
+                        <InputText id="nic" name="nic" value={editedEmployeeData.nic} onChange={handleInputChange} />
+                    </div>
+                    <div className="p-field">
+                        <label htmlFor="address">Address:</label>
+                        <InputText id="address" name="address" value={editedEmployeeData.address} onChange={handleInputChange} />
+                    </div>
+                    <div className="p-field">
+                        <label htmlFor="phone">Phone:</label>
+                        <InputText id="phone" name="phone" value={editedEmployeeData.phone} onChange={handleInputChange} />
+                    </div>
+                    <div className="p-field">
+                        <label htmlFor="gender">Gender:</label>
+                        <Dropdown
+                            id="gender"
+                            name="gender"
+                            value={editedEmployeeData.gender}
+                            options={['MALE', 'FEMALE', 'OTHER']}
+                            onChange={handleInputChange}
+                            placeholder="Select Gender"
+                        />
+                    </div>
+                    <div className="p-field">
+                        <label htmlFor="dob">Date of Birth:</label>
+                        <InputText id="dob" name="dob" value={editedEmployeeData.dob} onChange={handleInputChange} />
+                    </div>
+                    <Button type="submit" label="Update" />
+                </form>
+            )}
+
+            <Dialog
+                visible={showSuccessDialog}
+                onHide={onHideDialog}
+                header="Success"
+                footer={<Button label="OK" onClick={onHideDialog} />}
+            >
+                <p>{successMsg}</p>
+            </Dialog>
+
+            <Dialog
+                visible={showErrorDialog}
+                onHide={onHideDialog}
+                header="Error"
+                footer={<Button label="OK" onClick={onHideDialog} />}
+            >
+                <p>{errorMsg}</p>
+            </Dialog>
+        </div>
+    );
+};
+
+export default EditEmployee;
