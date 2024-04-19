@@ -2,93 +2,137 @@ import React, { useEffect, useState, useMemo } from 'react';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { InputText } from 'primereact/inputtext';
-import { Link } from 'react-router-dom';
+import { Dropdown } from 'primereact/dropdown';
+import { ProgressSpinner } from 'primereact/progressspinner';
 import { Button } from 'primereact/button';
+import { Link } from 'react-router-dom';
 
 const AllEvents = () => {
-  const [events, setEvents] = useState([]);
-  const [eventID, setEventID] = useState('');
-  const [eventLocation, setEventLocation] = useState('');
-  const [loading, setLoading] = useState(false);
+    const [events, setEvents] = useState([]);
+    const [eventID, setEventID] = useState('');
+    const [eventLocation, setEventLocation] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [first, setFirst] = useState(0);
+    const [rows, setRows] = useState(5);
 
-  useEffect(() => {
-      const delayDebounce = setTimeout(() => {
-          fetchData();
-      }, 500);
+    useEffect(() => {
+        fetchData();
+    }, [eventID, eventLocation, first, rows]);
 
-      return () => clearTimeout(delayDebounce);
-  }, [eventID, eventLocation]);
+    const fetchData = async () => {
+        setLoading(true);
+        const queryParams = new URLSearchParams({
+            eventID: eventID,
+            eventLocation: eventLocation,
+            first: first,
+            rows: rows
+        });
+        try {
+            const response = await fetch(`http://localhost:8080/api/v1/event/search?${queryParams}`);
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const data = await response.json();
+            setEvents(data);
+        } catch (error) {
+            console.error('Error fetching Event data:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
 
-  const fetchData = async () => {
-      setLoading(true);
-      const queryParams = new URLSearchParams({
-          eventID: eventID,
-          eventLocation: eventLocation,
-      });
-    try {
-      const response = await fetch(`http://localhost:8080/api/v1/event/search?${queryParams}`);
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      const data = await response.json();
-        setEvents(data);
-    } catch (error) {
-      console.error('Error fetching Event data:', error);
-    } finally {
-        setLoading(false);
-    }
-  };
+    const handleDownload = () => {
+        const csvContent = 'Event ID,Event Name,Event Date,Location,Username\n';
+        events.forEach(row => {
+            csvContent += `${row.eventID},${row.eventName},${row.eventDate},${row.eventLocation},${row.username}\n`;
+        });
 
-  const viewDetailsButton = (rowData) => {
-    return (
-      <Link to={`/eventSpecific/${rowData.eventID}`} className="p-button p-button-text">
-        View Details
-      </Link>
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement('a');
+        const url = URL.createObjectURL(blob);
+        link.setAttribute('href', url);
+        link.setAttribute('download', 'events.csv');
+        link.style.visibility = 'hidden';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
+
+    const downloadButton = (
+        <Button
+            type="button"
+            icon="pi pi-download"
+            onClick={handleDownload}
+            className="p-button-text"
+        />
     );
-  };
 
-  const columns = useMemo(
-    () => [
-      { field: 'eventID', header: 'EventID' },
-      { field: 'eventName', header: 'Event Name' },
-      { field: 'eventDate', header: 'Event Date' },
-      { field: 'eventLocation', header: 'Location' },
-      { field: 'username', header: 'Username' },
-      { header: 'Actions', body: viewDetailsButton },
-    ],
-    []
-  );
+    const columns = useMemo(
+        () => [
+            { field: 'eventID', header: 'Event ID', sortable: true },
+            { field: 'eventName', header: 'Event Name', sortable: true },
+            { field: 'eventDate', header: 'Event Date', sortable: true },
+            { field: 'eventLocation', header: 'Location', sortable: true },
+            { field: 'username', header: 'Username', sortable: true },
+        ],
+        []
+    );
 
-  return (
-    <div>
-      <h3 className="section-title">All Events</h3>
-      <div className="p-grid p-formgrid">
-        <div className="p-col-4">
-          <InputText
-            value={eventID}
-            onChange={(e) => setEventID(e.target.value)}
-            placeholder="Search by Event ID"
-            className="p-inputtext-sm"
-          />
+    return (
+        <div className="p-grid p-fluid">
+            <div className="p-col-12">
+                <h3 className="section-title">All Events</h3>
+                <div className="p-grid p-formgrid">
+                    <div className="p-col-4">
+                        <InputText
+                            value={eventID}
+                            onChange={(e) => setEventID(e.target.value)}
+                            placeholder="Search by Event ID"
+                            className="p-inputtext-sm"
+                        />
+                    </div>
+                    <div className="p-col-4">
+                        <InputText
+                            value={eventLocation}
+                            onChange={(e) => setEventLocation(e.target.value)}
+                            placeholder="Search by Event Location"
+                            className="p-inputtext-sm"
+                        />
+                    </div>
+                    <div className="p-col-12">
+                        {loading && <ProgressSpinner />}
+                        <DataTable 
+                            value={events} 
+                            loading={loading} 
+                            emptyMessage="No data found" 
+                            paginator 
+                            rows={rows} 
+                            first={first} 
+                            onPage={(e) => setFirst(e.first)} 
+                            rowsPerPageOptions={[5, 10]} 
+                            totalRecords={1000}
+                            className="custom-table"
+                        >
+                            {columns.map((col) => (
+                                <Column key={col.field} field={col.field} header={col.header} sortable={col.sortable} />
+                            ))}
+                            <Column
+                                header="Actions"
+                                body={(rowData) => (
+                                    <Link to={`/eventSpecific/${rowData.eventID}`} className="p-button p-button-text">
+                                        View Details
+                                    </Link>
+                                )}
+                            />
+                        </DataTable>
+                    </div>
+                    <div className="p-col-12 p-d-flex p-jc-start p-mt-2">
+                        {downloadButton}
+                    </div>
+                </div>
+            </div>
         </div>
-        <div className="p-col-4">
-          <InputText
-            value={eventLocation}
-            onChange={(e) => setEventLocation(e.target.value)}
-            placeholder="Search by Event Location"
-            className="p-inputtext-sm"
-          />
-        </div>
-      </div>
-
-      {loading && <div>Loading...</div>}
-      <DataTable value={events} loading={loading} emptyMessage="No data available">
-        {columns.map((col) => (
-          <Column key={col.field} field={col.field} header={col.header} body={col.body} />
-        ))}
-      </DataTable>
-    </div>
-  );
+    );
 };
 
 export default AllEvents;

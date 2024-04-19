@@ -9,7 +9,7 @@ import { Message } from 'primereact/message';
 
 const EditAnimal = () => {
     const navigate = useNavigate();
-    const { animalSpeciesId } = useParams();
+    const { name } = useParams();
     const [animalData, setAnimalData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [editedAnimalData, setEditedAnimalData] = useState({
@@ -28,7 +28,7 @@ const EditAnimal = () => {
     useEffect(() => {
         const fetchAnimalData = async () => {
             try {
-                const response = await fetch(`http://localhost:8080/api/v1/animal/bySpeciesId/${animalSpeciesId}`);
+                const response = await fetch(`http://localhost:8080/api/v1/animal/${name}`);
                 if (!response.ok) {
                     throw new Error(`Failed to fetch Animal data: ${response.statusText}`);
                 }
@@ -48,7 +48,7 @@ const EditAnimal = () => {
         };
 
         fetchAnimalData();
-    }, [animalSpeciesId]);
+    }, [name]);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -76,7 +76,7 @@ const EditAnimal = () => {
             }
             setSuccessMessage('Animal data updated successfully');
             setShowSuccessDialog(true);
-            navigate(`/animal/${editedAnimalData.name}`);
+            navigate(`/animalSpecific/${editedAnimalData.name}`);
         } catch (error) {
             console.error('Error updating Animal data:', error);
             setErrorMessage('Failed to update Animal data');

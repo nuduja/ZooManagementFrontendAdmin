@@ -6,6 +6,7 @@ import '../styles/animalSpeciesSpecific.css'; // Importing the CSS file
 
 const AnimalSpeciesSpecific = () => {
     const navigate = useNavigate();
+    const { animalSpeciesName } = useParams();
     const { animalSpeciesId } = useParams();
     const [animalSpeciesData, setAnimalSpeciesData] = useState(null);
 
@@ -28,7 +29,7 @@ const AnimalSpeciesSpecific = () => {
 
     const handleDelete = async () => {
         try {
-            const response = await fetch(`http://localhost:8080/api/v1/animalspecies/animalSpeciesId/${animalSpeciesId}`, {
+            const response = await fetch(`http://localhost:8080/api/v1/animalspecies/${animalSpeciesName}`, {
                 method: 'DELETE',
             });
             if (!response.ok) {

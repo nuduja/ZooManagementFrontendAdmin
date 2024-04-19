@@ -116,7 +116,7 @@ function App() {
                             <AnimalSpecific/>
                         </ProtectedRoute>
                     }/>
-                    <Route path="/animalEdit/:animalSpeciesId" element={
+                    <Route path="/animalEdit/:name" element={
                         <ProtectedRoute>
                             <EditAnimal/>
                         </ProtectedRoute>

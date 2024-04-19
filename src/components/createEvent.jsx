@@ -1,16 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { Calendar } from 'primereact/calendar';
-import { Dropdown } from 'primereact/dropdown';
+import { Dialog } from 'primereact/dialog';
 import '../styles/createevent.css';
+import { Button } from 'primereact/button';
 
 function CreateEvent() {
-  const baseUrl = import.meta.env.VITE_API_BASE_URL;
-  const [eventType, setEventType] = useState('');
-  const [price, setPrice] = useState('');
-  const [date, setDate] = useState(null); // Changed from ticketDate to date
+  // const baseUrl = import.meta.env.VITE_API_BASE_URL;
+  const [eventName, setEventName] = useState('');
+  const [eventDescription, setEventDescription] = useState('');
+  const [eventLocation, setEventLocation] = useState('');
+  const [capacity, setCapacity] = useState('');
+  const [eventDate, setEventDate] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
-  const [selectedPrice, setSelectedPrice] = useState(null);
-  const [username, setUsername] = useState(''); // State for the username
+  const [username, setUsername] = useState('');
+  const [displayDialog, setDisplayDialog] = useState(false);
+  const [dialogMessage, setDialogMessage] = useState('');
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -20,53 +24,51 @@ function CreateEvent() {
     }
   }, []);
 
-  const eventTypes = [
-    { label: 'Event 01', value: 'event01', price: 40 },
-    { label: 'Event 02', value: 'event02', price: 40 },
-    { label: 'Event 03', value: 'event03', price: 40 },
-    { label: 'Event 04', value: 'event04', price: 40 },
-    { label: 'Event 05', value: 'event05', price: 40 }
-  ];
-
-  const handleEventTypeChange = (e) => {
-    const selectedEventType = e.value;
-    const selectedEvent = eventTypes.find(event => event.value === selectedEventType);
-    setEventType(selectedEventType);
-    setPrice(selectedEvent.price);
-    setSelectedPrice(selectedEvent.price); // Update selectedPrice when event type changes
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`${baseUrl}event`, {
+      const response = await fetch(`http://localhost:8080/api/v1/event`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          EventType: eventType,
-          Price: parseFloat(price),
-          TicketDate: date.toISOString().substring(0, 10), // Use date instead of ticketDate
-          Username: username // Include username in the request
+          eventName,
+          eventDescription,
+          eventDate: eventDate.toISOString(),
+          eventLocation,
+          capacity: parseInt(capacity),
+          username,
         }),
       });
       if (!response.ok) {
         throw new Error('Failed to create event');
       }
-      alert('Event created successfully');
-      setEventType('');
-      setPrice('');
-      setDate(null); // Reset date after successful creation
-      setUsername(''); // Clear username field after successful creation
+      setDisplayDialog(true);
+      setDialogMessage('Event created successfully');
+      setEventName('');
+      setEventDescription('');
+      setEventLocation('');
+      setCapacity('');
+      setEventDate(null);
+      setUsername('');
     } catch (error) {
       console.error('Error creating event:', error);
       setErrorMessage('Failed to create event. Please try again.');
+      setDisplayDialog(true);
+      setDialogMessage(errorMessage);
     }
   };
 
+  const dialogFooter = (
+    <div>
+      <Button label="OK" icon="pi pi-check" onClick={() => setDisplayDialog(false)} />
+    </div>
+  );
+
   return (
     <div className="container">
+      {/* <img className="background-image" src="https://shorturl.at/oqFS2" alt="Background" /> */}
       <h2>Book Online</h2>
       {errorMessage && <p>{errorMessage}</p>}
       <form className="form-container" onSubmit={handleSubmit}>
@@ -81,33 +83,62 @@ function CreateEvent() {
         </label>
         <label>
           Event Type:
-          <Dropdown
-            value={eventType}
-            options={eventTypes}
-            onChange={handleEventTypeChange}
-            placeholder="Select Event Type"
+          <input
+            type="text"
+            value={eventName}
+            onChange={(e) => setEventName(e.target.value)}
+            required
           />
         </label>
         <label>
-          Price:
+          Event Description:
           <input
             type="text"
-            value={selectedPrice}
-            readOnly
+            value={eventDescription}
+            onChange={(e) => setEventDescription(e.target.value)}
+            required
+          />
+        </label>
+        <label>
+          Capacity:
+          <input
+            type="number"
+            value={capacity}
+            onChange={(e) => setCapacity(e.target.value)}
+            required
+          />
+        </label>
+        <label>
+          Event Location:
+          <input
+            type="text"
+            value={eventLocation}
+            onChange={(e) => setEventLocation(e.target.value)}
+            required
           />
         </label>
         <div className="calendar-container">
           <label>
             Select Date:
             <Calendar
-              value={date}
-              onChange={(e) => setDate(e.value)}
+              value={eventDate}
+              onChange={(e) => setEventDate(e.value)}
               dateFormat="yy-mm-dd"
               required
             />
           </label>
         </div>
         <button type="submit">Book Event</button>
+
+        {/* Dialog */}
+        <Dialog
+          visible={displayDialog}
+          onHide={() => setDisplayDialog(false)}
+          header="Message"
+          footer={dialogFooter}
+        >
+          <p>{dialogMessage}</p>
+        </Dialog>
       </form>
     </div>
   );

@@ -1,6 +1,7 @@
 .datatable-style {
     font-family: 'Arial', sans-serif;
     padding: 20px;
+    margin-bottom: -300px;
   }
   
   .p-datatable-custom .p-datatable-thead > tr > th.ticket-id {
