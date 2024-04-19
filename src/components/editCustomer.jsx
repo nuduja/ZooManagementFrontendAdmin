@@ -9,6 +9,7 @@ import '../styles/editCustomer.css';
 const EditCustomer = () => {
     const navigate = useNavigate();
     const { username } = useParams();
+    const { userId } = useParams();
     const [customerData, setCustomerData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [editedCustomerData, setEditedCustomerData] = useState({
@@ -25,7 +26,7 @@ const EditCustomer = () => {
     useEffect(() => {
         const fetchCustomerData = async () => {
             try {
-                const response = await fetch(`http://localhost:8080/api/v1/user/${username}`);
+                const response = await fetch(`http://localhost:8080/api/v1/user/${userId}`);
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
@@ -47,7 +48,7 @@ const EditCustomer = () => {
         };
 
         fetchCustomerData();
-    }, [username]);
+    }, [userId]);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;

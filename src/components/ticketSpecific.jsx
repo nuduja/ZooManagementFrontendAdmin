@@ -38,7 +38,7 @@ const TicketSpecific = () => {
             if (!response.ok) {
                 throw new Error('Failed to delete Ticket');
             }
-            navigate('/');
+            navigate(-1);
         } catch (error) {
             console.error('Error deleting Ticket:', error);
         }
@@ -74,6 +74,9 @@ const TicketSpecific = () => {
                         </div>
                         <div className="p-col">
                             <strong>Username:</strong> {ticketData?.username}
+                        </div>
+                        <div className="p-col">
+                            <strong>Ticket Date:</strong> {ticketData?.ticketDate}
                         </div>
                         <div className="p-col">
                             {/* Edit button */}

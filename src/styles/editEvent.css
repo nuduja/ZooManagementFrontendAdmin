@@ -1,0 +1,36 @@
+.edit-event-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+}
+
+.edit-event-form {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+}
+
+.p-field {
+    margin-bottom: 20px;
+}
+
+.p-inputtext {
+    width: 100%;
+}
+
+.p-button-success {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.custom-dialog {
+    width: 300px;
+}
+
+@media screen and (max-width: 600px) {
+    .edit-event-form {
+        width: 100%;
+    }
+}

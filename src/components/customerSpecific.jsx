@@ -6,13 +6,13 @@ import '../styles/customerSpecific.css'; // Importing the CSS file
 
 const CustomerSpecific = () => {
     const navigate = useNavigate();
-    const { username } = useParams();
+    const { userId } = useParams();
     const [customerData, setCustomerData] = useState(null);
 
     useEffect(() => {
         const fetchCustomerData = async () => {
             try {
-                const response = await fetch(`http://localhost:8080/api/v1/user/${username}`);
+                const response = await fetch(`http://localhost:8080/api/v1/user/${userId}`);
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
@@ -24,28 +24,28 @@ const CustomerSpecific = () => {
         };
 
         fetchCustomerData();
-    }, [username]);
+    }, [userId]);
 
     const handleDelete = async () => {
         try {
-            const response = await fetch(`http://localhost:8080/api/v1/user/${username}`, {
+            const response = await fetch(`http://localhost:8080/api/v1/user/${userId}`, {
                 method: 'DELETE',
             });
             if (!response.ok) {
                 throw new Error('Failed to delete Customer');
             }
-            navigate('/');
+            navigate(-1);
         } catch (error) {
             console.error('Error deleting Customer:', error);
         }
     };
 
     const handleEdit = () => {
-        navigate(`/customer/edit/${username}`);
+        navigate(`/customer/edit/${userId}`);
     };
 
     const handleResetPassword = () => {
-        navigate(`/customer/reset-password/${username}`);
+        navigate(`/customer/reset-password/${userId}`);
     };
 
     return (

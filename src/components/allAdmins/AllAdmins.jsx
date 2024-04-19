@@ -128,7 +128,7 @@ const AllAdmins = () => {
                             <Column
                                 header="Actions"
                                 body={(rowData) => (
-                                    <Link to={`/adminSpecific/${rowData.username}`} className="p-button p-button-text">
+                                    <Link to={`/adminSpecific/${rowData.adminId}`} className="p-button p-button-text">
                                         View Details
                                     </Link>
                                 )}

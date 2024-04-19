@@ -33,6 +33,7 @@ import EditAnimal from './components/editAnimal.jsx';
 import AllEmployees from './components/AllEmployees.jsx';
 import EmployeeSpecific from './components/employeeSpecific.jsx';
 import EditEmployee from './components/editEmployee.jsx';
+import EditEvent from './components/editEvent.jsx';
 
 
 const queryClient = new QueryClient()
@@ -120,12 +121,12 @@ function App() {
                             <CreateEvent/>
                         </ProtectedRoute>
                     }/>
-                    <Route path="/adminSpecific/:username" element={
+                    <Route path="/adminSpecific/:adminId" element={
                         <ProtectedRoute>
                             <AdminSpecific/>
                         </ProtectedRoute>
                     }/>
-                    <Route path="/admin/edit/:username" element={
+                    <Route path="/admin/edit/:adminId" element={
                         <ProtectedRoute>
                             <EditAdmin/>
                         </ProtectedRoute>
@@ -171,12 +172,17 @@ function App() {
                             <EventSpecific/>
                         </ProtectedRoute>
                     }/>
-                    <Route path="/customerSpecific/:username" element={
+                    <Route path="/editEvent/:eventID" element={
+                        <ProtectedRoute>
+                            <EditEvent/>
+                        </ProtectedRoute>
+                    }/>
+                    <Route path="/customerSpecific/:userId" element={
                         <ProtectedRoute>
                             <CustomerSpecific/>
                         </ProtectedRoute>
                     }/>
-                    <Route path="/customer/edit/:username" element={
+                    <Route path="/customer/edit/:userId" element={
                         <ProtectedRoute>
                             <EditCustomer/>
                         </ProtectedRoute>

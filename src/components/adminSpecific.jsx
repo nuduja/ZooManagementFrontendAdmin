@@ -6,13 +6,13 @@ import '../styles/adminSpecific.css';
 
 const AdminSpecific = () => {
     const navigate = useNavigate();
-    const { username } = useParams();
+    const { adminId } = useParams();
     const [adminData, setAdminData] = useState(null);
 
     useEffect(() => {
         const fetchAdminData = async () => {
             try {
-                const response = await fetch(`http://localhost:8080/api/v1/admin/${username}`);
+                const response = await fetch(`http://localhost:8080/api/v1/admin/${adminId}`);
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
@@ -24,28 +24,28 @@ const AdminSpecific = () => {
         };
 
         fetchAdminData();
-    }, [username]);
+    }, [adminId]);
 
     const handleDelete = async () => {
         try {
-            const response = await fetch(`http://localhost:8080/api/v1/admin/${username}`, {
+            const response = await fetch(`http://localhost:8080/api/v1/admin/${adminId}`, {
                 method: 'DELETE',
             });
             if (!response.ok) {
                 throw new Error('Failed to delete Admin');
             }
-            navigate('/');
+            navigate(-1);
         } catch (error) {
             console.error('Error deleting Admin:', error);
         }
     };
 
     const handleEdit = () => {
-        navigate(`/admin/edit/${adminData.username}`);
+        navigate(`/admin/edit/${adminData.adminId}`);
     };
 
     const handleResetPassword = () => {
-        navigate(`/admin/reset-password/${username}`);
+        navigate(`/admin/reset-password/${adminId}`);
     };
 
     return (

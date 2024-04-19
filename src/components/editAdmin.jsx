@@ -8,7 +8,7 @@ import '../styles/editAdmin.css';
 
 const EditAdmin = () => {
     const navigate = useNavigate();
-    const { username } = useParams();
+    const { adminId } = useParams();
     // const { adminId } = useParams();
     const [adminData, setAdminData] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -24,7 +24,7 @@ const EditAdmin = () => {
     useEffect(() => {
         const fetchAdminData = async () => {
             try {
-                const response = await fetch(`http://localhost:8080/api/v1/admin/${username}`);
+                const response = await fetch(`http://localhost:8080/api/v1/admin/${adminId}`);
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
@@ -43,7 +43,7 @@ const EditAdmin = () => {
         };
 
         fetchAdminData();
-    }, [username]);
+    }, [adminId]);
 
     const handleEdit = () => {
         setEditing(true);
@@ -81,6 +81,7 @@ const EditAdmin = () => {
 
     const onHideDialog = () => {
         setShowDialog(false);
+        navigate(-1);
     };
 
     return (
