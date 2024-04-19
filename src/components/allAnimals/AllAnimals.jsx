@@ -43,21 +43,22 @@ const AllAnimals = () => {
   };
 
   const handleDownload = () => {
-    const csvContent = 'ID,Animal ID,Species ID,Species Name,Name,Enclosure ID\n';
-    animals.forEach(row => {
-      csvContent += `${row.id},${row.animalId},${row.animalSpeciesId},${row.animalSpeciesName},${row.name},${row.enclosureId}\n`;
-    });
-
-    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-    const link = document.createElement('a');
-    const url = URL.createObjectURL(blob);
-    link.setAttribute('href', url);
-    link.setAttribute('download', 'animals.csv');
-    link.style.visibility = 'hidden';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
+    fetch('http://localhost:8080/api/v1/animal/pdf', {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/pdf',
+            },
+        }).then((response) => response.blob())
+            .then((blob) => {
+                const fileURL = window.URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = fileURL;
+                link.setAttribute('download', 'animals.pdf');
+                document.body.appendChild(link);
+                link.click();
+                link.parentNode.removeChild(link);
+            });
+    };
 
   const columns = useMemo(
     () => [
@@ -119,7 +120,7 @@ const AllAnimals = () => {
             header="Actions"
             body={(rowData) => (
               <React.Fragment>
-                <Link to={`../animalSpecific/${rowData.name}`} className="p-button p-button-text">
+                <Link to={`../animalSpecific/${rowData.animalId}`} className="p-button p-button-text">
                   View Details
                 </Link>
                 <Link to={`../medicalRecords/${rowData.id}`} className="p-button p-button-text p-ml-2">

@@ -41,24 +41,25 @@ const AllCustomers = () => {
             setLoading(false);
         }
     };
+    
 
     const handleDownload = () => {
-        const csvContent = 'User ID,Name,Username,Phone,Email\n';
-        customers.forEach(row => {
-            csvContent += `${row.userId},${row.name},${row.username},${row.phone},${row.email}\n`;
-        });
-
-        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-        const link = document.createElement('a');
-        const url = URL.createObjectURL(blob);
-        link.setAttribute('href', url);
-        link.setAttribute('download', 'customers.csv');
-        link.style.visibility = 'hidden';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+        fetch('http://localhost:8080/api/v1/user/pdf', {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/pdf',
+            },
+        }).then((response) => response.blob())
+            .then((blob) => {
+                const fileURL = window.URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = fileURL;
+                link.setAttribute('download', 'users.pdf');
+                document.body.appendChild(link);
+                link.click();
+                link.parentNode.removeChild(link);
+            });
     };
-
     const downloadButton = (
         <Button
             type="button"

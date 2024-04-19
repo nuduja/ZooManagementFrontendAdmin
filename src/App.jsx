@@ -130,12 +130,12 @@ function App() {
                             <EditAdmin/>
                         </ProtectedRoute>
                     }/>
-                    <Route path="/animalSpecific/:name" element={
+                    <Route path="/animalSpecific/:animalId" element={
                         <ProtectedRoute>
                             <AnimalSpecific/>
                         </ProtectedRoute>
                     }/>
-                    <Route path="/animalEdit/:name" element={
+                    <Route path="/animalEdit/:animalId" element={
                         <ProtectedRoute>
                             <EditAnimal/>
                         </ProtectedRoute>

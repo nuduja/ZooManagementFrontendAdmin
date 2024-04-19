@@ -43,20 +43,21 @@ const AllAdmins = () => {
     };
 
     const handleDownload = () => {
-        const csvContent = 'ID,Name,Username,Admin Id\n';
-        admins.forEach(row => {
-            csvContent += `${row.id},${row.name},${row.username},${row.adminId}\n`;
-        });
-
-        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-        const link = document.createElement('a');
-        const url = URL.createObjectURL(blob);
-        link.setAttribute('href', url);
-        link.setAttribute('download', 'admins.csv');
-        link.style.visibility = 'hidden';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+        fetch('http://localhost:8080/api/v1/admin/pdf', {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/pdf',
+            },
+        }).then((response) => response.blob())
+            .then((blob) => {
+                const fileURL = window.URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = fileURL;
+                link.setAttribute('download', 'admins.pdf');
+                document.body.appendChild(link);
+                link.click();
+                link.parentNode.removeChild(link);
+            });
     };
 
     const downloadButton = (

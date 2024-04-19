@@ -42,20 +42,21 @@ const AllEvents = () => {
     };
 
     const handleDownload = () => {
-        const csvContent = 'Event ID,Event Name,Event Date,Location,Username\n';
-        events.forEach(row => {
-            csvContent += `${row.eventID},${row.eventName},${row.eventDate},${row.eventLocation},${row.username}\n`;
-        });
-
-        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-        const link = document.createElement('a');
-        const url = URL.createObjectURL(blob);
-        link.setAttribute('href', url);
-        link.setAttribute('download', 'events.csv');
-        link.style.visibility = 'hidden';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+        fetch('http://localhost:8080/api/v1/event/pdf', {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/pdf',
+            },
+        }).then((response) => response.blob())
+            .then((blob) => {
+                const fileURL = window.URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = fileURL;
+                link.setAttribute('download', 'events.pdf');
+                document.body.appendChild(link);
+                link.click();
+                link.parentNode.removeChild(link);
+            });
     };
 
     const downloadButton = (

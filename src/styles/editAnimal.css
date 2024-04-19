@@ -1,49 +1,70 @@
-/* editAnimal.css */
-
-.p-grid {
-    margin-top: 50px;
-    height: 100vh; /* Set the height of the grid to full viewport height */
-    display: flex;
-    justify-content: center; /* Center the items horizontally */
-    align-items: center; /* Center the items vertically */
-}
-
-.p-col-10 {
-    width: 80%;
-}
-
-.p-card {
-    padding: 20px;
-    width: 100%; /* Set the width to 100% to fill the container */
-    max-width: 300px; /* Optionally set a maximum width */
-}
-
 .input-group {
-    margin-bottom: 20px;
-}
-
-.input-group label {
+    margin-bottom: 1rem;
+  }
+  
+  .input-group label {
     display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-}
-
-.p-button-success {
-    margin-top: 20px;
-}
-
-.custom-dialog {
-    width: 300px;
-}
-
-.custom-dialog .p-dialog-content {
-    padding: 20px;
-}
-
-.custom-dialog .p-dialog-footer {
-    justify-content: center;
-}
-
-.custom-dialog .p-button {
-    margin: 0 10px;
-}
+    margin-bottom: 0.5rem;
+  }
+  
+  .input-group .p-inputtext {
+    width: 100%;
+  }
+  
+  .p-card {
+    padding: 1.5rem;
+  }
+  
+  .p-card-title {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .p-button {
+    margin-right: 0.5rem;
+  }
+  
+  .p-grid {
+    margin-top: 2rem;
+  }
+  
+  .p-col-10 {
+    width: 90%;
+  }
+  
+  .p-col {
+    padding: 0 0.5rem;
+  }
+  
+  .p-button-success {
+    background-color: #28a745; /* Button background color */
+    color: #ffffff; /* Button text color */
+  }
+  
+  .p-button-danger {
+    background-color: #dc3545; /* Button background color */
+    color: #ffffff; /* Button text color */
+  }
+  
+  .custom-dialog {
+    width: 30rem;
+  }
+  
+  .custom-dialog .p-dialog-header {
+    background-color: #007ad9; /* Header background color */
+    color: #ffffff; /* Header text color */
+  }
+  
+  .custom-dialog .p-dialog-footer {
+    padding: 1rem;
+    text-align: right;
+  }
+  
+  .custom-dialog .p-dialog-content {
+    padding: 1rem;
+  }
+  
+  .custom-dialog .p-dialog-footer .p-button {
+    margin-left: 0.5rem; /* Adjust the margin between buttons */
+  }
+  

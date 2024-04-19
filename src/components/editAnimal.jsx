@@ -5,18 +5,16 @@ import { InputText } from 'primereact/inputtext';
 import { Card } from 'primereact/card';
 import { Dialog } from 'primereact/dialog';
 import { Message } from 'primereact/message';
-// import '../styles/editAnimal.css';
+import '../styles/editAnimal.css';
 
 const EditAnimal = () => {
     const navigate = useNavigate();
-    const { name } = useParams();
+    const { animalId } = useParams();
     const [animalData, setAnimalData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [editedAnimalData, setEditedAnimalData] = useState({
-        id: '',
-        animalSpeciesId: '',
-        animalSpeciesName: '',
         name: '',
+        animalSpeciesName: '',
         enclosureId: '',
         birthDate: ''
     });
@@ -28,7 +26,7 @@ const EditAnimal = () => {
     useEffect(() => {
         const fetchAnimalData = async () => {
             try {
-                const response = await fetch(`http://localhost:8080/api/v1/animal/${name}`);
+                const response = await fetch(`http://localhost:8080/api/v1/animal/${animalId}`);
                 if (!response.ok) {
                     throw new Error(`Failed to fetch Animal data: ${response.statusText}`);
                 }
@@ -48,7 +46,7 @@ const EditAnimal = () => {
         };
 
         fetchAnimalData();
-    }, [name]);
+    }, [animalId]);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -64,7 +62,7 @@ const EditAnimal = () => {
             if (!animalData) {
                 throw new Error('Animal data is not available');
             }
-            const response = await fetch(`http://localhost:8080/api/v1/animal/updatebyanimalid/${animalData.id}`, {
+            const response = await fetch(`http://localhost:8080/api/v1/animal/updatebyanimalid/${animalData.animalId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -76,7 +74,7 @@ const EditAnimal = () => {
             }
             setSuccessMessage('Animal data updated successfully');
             setShowSuccessDialog(true);
-            navigate(`/animalSpecific/${editedAnimalData.name}`);
+            // navigate(`/animalSpecific/${editedAnimalData.animalId}`);
         } catch (error) {
             console.error('Error updating Animal data:', error);
             setErrorMessage('Failed to update Animal data');
@@ -87,7 +85,7 @@ const EditAnimal = () => {
     const onHideDialog = () => {
         setShowSuccessDialog(false);
         setShowErrorDialog(false);
-        // navigate(-1);
+        navigate(-1);
     };
 
     return (
@@ -99,20 +97,11 @@ const EditAnimal = () => {
                     ) : (
                         <form onSubmit={handleSubmit}>
                             <div className="input-group">
-                                <label htmlFor="id">ID:</label>
+                                <label htmlFor="name">Name:</label>
                                 <InputText
-                                    id="id"
-                                    name="id"
-                                    value={editedAnimalData.id}
-                                    onChange={handleInputChange}
-                                />
-                            </div>
-                            <div className="input-group">
-                                <label htmlFor="animalSpecificId">Animal Species ID:</label>
-                                <InputText
-                                    id="animalSpecificId"
-                                    name="animalSpecificId"
-                                    value={editedAnimalData.animalSpeciesId}
+                                    id="name"
+                                    name="name"
+                                    value={editedAnimalData.name}
                                     onChange={handleInputChange}
                                 />
                             </div>
@@ -122,15 +111,6 @@ const EditAnimal = () => {
                                     id="animalSpeciesName"
                                     name="animalSpeciesName"
                                     value={editedAnimalData.animalSpeciesName}
-                                    onChange={handleInputChange}
-                                />
-                            </div>
-                            <div className="input-group">
-                                <label htmlFor="name">Name:</label>
-                                <InputText
-                                    id="name"
-                                    name="name"
-                                    value={editedAnimalData.name}
                                     onChange={handleInputChange}
                                 />
                             </div>
@@ -179,4 +159,4 @@ const EditAnimal = () => {
     );
 };
 
-export default EditAnimal;
+export default EditAnimal

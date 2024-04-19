@@ -40,21 +40,22 @@ const AllAnimalSpecies = () => {
   };
 
   const handleDownload = () => {
-    const csvContent = 'ID,Animal Species ID,Animal Species Name\n';
-    animalsSpecies.forEach(row => {
-      csvContent += `${row.id},${row.animalSpeciesId},${row.animalSpeciesName}\n`;
-    });
-
-    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-    const link = document.createElement('a');
-    const url = URL.createObjectURL(blob);
-    link.setAttribute('href', url);
-    link.setAttribute('download', 'animalSpecies.csv');
-    link.style.visibility = 'hidden';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
+    fetch('http://localhost:8080/api/v1/animalspecies/pdf', {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/pdf',
+            },
+        }).then((response) => response.blob())
+            .then((blob) => {
+                const fileURL = window.URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = fileURL;
+                link.setAttribute('download', 'AllanimalSpecies.pdf');
+                document.body.appendChild(link);
+                link.click();
+                link.parentNode.removeChild(link);
+            });
+    };
 
   const downloadButton = (
     <Button
