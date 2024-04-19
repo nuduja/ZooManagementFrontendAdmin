@@ -33,6 +33,10 @@ import EditAnimal from './components/editAnimal.jsx';
 import AllEmployees from './components/AllEmployees.jsx';
 import EmployeeSpecific from './components/employeeSpecific.jsx';
 import EditEmployee from './components/editEmployee.jsx';
+import Dashboard from "./components/dashboard/Dashboard.jsx";
+import QRUploader from "./components/QRUploader.jsx";
+import QRCodeGenerator from "./components/QRCodeGenerator.jsx";
+import QRScanner from "./components/QRScanner.jsx";
 
 
 const queryClient = new QueryClient()
@@ -42,12 +46,28 @@ function App() {
             <Router>
                 <Navbar/>
                 <Routes>
-                    <Route path="/" element={<Home/>}/>
+                    {/*<Route path="/" element={<Home/>}/>*/}
+                    <Route path="/" element={<Dashboard/>}/>
                     <Route path="/login" element={<Login/>}/>
                     <Route path="/signup" element={<Signup/>}/>
                     <Route path="/profile" element={
                         <ProtectedRoute>
                             <Profile/>
+                        </ProtectedRoute>
+                    }/>
+                    <Route path="/qruploader" element={
+                        <ProtectedRoute>
+                            <QRUploader/>
+                        </ProtectedRoute>
+                    }/>
+                    <Route path="/qrscanner" element={
+                        <ProtectedRoute>
+                            <QRScanner/>
+                        </ProtectedRoute>
+                    }/>
+                    <Route path="/qrgenerator" element={
+                        <ProtectedRoute>
+                            <QRCodeGenerator/>
                         </ProtectedRoute>
                     }/>
                     <Route path="/admin" element={
