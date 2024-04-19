@@ -8,10 +8,12 @@ export default function TemplateDemo() {
   const items = [
     { label: 'Home', icon: 'pi pi-home', url: '/' },
     { label: 'Book Ticket', icon: 'pi pi-ticket', url: '/createTicket' },
+    { label: 'Book Event', icon: 'pi pi-star-fill', url: '/createEvent' },
     { label: 'Profile', icon: 'pi pi-user', url: '/profile' },
     { label: 'All Customers', icon: 'pi pi-users', url: '/customers' },
     { label: 'All Admins', icon: 'pi pi-user-plus', url: '/admin' },
     { label: 'AllTickets', icon: 'pi pi-ticket', url: '/tickets' },
+    { label: 'AllEvents', icon: 'pi pi-ticket', url: '/event' },
     { label: 'Animals', icon: 'pi pi-paw', url: '/animals' },
     { label: 'AnimalSpecies', icon: 'pi pi-image', url: '/AllAnimalSpecies' },
     { label: 'Create Animal Species', icon: 'pi pi-paw', url: '/createanimalspecies' },
