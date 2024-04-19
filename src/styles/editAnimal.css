@@ -1,0 +1,49 @@
+/* editAnimal.css */
+
+.p-grid {
+    margin-top: 50px;
+    height: 100vh; /* Set the height of the grid to full viewport height */
+    display: flex;
+    justify-content: center; /* Center the items horizontally */
+    align-items: center; /* Center the items vertically */
+}
+
+.p-col-10 {
+    width: 80%;
+}
+
+.p-card {
+    padding: 20px;
+    width: 100%; /* Set the width to 100% to fill the container */
+    max-width: 300px; /* Optionally set a maximum width */
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.p-button-success {
+    margin-top: 20px;
+}
+
+.custom-dialog {
+    width: 300px;
+}
+
+.custom-dialog .p-dialog-content {
+    padding: 20px;
+}
+
+.custom-dialog .p-dialog-footer {
+    justify-content: center;
+}
+
+.custom-dialog .p-button {
+    margin: 0 10px;
+}

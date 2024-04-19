@@ -31,7 +31,7 @@ const EditProfile = () => {
         const fetchData = async () => {
             const loggedUsername = sessionStorage.getItem('loggedUserDetails');
             try {
-                const response = await fetch(`http://localhost:8080/admin/${loggedUsername}`);
+                const response = await fetch(`http://localhost:8080/api/v1/admin/${loggedUsername}`);
                 const data = await response.json();
                 setUserDetails(data);
             } catch (err) {

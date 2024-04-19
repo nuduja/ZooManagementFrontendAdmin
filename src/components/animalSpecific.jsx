@@ -2,11 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Card } from 'primereact/card';
 import { Button } from 'primereact/button';
+import { Message } from 'primereact/message';
+// import '../styles/animalSpecific.css';
 
 const AnimalSpecific = () => {
     const navigate = useNavigate();
     const { name } = useParams();
     const [animalData, setAnimalData] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [errorMessage, setErrorMessage] = useState('');
 
     useEffect(() => {
         const fetchAnimalData = async () => {
@@ -19,6 +23,9 @@ const AnimalSpecific = () => {
                 setAnimalData(data);
             } catch (error) {
                 console.error('Error fetching Animal data:', error);
+                setErrorMessage('Failed to fetch Animal data.');
+            } finally {
+                setLoading(false);
             }
         };
 
@@ -36,10 +43,10 @@ const AnimalSpecific = () => {
             navigate('/');
         } catch (error) {
             console.error('Error deleting Animal:', error);
+            setErrorMessage('Failed to delete Animal. Please try again.');
         }
     };
 
-    // Function to handle edit button click
     const handleEdit = () => {
         navigate(`/animalEdit/${name}`);
     };
@@ -48,25 +55,24 @@ const AnimalSpecific = () => {
         <div className="p-grid p-justify-center">
             <div className="p-col-10">
                 <Card title="Animal Specific Data" className="p-card p-mt-4">
-                    {animalData ? (
+                    {loading && <p>Loading animal data...</p>}
+                    {errorMessage && <Message severity="error" text={errorMessage} />}
+                    {animalData && (
                         <div>
                             <div>
                                 <p><strong>ID:</strong> {animalData.id}</p>
-                                <p><strong>Animal Specific ID:</strong> {animalData.animalSpecificId}</p>
+                                <p><strong>Animal Species ID:</strong> {animalData.animalSpeciesId}</p>
                                 <p><strong>Animal Species Name:</strong> {animalData.animalSpeciesName}</p>
                                 <p><strong>Name:</strong> {animalData.name}</p>
                                 <p><strong>Enclosure ID:</strong> {animalData.enclosureId}</p>
-                                <p><strong>Age:</strong> {animalData.age}</p>
+                                <p><strong>Birth Date:</strong> {animalData.birthDate}</p>
+                                <p><strong>Birth Country:</strong> {animalData.birthCountry}</p>
                             </div>
                             <div className="p-d-flex p-jc-end">
-                                {/* Edit button */}
                                 <Button label="Edit" className="p-button-primary p-mr-2" onClick={handleEdit} />
-                                {/* Delete button */}
                                 <Button label="Delete" className="p-button-danger" onClick={handleDelete} />
                             </div>
                         </div>
-                    ) : (
-                        <p>Loading animal data...</p>
                     )}
                 </Card>
             </div>

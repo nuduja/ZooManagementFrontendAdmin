@@ -25,6 +25,11 @@ import AnimalSpeciesSpecific from "./components/animalSpeciesSpecific.jsx";
 import CreateTicket from "./components/createTickets.jsx";
 // import CreateEvent from "./components/createEvent.jsx";
 import Footer from './components/footer.jsx';
+import EditTicket from './components/editTicket.jsx';
+import EditAdmin from './components/editAdmin.jsx';
+import EditCustomer from './components/editCustomer.jsx';
+import EditAnimalSpeciesSpecific from './components/editAnimalSpeciesSpecific.jsx';
+import EditAnimal from './components/editAnimal.jsx';
 
 const queryClient = new QueryClient()
 function App() {
@@ -101,9 +106,19 @@ function App() {
                             <AdminSpecific/>
                         </ProtectedRoute>
                     }/>
+                    <Route path="/admin/edit/:username" element={
+                        <ProtectedRoute>
+                            <EditAdmin/>
+                        </ProtectedRoute>
+                    }/>
                     <Route path="/animalSpecific/:name" element={
                         <ProtectedRoute>
                             <AnimalSpecific/>
+                        </ProtectedRoute>
+                    }/>
+                    <Route path="/animalEdit/:animalSpeciesId" element={
+                        <ProtectedRoute>
+                            <EditAnimal/>
                         </ProtectedRoute>
                     }/>
                     <Route path="/animalSpeciesSpecific/:animalSpeciesId" element={
@@ -111,9 +126,19 @@ function App() {
                             <AnimalSpeciesSpecific/>
                         </ProtectedRoute>
                     }/>
+                    <Route path="/animalspecies/edit/:animalSpeciesId" element={
+                        <ProtectedRoute>
+                            <EditAnimalSpeciesSpecific/>
+                        </ProtectedRoute>
+                    }/>
                     <Route path="/ticketSpecific/:ticketId" element={
                         <ProtectedRoute>
                             <TicketSpecific/>
+                        </ProtectedRoute>
+                    }/>
+                    <Route path="/ticket/edit/:ticketId" element={
+                        <ProtectedRoute>
+                            <EditTicket/>
                         </ProtectedRoute>
                     }/>
                     {/* <Route path="/eventSpecific/:eventID" element={
@@ -124,6 +149,11 @@ function App() {
                     <Route path="/customerSpecific/:username" element={
                         <ProtectedRoute>
                             <CustomerSpecific/>
+                        </ProtectedRoute>
+                    }/>
+                    <Route path="/customer/edit/:username" element={
+                        <ProtectedRoute>
+                            <EditCustomer/>
                         </ProtectedRoute>
                     }/>
                     <Route path="/AllAnimalSpecies" element={

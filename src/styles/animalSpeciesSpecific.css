@@ -1,0 +1,26 @@
+.animal-species-card {
+    width: 100%;
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.details-container {
+    margin-bottom: 20px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.edit-button {
+    background-color: #007ad9;
+    color: white;
+}
+
+.delete-button {
+    background-color: #ff4b5c;
+    color: white;
+}

@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { InputText } from 'primereact/inputtext';
-import { Paginator } from 'primereact/paginator';
+import { Button } from 'primereact/button';
+import { classNames } from 'primereact/utils';
 
 const AllAnimals = () => {
   const [animals, setAnimals] = useState([]);
@@ -12,7 +13,7 @@ const AllAnimals = () => {
   const [name, setName] = useState('');
   const [loading, setLoading] = useState(false);
   const [first, setFirst] = useState(0);
-  const [rows, setRows] = useState(5); // Change pagination step to 5
+  const [rows, setRows] = useState(5);
 
   useEffect(() => {
     fetchData();
@@ -41,6 +42,23 @@ const AllAnimals = () => {
     }
   };
 
+  const handleDownload = () => {
+    const csvContent = 'ID,Animal ID,Species ID,Species Name,Name,Enclosure ID\n';
+    animals.forEach(row => {
+      csvContent += `${row.id},${row.animalId},${row.animalSpeciesId},${row.animalSpeciesName},${row.name},${row.enclosureId}\n`;
+    });
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    link.setAttribute('href', url);
+    link.setAttribute('download', 'animals.csv');
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   const columns = useMemo(
     () => [
       { field: 'id', header: 'ID' },
@@ -51,6 +69,15 @@ const AllAnimals = () => {
       { field: 'enclosureId', header: 'Enclosure ID' },
     ],
     []
+  );
+
+  const downloadButton = (
+    <Button
+      type="button"
+      icon="pi pi-download"
+      onClick={handleDownload}
+      className="p-button-text"
+    />
   );
 
   return (
@@ -82,21 +109,27 @@ const AllAnimals = () => {
       </div>
 
       {loading && <div>Loading...</div>}
-      <DataTable value={animals} loading={loading} className="table" paginator rows={rows} first={first} onPage={(e) => setFirst(e.first)} rowsPerPageOptions={[5, 10]} totalRecords={1000}>
-        {columns.map(col => (
-          <Column key={col.field} field={col.field} header={col.header} sortable />
-        ))}
-        <Column
-          header="Actions"
-          body={(rowData) => (
-            <React.Fragment>
-              <Link to={`../animalSpecific/${rowData.name}`} className="p-button p-button-text">
-                View Details
-              </Link>
-            </React.Fragment>
-          )}
-        />
-      </DataTable>
+      <div className="p-d-flex p-jc-end p-mb-2">
+        {downloadButton}
+        <DataTable value={animals} loading={loading} className="table" paginator rows={rows} first={first} onPage={(e) => setFirst(e.first)} rowsPerPageOptions={[5, 10]} totalRecords={1000}>
+          {columns.map(col => (
+            <Column key={col.field} field={col.field} header={col.header} sortable />
+          ))}
+          <Column
+            header="Actions"
+            body={(rowData) => (
+              <React.Fragment>
+                <Link to={`../animalSpecific/${rowData.name}`} className="p-button p-button-text">
+                  View Details
+                </Link>
+                <Link to={`../medicalRecords/${rowData.id}`} className="p-button p-button-text p-ml-2">
+                  Medical Records
+                </Link>
+              </React.Fragment>
+            )}
+          />
+        </DataTable>
+      </div>
     </div>
   );
 };

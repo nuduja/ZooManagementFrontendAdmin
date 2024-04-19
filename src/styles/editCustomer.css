@@ -1,0 +1,22 @@
+.custom-dialog {
+    width: 400px;
+    text-align: center;
+    margin-top: 15vh;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.custom-dialog .p-dialog-content {
+    padding: 1.5rem;
+}
+
+.custom-dialog .p-dialog-footer {
+    justify-content: center;
+    border-top: none;
+}
+
+.error-message {
+    color: red;
+    margin-top: 1rem;
+    text-align: center;
+}

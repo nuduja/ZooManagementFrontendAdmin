@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { Message } from 'primereact/message';
+import { Dialog } from 'primereact/dialog';
 import '../styles/createCustomer.css'; // Import CSS file for custom styling
 
 function CreateCustomer() {
@@ -11,6 +12,8 @@ function CreateCustomer() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [showSuccessDialog, setShowSuccessDialog] = useState(false);
+  const [showErrorDialog, setShowErrorDialog] = useState(false);
 
   const validateEmail = (email) => {
     const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -28,16 +31,19 @@ function CreateCustomer() {
 
     if (!name || !username || !phone || !email || !password) {
       setErrorMessage('Please fill in all fields');
+      setShowErrorDialog(true);
       return;
     }
 
     if (!validateEmail(email)) {
       setErrorMessage('Invalid email format');
+      setShowErrorDialog(true);
       return;
     }
 
     if (!validatePhone(phone)) {
       setErrorMessage('Invalid phone number');
+      setShowErrorDialog(true);
       return;
     }
 
@@ -59,7 +65,7 @@ function CreateCustomer() {
       if (!response.ok) {
         throw new Error('Failed to create Customer');
       }
-      alert('Customer created successfully');
+      setShowSuccessDialog(true);
       setName('');
       setUsername('');
       setPhone('');
@@ -68,12 +74,21 @@ function CreateCustomer() {
     } catch (error) {
       console.error('Error creating Customer:', error);
       setErrorMessage('Failed to create Customer. Please try again.');
+      setShowErrorDialog(true);
     }
   };
 
   const handleInput = (setter) => (e) => {
     setter(e.target.value);
+    if (errorMessage) {
+      setErrorMessage('');
+    }
   }
+
+  const onHideDialog = () => {
+    setShowSuccessDialog(false);
+    setShowErrorDialog(false);
+  };
 
   return (
     <div className="create-customer-container">
@@ -128,6 +143,26 @@ function CreateCustomer() {
         </div>
         <Button label="Create Customer" type="submit" className="p-button p-component p-filled p-button-rounded p-button-success" />
       </form>
+
+      <Dialog
+        visible={showSuccessDialog}
+        onHide={onHideDialog}
+        header="Success"
+        className="custom-dialog"
+        footer={<Button label="OK" onClick={onHideDialog} />}
+      >
+        <p>Customer created successfully</p>
+      </Dialog>
+
+      <Dialog
+        visible={showErrorDialog}
+        onHide={onHideDialog}
+        header="Error"
+        className="custom-dialog"
+        footer={<Button label="OK" onClick={onHideDialog} />}
+      >
+        <p>{errorMessage}</p>
+      </Dialog>
     </div>
   );
 }

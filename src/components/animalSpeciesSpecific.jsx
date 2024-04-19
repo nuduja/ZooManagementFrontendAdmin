@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Card } from 'primereact/card';
 import { Button } from 'primereact/button';
+import '../styles/animalSpeciesSpecific.css'; // Importing the CSS file
 
 const AnimalSpeciesSpecific = () => {
     const navigate = useNavigate();
@@ -39,7 +40,6 @@ const AnimalSpeciesSpecific = () => {
         }
     };
 
-    // Function to handle edit button click
     const handleEdit = () => {
         navigate(`/animalSpecies/edit/${animalSpeciesId}`);
     };
@@ -48,8 +48,8 @@ const AnimalSpeciesSpecific = () => {
         <div>
             <h1>Animal Species Specific data</h1>
             {animalSpeciesData ? (
-                <Card title="Animal Species Specific Details" className="p-card">
-                    <div>
+                <Card title="Animal Species Specific Details" className="animal-species-card">
+                    <div className="details-container">
                         <p>ID: {animalSpeciesData.id}</p>
                         <p>Animal Species ID: {animalSpeciesData.animalSpeciesId}</p>
                         <p>Name: {animalSpeciesData.animalSpeciesName}</p>
@@ -62,11 +62,9 @@ const AnimalSpeciesSpecific = () => {
                         <p>Lifespan: {animalSpeciesData.characteristics_lifespan}</p>
                         <p>Weight: {animalSpeciesData.characteristics_weight}</p>
                     </div>
-                    <div>
-                        {/* Edit button */}
-                        <Button label="Edit" className="p-button-raised p-button-primary p-mr-2" onClick={handleEdit} />
-                        {/* Delete button */}
-                        <Button label="Delete" className="p-button-raised p-button-danger" onClick={handleDelete} />
+                    <div className="button-container">
+                        <Button label="Edit" className="edit-button" onClick={handleEdit} />
+                        <Button label="Delete" className="delete-button" onClick={handleDelete} />
                     </div>
                 </Card>
             ) : (

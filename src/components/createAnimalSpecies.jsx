@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { Message } from 'primereact/message';
+import { Dialog } from 'primereact/dialog';
 import '../styles/createAnimalSpecies.css'; // Import CSS file for custom styling
 
 function CreateAnimalSpecies() {
@@ -15,9 +16,31 @@ function CreateAnimalSpecies() {
   const [characteristics_lifespan, setCharacteristics_lifespan] = useState('');
   const [characteristics_weight, setCharacteristics_weight] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+  const [showSuccessDialog, setShowSuccessDialog] = useState(false);
+  const [showErrorDialog, setShowErrorDialog] = useState(false);
+
+  const isFormValid = () => {
+    return (
+      animalSpeciesName &&
+      taxonomy_kingdom &&
+      taxonomy_scientific_name &&
+      characteristics_group_behavior &&
+      characteristics_diet &&
+      characteristics_skin_type &&
+      characteristics_top_speed &&
+      characteristics_lifespan &&
+      characteristics_weight
+    );
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!isFormValid()) {
+      setErrorMessage('Please fill in all fields.');
+      setShowErrorDialog(true);
+      return;
+    }
     try {
       const response = await fetch('http://localhost:8080/api/v1/animalspecies/createAnimalSpecies', {
         method: 'POST',
@@ -25,21 +48,22 @@ function CreateAnimalSpecies() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          animalSpeciesName: animalSpeciesName,
-          taxonomy_kingdom: taxonomy_kingdom,
-          taxonomy_scientific_name: taxonomy_scientific_name,
-          characteristics_group_behavior: characteristics_group_behavior,
-          characteristics_diet: characteristics_diet,
-          characteristics_skin_type: characteristics_skin_type,
-          characteristics_top_speed: characteristics_top_speed,
-          characteristics_lifespan: characteristics_lifespan,
-          characteristics_weight: characteristics_weight,
+          animalSpeciesName,
+          taxonomy_kingdom,
+          taxonomy_scientific_name,
+          characteristics_group_behavior,
+          characteristics_diet,
+          characteristics_skin_type,
+          characteristics_top_speed,
+          characteristics_lifespan,
+          characteristics_weight,
         }),
       });
       if (!response.ok) {
-        throw new Error('Failed to create ticket');
+        throw new Error('Failed to create Animal Species');
       }
-      alert('Animal Species created successfully');
+      setSuccessMessage('Animal Species created successfully');
+      setShowSuccessDialog(true);
       setAnimalSpeciesName('');
       setTaxonomy_kingdom('');
       setTaxonomy_scientific_name('');
@@ -52,12 +76,21 @@ function CreateAnimalSpecies() {
     } catch (error) {
       console.error('Error creating Animal Species:', error);
       setErrorMessage('Failed to create Animal Species. Please try again.');
+      setShowErrorDialog(true);
     }
   };
 
   const handleInput = (setter) => (e) => {
     setter(e.target.value);
-  }
+    if (errorMessage) {
+      setErrorMessage('');
+    }
+  };
+
+  const onHideDialog = () => {
+    setShowSuccessDialog(false);
+    setShowErrorDialog(false);
+  };
 
   return (
     <div>
@@ -66,6 +99,7 @@ function CreateAnimalSpecies() {
         <div className="create-animalSpec-container">
           <h2>Enter Animal Species Details</h2>
           {errorMessage && <Message severity="error" text={errorMessage} />}
+          {successMessage && <Message severity="success" text={successMessage} />}
           <form onSubmit={handleSubmit}>
             <div className="input-container">
               <label>animalSpeciesName:</label>
@@ -138,9 +172,27 @@ function CreateAnimalSpecies() {
                 onChange={handleInput(setCharacteristics_weight)}
                 className="zoo-input"
               />
-            </div>            
-            <Button label="Create Animal Species" type="submit" className="zoo-button" />
+            </div>
+            <Button label="Create Animal Species" type="submit" className="zoo-button" enable={!isFormValid()} />
           </form>
+          <Dialog
+            visible={showSuccessDialog}
+            onHide={onHideDialog}
+            header="Success"
+            className="custom-dialog"
+            footer={<Button label="OK" onClick={onHideDialog} />}
+          >
+            <p>{successMessage}</p>
+          </Dialog>
+          <Dialog
+            visible={showErrorDialog}
+            onHide={onHideDialog}
+            header="Error"
+            className="custom-dialog"
+            footer={<Button label="OK" onClick={onHideDialog} />}
+          >
+            <p>{errorMessage}</p>
+          </Dialog>
         </div>
       </div>
     </div>

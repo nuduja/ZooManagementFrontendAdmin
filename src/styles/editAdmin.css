@@ -1,0 +1,26 @@
+/* editAdmin.css */
+
+.edit-profile-container {
+    width: 400px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+}
+
+.edit-profile-container div {
+    margin-top: 20px;
+}
+
+.edit-profile-container label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.edit-profile-container .p-button-success {
+    margin-top: 20px;
+    width: 100%;
+}

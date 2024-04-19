@@ -4,6 +4,7 @@ import { InputText } from 'primereact/inputtext';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { ProgressSpinner } from 'primereact/progressspinner';
+import { Button } from 'primereact/button';
 
 const AllCustomers = () => {
     const [customers, setCustomers] = useState([]);
@@ -11,21 +12,21 @@ const AllCustomers = () => {
     const [name, setName] = useState('');
     const [username, setUsername] = useState('');
     const [loading, setLoading] = useState(false);
+    const [first, setFirst] = useState(0);
+    const [rows, setRows] = useState(5);
 
     useEffect(() => {
-        const delayDebounce = setTimeout(() => {
-            fetchData();
-        }, 500);
-
-        return () => clearTimeout(delayDebounce);
-    }, [userId, name, username]);
+        fetchData();
+    }, [userId, name, username, first, rows]);
 
     const fetchData = async () => {
         setLoading(true);
         const queryParams = new URLSearchParams({
             userId: userId,
             name: name,
-            username: username
+            username: username,
+            first: first,
+            rows: rows
         });
         try {
             const response = await fetch(`http://localhost:8080/api/v1/user/searchUser?${queryParams}`);
@@ -41,6 +42,32 @@ const AllCustomers = () => {
         }
     };
 
+    const handleDownload = () => {
+        const csvContent = 'User ID,Name,Username,Phone,Email\n';
+        customers.forEach(row => {
+            csvContent += `${row.userId},${row.name},${row.username},${row.phone},${row.email}\n`;
+        });
+
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement('a');
+        const url = URL.createObjectURL(blob);
+        link.setAttribute('href', url);
+        link.setAttribute('download', 'customers.csv');
+        link.style.visibility = 'hidden';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
+
+    const downloadButton = (
+        <Button
+            type="button"
+            icon="pi pi-download"
+            onClick={handleDownload}
+            className="p-button-text"
+        />
+    );
+
     const columns = useMemo(
         () => [
             { field: 'userId', header: 'User ID' },
@@ -48,7 +75,6 @@ const AllCustomers = () => {
             { field: 'username', header: 'Username' },
             { field: 'phone', header: 'Phone' },
             { field: 'email', header: 'Email' },
-            
         ],
         []
     );
@@ -84,7 +110,17 @@ const AllCustomers = () => {
                     </div>
                     <div className="p-col-12">
                         {loading && <ProgressSpinner />}
-                        <DataTable value={customers} loading={loading} emptyMessage="No data found">
+                        <DataTable 
+                            value={customers} 
+                            loading={loading} 
+                            emptyMessage="No data found" 
+                            paginator 
+                            rows={rows} 
+                            first={first} 
+                            onPage={(e) => setFirst(e.first)} 
+                            rowsPerPageOptions={[5, 10]} 
+                            totalRecords={1000}
+                        >
                             {columns.map((col) => (
                                 <Column key={col.field} field={col.field} header={col.header} />
                             ))}
@@ -97,6 +133,9 @@ const AllCustomers = () => {
                                 )}
                             />
                         </DataTable>
+                    </div>
+                    <div className="p-col-12 p-d-flex p-jc-end p-mb-2">
+                        {downloadButton}
                     </div>
                 </div>
             </div>

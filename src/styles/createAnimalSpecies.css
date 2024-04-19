@@ -6,11 +6,10 @@
   align-items: center;
   height: 100vh;
   margin-top: 250px;
+  margin-bottom: 200px;
 }
 
-.ticket-section-background {
-  /* Add background styles here */
-}
+
 
 .create-animalSpec-container {
   width: 400px;

@@ -4,7 +4,7 @@ import { Column } from 'primereact/column';
 import { InputText } from 'primereact/inputtext';
 import { Link } from 'react-router-dom';
 import { ProgressSpinner } from 'primereact/progressspinner';
-import { Paginator } from 'primereact/paginator';
+import { Button } from 'primereact/button';
 
 const AllAdmins = () => {
     const [admins, setAdmins] = useState([]);
@@ -41,6 +41,32 @@ const AllAdmins = () => {
             setLoading(false);
         }
     };
+
+    const handleDownload = () => {
+        const csvContent = 'ID,Name,Username,Admin Id\n';
+        admins.forEach(row => {
+            csvContent += `${row.id},${row.name},${row.username},${row.adminId}\n`;
+        });
+
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement('a');
+        const url = URL.createObjectURL(blob);
+        link.setAttribute('href', url);
+        link.setAttribute('download', 'admins.csv');
+        link.style.visibility = 'hidden';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
+
+    const downloadButton = (
+        <Button
+            type="button"
+            icon="pi pi-download"
+            onClick={handleDownload}
+            className="p-button-text"
+        />
+    );
 
     const columns = useMemo(
         () => [
@@ -83,7 +109,18 @@ const AllAdmins = () => {
                     </div>
                     <div className="p-col-12">
                         {loading && <ProgressSpinner />}
-                        <DataTable value={admins} loading={loading} emptyMessage="No data found" paginator rows={rows} first={first} onPage={(e) => setFirst(e.first)} rowsPerPageOptions={[5, 10]} totalRecords={1000}>
+                        <DataTable 
+                            value={admins} 
+                            loading={loading} 
+                            emptyMessage="No data found" 
+                            paginator 
+                            rows={rows} 
+                            first={first} 
+                            onPage={(e) => setFirst(e.first)} 
+                            rowsPerPageOptions={[5, 10]} 
+                            totalRecords={1000}
+                            className="custom-table"
+                        >
                             {columns.map((col) => (
                                 <Column key={col.field} field={col.field} header={col.header} sortable={col.sortable} />
                             ))}
@@ -96,6 +133,9 @@ const AllAdmins = () => {
                                 )}
                             />
                         </DataTable>
+                    </div>
+                    <div className="p-col-12 p-d-flex p-jc-start p-mt-2">
+                        {downloadButton}
                     </div>
                 </div>
             </div>

@@ -1,8 +1,8 @@
-// Import necessary dependencies
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Card } from 'primereact/card';
 import { Button } from 'primereact/button';
+import '../styles/adminSpecific.css';
 
 const AdminSpecific = () => {
     const navigate = useNavigate();
@@ -40,9 +40,12 @@ const AdminSpecific = () => {
         }
     };
 
-    // Function to navigate to the edit page
     const handleEdit = () => {
-        navigate(`/admin/edit/${username}`);
+        navigate(`/admin/edit/${adminData.username}`);
+    };
+
+    const handleResetPassword = () => {
+        navigate(`/admin/reset-password/${username}`);
     };
 
     return (
@@ -61,6 +64,8 @@ const AdminSpecific = () => {
                     <div>
                         {/* Edit button */}
                         <Button label="Edit" className="p-button-raised p-button-primary p-mr-2" onClick={handleEdit} />
+                        {/* Reset Password button */}
+                        <Button label="Reset Password" className="p-button-raised p-button-info p-mr-2" onClick={handleResetPassword} />
                         {/* Delete button */}
                         <Button label="Delete" className="p-button-raised p-button-danger p-mr-2" onClick={handleDelete} />
                     </div>

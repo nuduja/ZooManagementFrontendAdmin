@@ -2,16 +2,18 @@ import React, { useState, useEffect } from 'react';
 import { Button } from 'primereact/button';
 import { Message } from 'primereact/message';
 import { Dropdown } from 'primereact/dropdown';
-import { Calendar } from 'primereact/calendar'; // Import Calendar from PrimeReact
-import '../styles/createticket.css'; // Import your CSS file
+import { Calendar } from 'primereact/calendar';
+import { Dialog } from 'primereact/dialog'; // Import Dialog from PrimeReact
+import '../styles/createticket.css';
 
 function CreateTicket() {
-  // const baseUrl = import.meta.env.VITE_API_BASE_URL;
   const [ticketType, setTicketType] = useState('');
   const [price, setPrice] = useState('');
   const [username, setUsername] = useState('');
   const [ticketDate, setTicketDate] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [showSuccessDialog, setShowSuccessDialog] = useState(false);
+  const [showErrorDialog, setShowErrorDialog] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -35,10 +37,6 @@ function CreateTicket() {
     setPrice(selectedTicket.price);
   };
 
-  const formatDateForInput = (dateString) => {
-    return dateString; // No formatting needed for input field
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -57,9 +55,7 @@ function CreateTicket() {
       if (!response.ok) {
         throw new Error('Failed to create ticket');
       }
-      // Optionally, you can handle success response here
-      alert('Ticket created successfully');
-      // Clear form fields after successful creation
+      setShowSuccessDialog(true);
       setTicketType('');
       setPrice('');
       setUsername('');
@@ -67,20 +63,19 @@ function CreateTicket() {
     } catch (error) {
       console.error('Error creating ticket:', error);
       setErrorMessage('Failed to create ticket. Please try again.');
+      setShowErrorDialog(true);
     }
+  };
+
+  const onHideDialog = () => {
+    setShowSuccessDialog(false);
+    setShowErrorDialog(false);
   };
 
   return (
     <div className="container">
-      {/* <header className="zoo-header">
-        <h1>Welcome to Our Zoo</h1>
-        <p>Discover the wonders of nature and wildlife at our amazing zoo. Come and experience a day filled with fun, education, and adventure!</p>
-        <p>Opening Hours: [9:00 AM - 6:00 PM]</p>
-        <hr />
-      </header> */}
-
       <div className="ticket-section-container2">
-        <div className="ticket-section-background"></div> {/* Background image */}
+        <div className="ticket-section-background"></div>
         <div className="create-ticket-container">
           <h2 className='h2'>Book Online</h2>
           {errorMessage && <Message severity="error" text={errorMessage} />}
@@ -121,7 +116,7 @@ function CreateTicket() {
               <Calendar
                 value={ticketDate}
                 onChange={(e) => setTicketDate(e.value)}
-                dateFormat="yy-mm-dd" // Format for "April 30, 2019"
+                dateFormat="yy-mm-dd"
                 className="zoo-input"
                 required
               />
@@ -131,16 +126,25 @@ function CreateTicket() {
         </div>
       </div>
 
-      {/* <div className="additional-content">
-        <h3>Explore Our Zoo</h3>
-        <p>Take a virtual tour of our zoo and discover our amazing attractions:</p>
-        <ul>
-          <li>Rainforest Pavilion</li>
-          <li>Safari Zone - Meet the Big Cats</li>
-          <li>Aquatic Adventure Aquarium</li>
-          <li>Desert Discovery</li>
-        </ul>
-      </div> */}
+      <Dialog
+        visible={showSuccessDialog}
+        onHide={onHideDialog}
+        header="Success"
+        className="custom-dialog"
+        footer={<Button label="OK" onClick={onHideDialog} />}
+      >
+        <p>Ticket created successfully</p>
+      </Dialog>
+
+      <Dialog
+        visible={showErrorDialog}
+        onHide={onHideDialog}
+        header="Error"
+        className="custom-dialog"
+        footer={<Button label="OK" onClick={onHideDialog} />}
+      >
+        <p>{errorMessage}</p>
+      </Dialog>
     </div>
   );
 }

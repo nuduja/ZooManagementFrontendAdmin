@@ -4,7 +4,7 @@ import { Column } from 'primereact/column';
 import { InputText } from 'primereact/inputtext';
 import { Dropdown } from 'primereact/dropdown';
 import { ProgressSpinner } from 'primereact/progressspinner';
-import { Paginator } from 'primereact/paginator';
+import { Button } from 'primereact/button';
 import { Link } from 'react-router-dom';
 
 const AllTickets = () => {
@@ -42,6 +42,32 @@ const AllTickets = () => {
             setLoading(false);
         }
     };
+
+    const handleDownload = () => {
+        const csvContent = 'Ticket ID,Ticket Type,Price,Status,Ticket Date,Username\n';
+        tickets.forEach(row => {
+            csvContent += `${row.ticketID},${row.ticketType},${row.price},${row.status},${row.ticketDate},${row.username}\n`;
+        });
+
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement('a');
+        const url = URL.createObjectURL(blob);
+        link.setAttribute('href', url);
+        link.setAttribute('download', 'tickets.csv');
+        link.style.visibility = 'hidden';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
+
+    const downloadButton = (
+        <Button
+            type="button"
+            icon="pi pi-download"
+            onClick={handleDownload}
+            className="p-button-text"
+        />
+    );
 
     const columns = useMemo(
         () => [
@@ -98,7 +124,18 @@ const AllTickets = () => {
                     </div>
                     <div className="p-col-12">
                         {loading && <ProgressSpinner />}
-                        <DataTable value={tickets} loading={loading} emptyMessage="No data found" paginator rows={rows} first={first} onPage={(e) => setFirst(e.first)} rowsPerPageOptions={[5, 10]} totalRecords={1000}>
+                        <DataTable 
+                            value={tickets} 
+                            loading={loading} 
+                            emptyMessage="No data found" 
+                            paginator 
+                            rows={rows} 
+                            first={first} 
+                            onPage={(e) => setFirst(e.first)} 
+                            rowsPerPageOptions={[5, 10]} 
+                            totalRecords={1000}
+                            className="custom-table"
+                        >
                             {columns.map((col) => (
                                 <Column key={col.field} field={col.field} header={col.header} sortable={col.sortable} />
                             ))}
@@ -111,6 +148,9 @@ const AllTickets = () => {
                                 )}
                             />
                         </DataTable>
+                    </div>
+                    <div className="p-col-12 p-d-flex p-jc-start p-mt-2">
+                        {downloadButton}
                     </div>
                 </div>
             </div>

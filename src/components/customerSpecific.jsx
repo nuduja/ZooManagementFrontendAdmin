@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Card } from 'primereact/card';
 import { Button } from 'primereact/button';
+import '../styles/customerSpecific.css'; // Importing the CSS file
 
 const CustomerSpecific = () => {
     const navigate = useNavigate();
@@ -39,11 +40,19 @@ const CustomerSpecific = () => {
         }
     };
 
+    const handleEdit = () => {
+        navigate(`/customer/edit/${username}`);
+    };
+
+    const handleResetPassword = () => {
+        navigate(`/customer/reset-password/${username}`);
+    };
+
     return (
         <div>
             <h1>Customer Specific data</h1>
             {customerData ? (
-                <Card title="Customer Details" className="p-col-12 p-md-6 p-lg-4">
+                <Card title="Customer Details" className="customer-card">
                     <div>
                         <p>ID: {customerData.id}</p>
                         <p>Name: {customerData.name}</p>
@@ -52,8 +61,10 @@ const CustomerSpecific = () => {
                         <p>Email: {customerData.email}</p>
                         {/* <p>Role: {customerData.role}</p> */}
                     </div>
-                    <div>
-                        <Button label="Delete" className="p-button-danger" onClick={handleDelete} />
+                    <div className="button-container">
+                        <Button label="Edit" className="edit-button" onClick={handleEdit} />
+                        <Button label="Delete" className="delete-button" onClick={handleDelete} />
+                        <Button label="Reset Password" className="reset-password-button" onClick={handleResetPassword} />
                     </div>
                 </Card>
             ) : (

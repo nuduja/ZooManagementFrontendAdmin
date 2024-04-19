@@ -4,20 +4,22 @@ import { Card } from 'primereact/card';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { Message } from 'primereact/message';
-import '../styles/signup.css'
+import { Dialog } from 'primereact/dialog';
+import '../styles/signup.css';
+
 const SignUpPage = () => {
+  const baseUrl = import.meta.env.VITE_API_BASE_URL;
   const [formData, setFormData] = useState({
     name: '',
     username: '',
     password: '',
   });
-
-  //TODO:Set an initial touch for confirm password
-
-  let navigate = useNavigate(); 
-
   const [submitted, setSubmitted] = useState(false);
   const [confPassword, setconfPassword] = useState(false);
+  const [showSuccessDialog, setShowSuccessDialog] = useState(false);
+  const [showErrorDialog, setShowErrorDialog] = useState(false);
+
+  let navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,26 +29,42 @@ const SignUpPage = () => {
     const password = formData.password;
     const role = "ADMIN";
 
-    try{
-      if(!confPassword && name && username && password) {
-        console.log('here2')
-        const response = await fetch("http://localhost:8080/api/v1/admin/register", {
+    try {
+      if (!confPassword && name && username && password) {
+        const response = await fetch(`${baseUrl}admin/register`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({name, username, password, role})
+          body: JSON.stringify({ name, username, password, role })
         });
-        setSubmitted(false);
-        navigate('/login');
-      }
-      setSubmitted(true);
 
-    }catch(error){
+        setSubmitted(false);
+        setShowSuccessDialog(true);
+        setTimeout(() => {
+          navigate('/login');
+        }, 2000);
+      } else {
+        setShowErrorDialog(true);
+      }
+    } catch (error) {
       console.error("Signup Error: ", error);
+      setShowErrorDialog(true);
       setSubmitted(true);
     }
   };
+
+  const successFooter = (
+    <div>
+      <Button label="OK" icon="pi pi-check" onClick={() => setShowSuccessDialog(false)} autoFocus />
+    </div>
+  );
+
+  const errorFooter = (
+    <div>
+      <Button label="OK" icon="pi pi-times" onClick={() => setShowErrorDialog(false)} autoFocus />
+    </div>
+  );
 
   return (
     <div className="login-container p-grid p-justify-center">
@@ -54,7 +72,7 @@ const SignUpPage = () => {
         <Card title="Sign-Up" className="login-card p-shadow-3 card">
           <form onSubmit={handleSubmit} className="p-fluid">
             <div className="p-field">
-              <label htmlFor="username">Name</label>
+              <label htmlFor="name">Name</label>
               <InputText
                 id="name"
                 value={formData.name}
@@ -82,28 +100,44 @@ const SignUpPage = () => {
               />
             </div>
             <div className="p-field">
-              <label htmlFor="password">Confirm Password</label>
+              <label htmlFor="confirmPassword">Confirm Password</label>
               <InputText
-                id="password"
+                id="confirmPassword"
                 type="password"
-                onChange={(e) =>  {(e.target.value == formData.password) ? setconfPassword(false) : setconfPassword(true)}}
+                onChange={(e) => {(e.target.value === formData.password) ? setconfPassword(false) : setconfPassword(true)}}
                 className="p-inputtext-lg"
               />
             </div>
             {confPassword && (
-            <Message severity="error" text="Passwords are not same. Please try again." />
-          )}
+              <Message severity="error" text="Passwords do not match. Please try again." />
+            )}
             <div className="p-field">
               <Button
-                label="Login"
+                label="Sign Up"
                 type="submit"
                 className="p-button-rounded p-button-lg p-button-success"
               />
             </div>
           </form>
           {submitted && (
-            <Message severity="error" text="Fill All details. Please try again." />
+            <Message severity="error" text="Fill in all details. Please try again." />
           )}
+          <Dialog
+            visible={showSuccessDialog}
+            onHide={() => setShowSuccessDialog(false)}
+            header="Success"
+            footer={successFooter}
+          >
+            Registration successful!
+          </Dialog>
+          <Dialog
+            visible={showErrorDialog}
+            onHide={() => setShowErrorDialog(false)}
+            header="Error"
+            footer={errorFooter}
+          >
+            Registration unsuccessful. Please check your details.
+          </Dialog>
         </Card>
       </div>
     </div>

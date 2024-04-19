@@ -1,0 +1,22 @@
+/* adminSpecific.css */
+
+.ticket-card {
+    width: 400px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.ticket-card div {
+    margin-top: 20px;
+}
+
+.ticket-card p {
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.ticket-card .p-button-raised {
+    margin-right: 10px;
+}
