@@ -58,7 +58,7 @@ const EditAnimalSpeciesSpecific = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch(`http://localhost:8080/api/v1/animalspecies/updatebyanimalSpeciesId/${animalSpeciesId}`, {
+            const response = await fetch(`http://localhost:8080/api/v1/animalspecies/updatebyanimalspeciesid/${animalSpeciesId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

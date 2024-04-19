@@ -3,19 +3,22 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { Card } from 'primereact/card';
 import { Button } from 'primereact/button';
 import { Message } from 'primereact/message';
-// import '../styles/animalSpecific.css';
+import { Dialog } from 'primereact/dialog';
+import '../styles/animalSpecific.css';
 
 const AnimalSpecific = () => {
     const navigate = useNavigate();
-    const { name } = useParams();
+    const { animalId } = useParams();
     const [animalData, setAnimalData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [errorMessage, setErrorMessage] = useState('');
+    const [showSuccessDialog, setShowSuccessDialog] = useState(false);
+    const [showErrorDialog, setShowErrorDialog] = useState(false);
 
     useEffect(() => {
         const fetchAnimalData = async () => {
             try {
-                const response = await fetch(`http://localhost:8080/api/v1/animal/${name}`);
+                const response = await fetch(`http://localhost:8080/api/v1/animal/${animalId}`);
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
@@ -30,25 +33,35 @@ const AnimalSpecific = () => {
         };
 
         fetchAnimalData();
-    }, [name]);
+    }, [animalId]);
 
     const handleDelete = async () => {
         try {
-            const response = await fetch(`http://localhost:8080/api/v1/animal/${name}`, {
+            const response = await fetch(`http://localhost:8080/api/v1/animal/${animalId}`, {
                 method: 'DELETE',
             });
             if (!response.ok) {
                 throw new Error('Failed to delete Animal');
             }
-            navigate('/');
+            setShowSuccessDialog(true);
         } catch (error) {
             console.error('Error deleting Animal:', error);
             setErrorMessage('Failed to delete Animal. Please try again.');
+            setShowErrorDialog(true);
         }
     };
 
     const handleEdit = () => {
-        navigate(`/animalEdit/${name}`);
+        navigate(`/animalEdit/${animalId}`);
+    };
+
+    const onHideSuccessDialog = () => {
+        setShowSuccessDialog(false);
+        navigate(-1);
+    };
+
+    const onHideErrorDialog = () => {
+        setShowErrorDialog(false);
     };
 
     return (
@@ -72,6 +85,22 @@ const AnimalSpecific = () => {
                                 <Button label="Edit" className="p-button-primary p-mr-2" onClick={handleEdit} />
                                 <Button label="Delete" className="p-button-danger" onClick={handleDelete} />
                             </div>
+                            <Dialog
+                                visible={showSuccessDialog}
+                                onHide={onHideSuccessDialog}
+                                header="Success"
+                                footer={<Button label="OK" onClick={onHideSuccessDialog} />}
+                            >
+                                <p>Animal deleted successfully</p>
+                            </Dialog>
+                            <Dialog
+                                visible={showErrorDialog}
+                                onHide={onHideErrorDialog}
+                                header="Error"
+                                footer={<Button label="OK" onClick={onHideErrorDialog} />}
+                            >
+                                <p>Failed to delete Animal. Please try again.</p>
+                            </Dialog>
                         </div>
                     )}
                 </Card>

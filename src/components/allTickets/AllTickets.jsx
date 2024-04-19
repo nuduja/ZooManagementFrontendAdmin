@@ -42,22 +42,24 @@ const AllTickets = () => {
             setLoading(false);
         }
     };
+    
 
     const handleDownload = () => {
-        const csvContent = 'Ticket ID,Ticket Type,Price,Status,Ticket Date,Username\n';
-        tickets.forEach(row => {
-            csvContent += `${row.ticketID},${row.ticketType},${row.price},${row.status},${row.ticketDate},${row.username}\n`;
-        });
-
-        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-        const link = document.createElement('a');
-        const url = URL.createObjectURL(blob);
-        link.setAttribute('href', url);
-        link.setAttribute('download', 'tickets.csv');
-        link.style.visibility = 'hidden';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+        fetch('http://localhost:8080/api/v1/ticket/pdf', {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/pdf',
+            },
+        }).then((response) => response.blob())
+            .then((blob) => {
+                const fileURL = window.URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = fileURL;
+                link.setAttribute('download', 'tickets.pdf');
+                document.body.appendChild(link);
+                link.click();
+                link.parentNode.removeChild(link);
+            });
     };
 
     const downloadButton = (

@@ -12,6 +12,7 @@ const SignUpPage = () => {
   const [formData, setFormData] = useState({
     name: '',
     username: '',
+
     password: '',
   });
   const [submitted, setSubmitted] = useState(false);

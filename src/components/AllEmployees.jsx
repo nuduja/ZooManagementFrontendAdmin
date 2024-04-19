@@ -61,20 +61,21 @@ const AllEmployees = () => {
     };
 
     const handleDownload = () => {
-        const csvContent = 'Employee ID,Name,NIC,Position,Gender\n';
-        employees.forEach(row => {
-            csvContent += `${row.employeeId},${row.name},${row.nic},${row.position},${row.gender}\n`;
-        });
-
-        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-        const link = document.createElement('a');
-        const url = URL.createObjectURL(blob);
-        link.setAttribute('href', url);
-        link.setAttribute('download', 'employees.csv');
-        link.style.visibility = 'hidden';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+        fetch('http://localhost:8080/api/v1/employee/pdf', {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/pdf',
+            },
+        }).then((response) => response.blob())
+            .then((blob) => {
+                const fileURL = window.URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = fileURL;
+                link.setAttribute('download', 'employees.pdf');
+                document.body.appendChild(link);
+                link.click();
+                link.parentNode.removeChild(link);
+            });
     };
 
     const downloadButton = (

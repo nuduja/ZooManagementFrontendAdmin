@@ -29,7 +29,7 @@ const AnimalSpeciesSpecific = () => {
 
     const handleDelete = async () => {
         try {
-            const response = await fetch(`http://localhost:8080/api/v1/animalspecies/${animalSpeciesName}`, {
+            const response = await fetch(`http://localhost:8080/api/v1/animalspecies/${animalSpeciesId}`, {
                 method: 'DELETE',
             });
             if (!response.ok) {
