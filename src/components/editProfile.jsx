@@ -5,7 +5,6 @@ import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
 import { Message } from 'primereact/message';
 import { useNavigate } from 'react-router-dom';
-import '../styles/editProfile.css'; 
 
 const EditProfile = () => {
     let navigate = useNavigate();
@@ -17,33 +16,55 @@ const EditProfile = () => {
     ];
 
     const [userDetails, setUserDetails] = useState({
+        adminId: '',
         name: '',
         username: '',
-        phone: '',
-        email: '',
-        password: ''
+        role: '',
     });
 
     const [submitted, setSubmitted] = useState(false);
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        const fetchData = async () => {
-            const loggedUsername = sessionStorage.getItem('loggedUserDetails');
+        const fetchData = async (loggedUserId) => {
             try {
-                const response = await fetch(`http://localhost:8080/api/v1/admin/${loggedUsername}`);
+                const response = await fetch(`http://localhost:8080/api/v1/admin/${loggedUserId}`);
                 const data = await response.json();
-                setUserDetails(data);
+                setUserDetails({
+                    adminId: data.adminId || '',
+                    name: data.name || '',
+                    username: data.username || '',
+                    role: data.role || '',
+                });
             } catch (err) {
                 setError(err.message);
             }
         };
-        fetchData();
+
+        const loggedUserId = sessionStorage.getItem('userId');
+        console.log("loggedUserId", loggedUserId)
+        fetchData(loggedUserId);
     }, []);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Implement the logic to submit the form data
+        try {
+            const response = await fetch(`http://localhost:8080/api/v1/admin/updatebyadminid/${userDetails.adminId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(userDetails),
+            });
+            if (!response.ok) {
+                throw new Error('Failed to update Admin data');
+            }
+            setUserDetails(userDetails);
+            setError(null)
+        } catch (error) {
+            console.error('Error updating profile:', error);
+            setError('Failed to update');
+        }
         setSubmitted(true);
     };
 
@@ -73,21 +94,11 @@ const EditProfile = () => {
                             />
                         </div>
                         <div className="p-field">
-                            <label htmlFor="phone">Phone</label>
+                            <label htmlFor="role">Role</label>
                             <InputText
-                                id="phone"
-                                value={userDetails.phone}
-                                onChange={(e) => setUserDetails({ ...userDetails, phone: e.target.value })}
-                                className="p-inputtext-lg"
-                            />
-                        </div>
-                        <div className="p-field">
-                            <label htmlFor="email">E-mail</label>
-                            <InputText
-                                id="email"
-                                type="email"
-                                value={userDetails.email}
-                                onChange={(e) => setUserDetails({ ...userDetails, email: e.target.value })}
+                                id="role"
+                                value={userDetails.role}
+                                onChange={(e) => setUserDetails({ ...userDetails, role: e.target.value })}
                                 className="p-inputtext-lg"
                             />
                         </div>
