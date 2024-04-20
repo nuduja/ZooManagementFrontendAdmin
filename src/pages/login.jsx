@@ -37,7 +37,7 @@ const LoginPage = () => {
 
       if (data) {
 
-        fetchAnimalData(username);
+        fetchAdminData(username);
 
         sessionStorage.setItem("loginStatus", "true");
         sessionStorage.setItem("username", username);
@@ -58,7 +58,7 @@ const LoginPage = () => {
     }
   };
 
-  const fetchAnimalData = async (username) => {
+  const fetchAdminData = async (username) => {
     try {
       const response = await fetch(`http://localhost:8080/api/v1/admin/getAdminByUsername/${username}`);
       if (!response.ok) {
