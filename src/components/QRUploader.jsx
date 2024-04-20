@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import QrCode from 'qrcode-reader';
 import axios from 'axios';
+import { FileUpload } from 'primereact/fileupload';
+import '../styles/QRUploader.css'; // Import the CSS file
 
 const QRUploader = () => {
     const [animal, setAnimal] = useState(null);
     const [error, setError] = useState(null);
 
-    const handleFile = (e) => {
-        const file = e.target.files[0];
+    const handleFileUpload = (event) => {
+        const file = event.files[0];
         const reader = new FileReader();
 
         reader.onload = (event) => {
@@ -33,15 +35,21 @@ const QRUploader = () => {
     };
 
     return (
-        <div>
-            <input type="file" onChange={handleFile} accept="image/*" />
-            {animal && <div>
-                <h3>Animal Details</h3>
+        <div className="qr-uploader-container">
+            <FileUpload mode="basic" accept="image/*" customUpload={true} uploadHandler={handleFileUpload} />
+            {animal && <div className="animal-details">
+                <h3 className="qr-uploader-title">Animal Details</h3>
+                <p>ID: {animal.id}</p>
+                <p>Animal ID: {animal.animalId}</p>
+                <p>Animal Species ID: {animal.animalSpeciesId}</p>
+                <p>Animal Species Name: {animal.animalSpeciesName}</p>
                 <p>Name: {animal.name}</p>
-                <p>Species: {animal.species}</p>
-                {/* Display other animal properties as needed */}
+                <p>Enclosure ID: {animal.enclosureId}</p>
+                <p>Birth Date: {animal.birthDate}</p>
+                <p>Birth Country: {animal.birthCountry}</p>
+                <p>Description: {animal.description}</p>
             </div>}
-            {error && <p>{error}</p>}
+            {error && <p className="error-message">{error}</p>}
         </div>
     );
 };

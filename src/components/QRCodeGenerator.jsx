@@ -1,5 +1,8 @@
 import React, { useState, useRef } from 'react';
+import { InputText } from 'primereact/inputtext';
+import { Button } from 'primereact/button';
 import QRCode from 'qrcode.react';
+import '../styles/QRCodeGenerator.css';
 
 const QRCodeGenerator = () => {
     const [inputId, setInputId] = useState('');
@@ -21,19 +24,19 @@ const QRCodeGenerator = () => {
     };
 
     return (
-        <div>
+        <div className="qrcode-generator">
             <h2>Generate QR Code</h2>
-            <input
-                type="text"
+            <InputText
                 value={inputId}
                 onChange={handleInputChange}
                 placeholder="Enter ID"
+                className="input-field"
             />
-            <button onClick={downloadQRCode} disabled={!inputId}>
+            <Button onClick={downloadQRCode} disabled={!inputId} className="download-button">
                 Download QR Code
-            </button>
+            </Button>
             {inputId && (
-                <div ref={qrRef}>
+                <div ref={qrRef} className="qrcode-container">
                     <QRCode value={inputId} size={256} level={"H"} includeMargin={true} />
                 </div>
             )}

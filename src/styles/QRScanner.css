@@ -1,0 +1,33 @@
+.qr-scanner-container {
+    position: relative;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.qr-video {
+    width: 100%;
+    border: 1px solid #ccc;
+}
+
+.error-message {
+    color: red;
+    margin-top: 10px;
+}
+
+.qr-popup-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border: 2px solid #000;
+    padding: 20px;
+}
+
+.qr-popup {
+    margin-top: 20px;
+}
+
+.qr-popup p {
+    margin-bottom: 10px;
+}
