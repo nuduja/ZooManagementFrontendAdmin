@@ -13,8 +13,8 @@ const LoginPage = () => {
     password: '',
   });
   const [submitted, setSubmitted] = useState(false);
-  const [showSuccessDialog, setShowSuccessDialog] = useState(false); // <-- State for success dialog
-  const [showErrorDialog, setShowErrorDialog] = useState(false); // <-- State for error dialog
+  const [showSuccessDialog, setShowSuccessDialog] = useState(false);
+  const [showErrorDialog, setShowErrorDialog] = useState(false);
 
   let navigate = useNavigate(); 
 
@@ -36,22 +36,38 @@ const LoginPage = () => {
       const data = await response.json();
 
       if (data) {
+
+        fetchAnimalData(username);
+
         sessionStorage.setItem("loginStatus", "true");
         sessionStorage.setItem("username", username);
-        setShowSuccessDialog(true); // <-- Show success dialog
+        setShowSuccessDialog(true);
         setTimeout(() => {
           navigate('/');
         }, 2000);
       } else {
-        setShowErrorDialog(true); // <-- Show error dialog
+        setShowErrorDialog(true);
       }
 
       setSubmitted(false);
 
     } catch (error) {
       console.error("Login Error: ", error);
-      setShowErrorDialog(true); // <-- Show error dialog
+      setShowErrorDialog(true);
       setSubmitted(true);
+    }
+  };
+
+  const fetchAnimalData = async (username) => {
+    try {
+      const response = await fetch(`http://localhost:8080/api/v1/admin/getAdminByUsername/${username}`);
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const data = await response.json();
+      sessionStorage.setItem("userId", data.adminId);
+    } catch (error) {
+      console.error('Error fetching Admin data:', error);
     }
   };
 
@@ -102,7 +118,6 @@ const LoginPage = () => {
           {submitted && (
             <Message severity="error" text="Invalid username or password. Please try again." />
           )}
-          {/* Success Dialog */}
           <Dialog
             visible={showSuccessDialog}
             onHide={() => setShowSuccessDialog(false)}
@@ -111,7 +126,6 @@ const LoginPage = () => {
           >
             Login successful!
           </Dialog>
-          {/* Error Dialog */}
           <Dialog
             visible={showErrorDialog}
             onHide={() => setShowErrorDialog(false)}

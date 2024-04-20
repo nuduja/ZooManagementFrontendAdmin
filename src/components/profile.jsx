@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Card } from 'primereact/card';
-import { Menu } from 'primereact/menu';
 import { Divider } from 'primereact/divider';
 import { Button } from 'primereact/button';
-import { Avatar } from 'primereact/avatar'; // Import Avatar component
+import { Avatar } from 'primereact/avatar';
 import { useNavigate } from 'react-router-dom';
-// import { deleteUser } from '../hooks/deleteUserHook';
 import '../styles/profile.css';
 
 const Profile = () => {
@@ -20,9 +18,9 @@ const Profile = () => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        const fetchData = async (adminId) => {
+        const fetchData = async (loggedUserId) => {
             try {
-                const response = await fetch(`http://localhost:8080/api/v1/admin/${adminId}`);
+                const response = await fetch(`http://localhost:8080/api/v1/admin/${loggedUserId}`);
                 const data = await response.json();
                 setUserDetails({
                     name: data.name || '',
@@ -34,8 +32,8 @@ const Profile = () => {
             }
         };
 
-        const loggedUsername = sessionStorage.getItem('loggedUserDetails');
-        fetchData(loggedUsername);
+        const loggedUserId = sessionStorage.getItem('userId');
+        fetchData(loggedUserId);
     }, []);
 
     const handleDelete = async (e) => {

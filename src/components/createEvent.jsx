@@ -5,7 +5,6 @@ import '../styles/createevent.css';
 import { Button } from 'primereact/button';
 
 function CreateEvent() {
-  // const baseUrl = import.meta.env.VITE_API_BASE_URL;
   const [eventName, setEventName] = useState('');
   const [eventDescription, setEventDescription] = useState('');
   const [eventLocation, setEventLocation] = useState('');
@@ -68,16 +67,16 @@ function CreateEvent() {
 
   return (
     <div className="container">
-      {/* <img className="background-image" src="https://shorturl.at/oqFS2" alt="Background" /> */}
       <h2>Book Online</h2>
       {errorMessage && <p>{errorMessage}</p>}
       <form className="form-container" onSubmit={handleSubmit}>
         <label>
-          Username:
           <input
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
+            disabled={true}
+            hidden={true}
             required
             disabled
           />
