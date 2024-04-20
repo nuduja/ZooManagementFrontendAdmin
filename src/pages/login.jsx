@@ -4,7 +4,7 @@ import { Card } from 'primereact/card';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { Message } from 'primereact/message';
-import { Dialog } from 'primereact/dialog'; // <-- Import Dialog
+import { Dialog } from 'primereact/dialog';
 import '../styles/login.css';
 
 const LoginPage = () => {
