@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Card } from 'primereact/card';
 import { Button } from 'primereact/button';
 import { Message } from 'primereact/message';
 import { Dialog } from 'primereact/dialog';
 import '../styles/animalSpecific.css';
+import QRCode from "qrcode.react";
 
 const AnimalSpecific = () => {
     const navigate = useNavigate();
     const { animalId } = useParams();
+    const qrRef = useRef(null);
     const [animalData, setAnimalData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [errorMessage, setErrorMessage] = useState('');
@@ -64,6 +66,17 @@ const AnimalSpecific = () => {
         setShowErrorDialog(false);
     };
 
+    const downloadQRCode = () => {
+        const canvas = qrRef.current.querySelector('canvas');
+        const image = canvas.toDataURL("image/png");
+        const link = document.createElement('a');
+        link.href = image;
+        link.download = `QRCode-${animalId}.png`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
+
     return (
         <div className="p-grid p-justify-center">
             <div className="p-col-10">
@@ -101,7 +114,18 @@ const AnimalSpecific = () => {
                             >
                                 <p>Failed to delete Animal. Please try again.</p>
                             </Dialog>
+                            <div>
+                                <button onClick={downloadQRCode} disabled={!animalId}>
+                                    Download QR Code
+                                </button>
+                                {animalId && (
+                                    <div ref={qrRef}>
+                                        <QRCode value={animalId} size={256} level={"H"} includeMargin={true} />
+                                    </div>
+                                )}
+                            </div>
                         </div>
+
                     )}
                 </Card>
             </div>
