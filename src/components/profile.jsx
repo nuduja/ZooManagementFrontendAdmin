@@ -12,7 +12,6 @@ const Profile = () => {
     const [userDetails, setUserDetails] = useState({
         name: '',
         username: '',
-        // password: ''
     });
 
     const [error, setError] = useState(null);
@@ -25,7 +24,6 @@ const Profile = () => {
                 setUserDetails({
                     name: data.name || '',
                     username: data.username || '',
-                    // password: data.password || ''
                 });
             } catch (err) {
                 setError(err.message);
