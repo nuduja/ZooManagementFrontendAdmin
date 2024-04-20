@@ -1,6 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import QrScanner from 'qr-scanner';
 import axios from 'axios';
+import { Dialog } from 'primereact/dialog';
+import { Button } from 'primereact/button';
+import '../styles/QRScanner.css'; // Import the CSS file
 
 // Ensure the worker path is set correctly
 QrScanner.WORKER_PATH = '/qr-scanner-worker.min.js';
@@ -52,42 +55,24 @@ const QRScanner = () => {
     };
 
     return (
-        <div>
+        <div className="qr-scanner-container">
             <h2>Scan QR Code</h2>
-            <video ref={videoRef} style={{ width: '100%' }} />
-            {error && <p>{error}</p>}
-            {showPopup && (
-                <div style={{
-                    position: 'absolute',
-                    top: '20%',
-                    left: '25%',
-                    width: '50%',
-                    background: 'white',
-                    border: '2px solid #000',
-                    padding: '20px',
-                    zIndex: '1000'
-                }}>
-                    <h3>Animal Details</h3>
-                    {animal ? (
-                        <>
-                            <p>Name: {animal.name}</p>
-                            <p>Species: {animal.species}</p>
-                            {/* You can add more fields here as needed */}
-                        </>
-                    ) : (
-                        <p>{error}</p>
-                    )}
-                    <button onClick={handleClose}>Close</button>
-                </div>
-            )}
-            <div style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                width: '100%',
-                height: '100%',
-                backgroundColor: 'rgba(0, 0, 0, 0.5)',
-                zIndex: '999',
+            <video ref={videoRef} className="qr-video" />
+            {error && <p className="error-message">{error}</p>}
+            <Dialog visible={showPopup} onHide={handleClose} className="qr-popup-container">
+                <h3>Animal Details</h3>
+                {animal ? (
+                    <>
+                        <p>Name: {animal.name}</p>
+                        <p>Species: {animal.species}</p>
+                        {/* You can add more fields here as needed */}
+                    </>
+                ) : (
+                    <p className="qr-popup">{error}</p>
+                )}
+                <Button label="Close" onClick={handleClose} />
+            </Dialog>
+            <div className="qr-popup-backdrop" style={{
                 display: showPopup ? 'block' : 'none'
             }}></div>
         </div>

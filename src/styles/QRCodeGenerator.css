@@ -1,0 +1,18 @@
+.qrcode-generator {
+    max-width: 400px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.input-field {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.download-button {
+    margin-bottom: 15px;
+}
+
+.qrcode-container {
+    margin-top: 15px;
+}
