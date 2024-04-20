@@ -38,6 +38,7 @@ import QRUploader from "./components/QRUploader.jsx";
 import QRCodeGenerator from "./components/QRCodeGenerator.jsx";
 import QRScanner from "./components/QRScanner.jsx";
 import EditEvent from './components/editEvent.jsx';
+import EditProfile from "./components/editProfile.jsx";
 
 
 const queryClient = new QueryClient()
@@ -54,6 +55,11 @@ function App() {
                     <Route path="/profile" element={
                         <ProtectedRoute>
                             <Profile/>
+                        </ProtectedRoute>
+                    }/>
+                    <Route path="/editprofile" element={
+                        <ProtectedRoute>
+                            <EditProfile/>
                         </ProtectedRoute>
                     }/>
                     <Route path="/qruploader" element={
