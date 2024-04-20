@@ -1,198 +1,43 @@
-
-.home-container {
-  position: relative; /* Ensure the container serves as the reference point for absolute positioning */
-  background: linear-gradient(to left, #eee9e9, #0f7c0f);
-  
-}
-.big-header {
-  text-align: center; /* Center the text horizontally */
-  color: white; /* Text color */
-  position: absolute; /* Position the header absolutely within its container */
-  top: 50%; /* Align the top edge of the header to the middle of the container */
-  left: 50%; /* Align the left edge of the header to the middle of the container */
-  transform: translate(-50%, -50%); /* Center the header vertically and horizontally */
-  z-index: 1; /* Ensure the header appears above the video */
-  font-size: 100px;
-  animation: fadeIn 1s ease-in-out forwards; /* Apply fadeIn animation */
-  opacity: 0; /* Initially set opacity to 0 */
-}
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-.background-video-container {
-  
-  position: relative; /* Position the container relative to its normal position */
-  width: 100%; /* Occupy the full width of the parent container */
-  height: 100vh; /* Set the height to fill the viewport */
-  overflow: hidden; /* Hide any overflow content */
-}
-
-.background-video {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 100px;
-}
-
-.welcome-card {
- 
-  text-align: center;
-  margin-top: 20px; /* Adjust as needed */
-  padding: 20px; /* Add padding for better spacing */
-  border-radius: 10px; /* Add border radius for rounded corners */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add box shadow for depth */
-  
-  font-size: 25px;
-  color: #000;
-}
-
-.feature-panel {
-  
-  text-align: center;
-  font-size: 30px;
-  border-radius: 10px; /* Add border radius for rounded corners */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add box shadow for depth */
-  background-color: #ffffff; /* Add background color */
-  padding: 20px; /* Add padding for better spacing */
-}
-
-.zoo-list {
-  
-  /* background-image: url('../assets/back1.jpg'); */
-  /* background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover; */
-  list-style-type: none;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  color: #000000;
-  font-size: 30px;
-  /* text-align: center; */
-}
-
-.zoo-list li {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.zoo-list-item {
-  display: flex;
-  flex-direction: column; /* Stack items vertically */
-  align-items: center;
-  width: calc(50% - 10px);
-  margin-bottom: 20px; /* Adjust spacing between items */
-  position: relative; /* Add position relative to parent */
-}
-
-.zoo-list-icon {
-  width: 550px;
-  height: 350px;
-  margin-bottom: 10px; /* Add space between image and description */
-  margin-left: 300px;
-  transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out; /* Add transition for smooth animation */
-  border-radius: 50px;
-  transform-style: preserve-3d; /* Ensure child elements maintain their 3D position */
-  perspective: 1000px; /* Set the perspective for 3D effect */
-}
-
-.zoo-list-icon:hover {
-  transform: rotateY(20deg); /* Apply a rotation effect on hover */
-}
-
-
-.zoo-list-item:hover .zoo-list-icon {
-  transform: scale(1.2); /* Scale up the image on hover */
-  filter: brightness(90%); /* Reduce brightness on hover for a smoother effect */
-}
-
-.zoo-list-description {
-  
-  font-size: 20px;
-  margin-left: 50px;
-  margin-right: 0px;
-  text-align: center;
-  transition: color 0.3s ease-in-out; /* Add transition for smooth color change */
-}
-
-.zoo-list-item:hover .zoo-list-description {
-  transform: scale(1.2);
-  color: #e91717; /* Change text color on hover */
-  
-}
-.event-panel {
-  font-size: 30px;
-  border-radius: 10px; /* Add border radius for rounded corners */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add box shadow for depth */
-  background-color: #ffffff; /* Add background color */
-  padding: 20px; /* Add padding for better spacing */
-}
-
-
-
-/* Adjust the layout for larger screens */
-@media (min-width: 768px) {
-  .zoo-list {
-    display: flex;
-    justify-content: space-between;
-  }
-  .zoo-list li {
-    width: 48%; /* Adjust the width of each list item */
-  }
-}
-.p-col-6{
-  margin: auto;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  width: 300px;
-  text-align: center;
-}
-/* Add these styles to your CSS file */
-
-.sidebar-container {
-  
-  margin: auto;
-  text-align: center;
-  width: 600px; /* Adjust width as needed */
+.admin-dashboard-container {
   padding: 20px;
-  background-color: #f0f0f0;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.sidebar-container .p-card {
-  margin-top: 20px;
-  margin-bottom: 10px;
-}
-
-.visitor-info-card {
-  text-align: center;
-}
-
-.visitor-info-list {
-  list-style-type: none;
-  padding: 0;
-}
-
-.visitor-info-list li {
-  margin-bottom: 5px;
-}
-
-.p-button {
+  background-image: url('../assets/back.jpg');
+  background-size: cover;
+  background-position: center;
+  backdrop-filter: blur(10px);
   
-  width: 100%;
 }
 
 
+.statistics-cards-container {
+  margin-bottom: 200px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 50px;
+}
 
+.statistics-card {
+  margin-bottom: 20px;
+  border-radius: 80px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.ticket-statistics {
+  padding: 20px;
+}
+
+.chart-section {
+  height: 100px;
+  padding: 20px;
+}
+
+.chart {
+  margin-bottom: 20px;
+}
+
+.progress-bar-section {
+  padding: 20px;
+}
+
+h2 {
+  margin-top: 0;
+}

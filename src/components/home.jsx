@@ -1,90 +1,150 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Card } from 'primereact/card';
-import { Button } from 'primereact/button';
-import { Panel } from 'primereact/panel';
-import { Chart } from 'primereact/chart';
 import { ProgressBar } from 'primereact/progressbar';
-import { Calendar } from 'primereact/calendar';
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
+import { Bar, Pie } from 'react-chartjs-2';
+import 'chartjs-adapter-date-fns'; // Import the date-fns adapter for Chart.js
+import { Chart, CategoryScale, LinearScale, BarController, BarElement, PieController, ArcElement } from 'chart.js'; // Import necessary modules from Chart.js
+import '../styles/home.css';
 
-const Dashboard = () => {
-  // Sample data for the chart
-  const chartData = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-    datasets: [
-      {
-        label: 'Number of Visitors',
-        data: [65, 59, 80, 81, 56, 55, 40],
-        backgroundColor: '#42A5F5',
-      },
-    ],
+// Register necessary scale modules
+Chart.register(CategoryScale, LinearScale, BarController, BarElement, PieController, ArcElement);
+
+const AdminDashboard = () => {
+    const [statistics, setStatistics] = useState(null);
+    const weeklyIncomeGoal = 1000; // Example weekly income revenue goal
+
+    useEffect(() => {
+        fetchTicketStatistics();
+    }, []);
+
+    const fetchTicketStatistics = async () => {
+        try {
+            const response = await fetch('http://localhost:8080/api/v1/ticket/statistics');
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const data = await response.json();
+            setStatistics(data);
+        } catch (error) {
+            console.error('Error fetching ticket statistics:', error);
+        }
+    };
+
+    const calculateProgress = () => {
+        if (statistics && statistics["Total Income"]) {
+            const totalIncome = statistics["Total Income"];
+            return (totalIncome / weeklyIncomeGoal) * 100;
+        }
+        return 0;
+    };
+
+    const renderTicketTypeBarChart = () => {
+      if (statistics && statistics["Count By Type"]) {
+          const countByType = statistics["Count By Type"];
+          const chartData = {
+              labels: Object.keys(countByType),
+              datasets: [
+                  {
+                      label: 'Ticket Types',
+                      backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                      borderColor: 'rgba(75, 192, 192, 1)',
+                      borderWidth: 1,
+                      hoverBackgroundColor: 'rgba(75, 192, 192, 0.4)',
+                      hoverBorderColor: 'rgba(75, 192, 192, 1)',
+                      data: Object.values(countByType),
+                  },
+              ],
+          };
+  
+          // Custom options to increase the size of the chart
+          const options = {
+              maintainAspectRatio: false,
+              responsive: true,
+              aspectRatio: 2, // Adjust the aspect ratio as needed
+          };
+  
+          return <Bar data={chartData} options={options} />;
+      }
+      return null;
+  };
+  
+  const renderTicketStatusPieChart = () => {
+      if (statistics && statistics["Count By Status"]) {
+          const countByStatus = statistics["Count By Status"];
+          const chartData = {
+              labels: Object.keys(countByStatus),
+              datasets: [
+                  {
+                      label: 'Ticket Statuses',
+                      backgroundColor: [
+                          'rgba(255, 99, 132, 0.2)',
+                          'rgba(54, 162, 235, 0.2)',
+                          'rgba(255, 206, 86, 0.2)',
+                      ],
+                      borderColor: [
+                          'rgba(255, 99, 132, 1)',
+                          'rgba(54, 162, 235, 1)',
+                          'rgba(255, 206, 86, 1)',
+                      ],
+                      borderWidth: 1,
+                      hoverBackgroundColor: [
+                          'rgba(255, 99, 132, 0.4)',
+                          'rgba(54, 162, 235, 0.4)',
+                          'rgba(255, 206, 86, 0.4)',
+                      ],
+                      hoverBorderColor: [
+                          'rgba(255, 99, 132, 1)',
+                          'rgba(54, 162, 235, 1)',
+                          'rgba(255, 206, 86, 1)',
+                      ],
+                      data: Object.values(countByStatus),
+                  },
+              ],
+          };
+  
+          // Custom options to increase the size of the chart
+          const options = {
+              maintainAspectRatio: false,
+              responsive: true,
+              aspectRatio: 2, // Adjust the aspect ratio as needed
+          };
+  
+          return <Pie data={chartData} options={options} />;
+      }
+      return null;
   };
 
-  const visitors = [
-    { name: 'John', email: 'john@example.com', date: '2024-04-13' },
-    { name: 'Jane', email: 'jane@example.com', date: '2024-04-14' },
-    { name: 'Doe', email: 'doe@example.com', date: '2024-04-15' },
-  ];
-
   return (
-    <div className="p-grid p-fluid">
-      <div className="p-col-12 p-md-6 p-lg-3">
-        <Card title="Statistics" className="p-shadow-4">
-          <ul className="p-d-flex p-flex-column">
-            <li>Total Animals: 150</li>
-            <li>Total Visitors: 5000</li>
-            <li>Upcoming Events: 3</li>
-          </ul>
-        </Card>
-      </div>
-      <div className="p-col-12 p-md-6 p-lg-9">
-        <Panel header="Visitor Statistics" className="p-shadow-4">
-          <Chart type="line" data={chartData} />
-        </Panel>
-      </div>
-      <div className="p-col-12 p-md-6 p-lg-6">
-        <Panel header="Recent Activities" className="p-shadow-4">
-          <ul className="p-d-flex p-flex-column">
-            <li>Added new animal: Lion</li>
-            <li>Updated enclosure details</li>
-            <li>Booked tickets for an event</li>
-          </ul>
-        </Panel>
-      </div>
-      <div className="p-col-12 p-md-6 p-lg-6">
-        <Panel header="Quick Links" className="p-shadow-4">
-          <Button label="Manage Animals" className="p-button-rounded p-mr-2 p-mb-2" />
-          <Button label="Manage Enclosures" className="p-button-rounded p-mr-2 p-mb-2" />
-          <Button label="Manage Events" className="p-button-rounded p-mr-2 p-mb-2" />
-          <Button label="View Reports" className="p-button-rounded p-mr-2 p-mb-2" />
-        </Panel>
-      </div>
-      <div className="p-col-12 p-lg-12">
-        <Panel header="Progress" className="p-shadow-4">
-          <ProgressBar value={60} displayValueTemplate={displayValueTemplate} />
-        </Panel>
-      </div>
-      <div className="p-col-12 p-lg-12">
-        <Panel header="Calendar" className="p-shadow-4">
-          <Calendar value={new Date()} />
-        </Panel>
-      </div>
-      <div className="p-col-12 p-lg-12">
-        <Panel header="Visitor Data" className="p-shadow-4">
-          <DataTable value={visitors}>
-            <Column field="name" header="Name"></Column>
-            <Column field="email" header="Email"></Column>
-            <Column field="date" header="Date"></Column>
-          </DataTable>
-        </Panel>
-      </div>
+    <div className="admin-dashboard-container">
+        <h1>Admin Dashboard</h1>
+        {statistics ? (
+            <div className="statistics-cards-container">
+                <Card title="Ticket Statistics" className="statistics-card">
+                    <div className="ticket-statistics">
+                        <p>Total Tickets: {statistics["Total Tickets"]}</p>
+                        <p>Total Income: ${statistics["Total Income"]}</p>
+                    </div>
+                </Card>
+                <Card title="Ticket Charts" className="statistics-card">
+                    <div className="chart-section">
+                    <p>Ticket Type:</p>
+                        <div className="chart">{renderTicketTypeBarChart()}</div>
+                        <p>Ticket Status:</p>
+                        <div className="chart">{renderTicketStatusPieChart()}</div>
+                    </div>
+                </Card>
+                <Card title="Weekly Income Goal" className="statistics-card">
+                    <div className="progress-bar-section">
+                        <h2>Weekly Income Goal</h2>
+                        <ProgressBar value={calculateProgress()} displayValueTemplate={(value) => `$${value.toFixed(2)}`} />
+                    </div>
+                </Card>
+            </div>
+        ) : (
+            <p>Loading ticket statistics...</p>
+        )}
     </div>
-  );
-};
+);
 
-const displayValueTemplate = (value) => {
-  return `${value}%`;
-};
-
-export default Dashboard;
+}
+export default AdminDashboard;

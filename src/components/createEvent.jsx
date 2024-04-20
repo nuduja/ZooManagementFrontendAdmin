@@ -79,6 +79,7 @@ function CreateEvent() {
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required
+            disabled
           />
         </label>
         <label>

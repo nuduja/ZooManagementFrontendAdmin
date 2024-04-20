@@ -28,7 +28,7 @@ export default function TemplateDemo() {
         <i className="pi pi-sign-in"></i>
         <span>Log In</span>
       </Link>
-      <Link to="/logout" className="p-menuitem-link">
+      <Link to="/" className="p-menuitem-link">
         <i className="pi pi-sign-out"></i>
         <span>Log Out</span>
       </Link>

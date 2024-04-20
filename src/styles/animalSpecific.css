@@ -3,3 +3,46 @@
     width: 500px;
     height: 500px;
   }
+  /* animalSpecific.css */
+
+/* Main container */
+.p-grid {
+  margin: 20px;
+}
+
+/* Card */
+.p-card {
+  width: 100%;
+  max-width: 600px;
+}
+
+/* Loading message */
+.loading-message {
+  margin-top: 20px;
+}
+
+/* Error message */
+.error-message {
+  margin-top: 20px;
+}
+
+/* Details */
+.details {
+  margin-top: 20px;
+}
+
+.details p {
+  margin-bottom: 10px;
+}
+
+/* Button container */
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+/* Dialog */
+.p-dialog {
+  width: 300px;
+}

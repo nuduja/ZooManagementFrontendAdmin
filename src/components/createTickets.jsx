@@ -24,10 +24,10 @@ function CreateTicket() {
   }, []);
 
   const ticketTypes = [
-    { label: 'Local Adult', value: 'LOCAL_ADULT', price: 29.5 },
+    { label: 'Local Adult', value: 'LOCAL_ADULT', price: 10 },
     { label: 'Local Child', value: 'LOCAL_KID', price: 5 },
-    { label: 'Foreign Adult', value: 'FOREIGN_ADULT', price: 20 },
-    { label: 'Foreign Child', value: 'FOREIGN_KID', price: 10 }
+    { label: 'Foreign Adult', value: 'FOREIGN_ADULT', price: 30 },
+    { label: 'Foreign Child', value: 'FOREIGN_KID', price: 15 }
   ];
 
   const handleTicketTypeChange = (e) => {

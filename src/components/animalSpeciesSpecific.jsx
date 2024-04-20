@@ -38,8 +38,10 @@ const AnimalSpeciesSpecific = () => {
             navigate('/');
         } catch (error) {
             console.error('Error deleting AnimalSpecies:', error);
+            // Handle the error (e.g., display an error message to the user)
         }
     };
+    
 
     const handleEdit = () => {
         navigate(`/animalSpecies/edit/${animalSpeciesId}`);

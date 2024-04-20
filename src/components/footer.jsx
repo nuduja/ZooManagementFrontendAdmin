@@ -51,7 +51,7 @@ function Footer() {
         <div className="footer__columns">
           <div className="footer__col">
             <h3 className="footer__col-title">
-              <i data-feather="shopping-bag"></i> <span>La boutique</span></h3>
+              <i data-feather="shopping-bag"></i> <span>Zoo</span></h3>
             <nav className="footer__nav">
               <ul className="footer__nav-list">
                 <li className="footer__nav-item">
