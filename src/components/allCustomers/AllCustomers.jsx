@@ -128,7 +128,7 @@ const AllCustomers = () => {
                             <Column
                                 header="Actions"
                                 body={(rowData) => (
-                                    <Link to={`/customerSpecific/${rowData.userId}`} className="p-button p-button-text">
+                                    <Link to={`/customerSpecific/${rowData.userId}`} className="p-button p-button-text" style={{ width: '140px' }}>
                                         View Details
                                     </Link>
                                 )}

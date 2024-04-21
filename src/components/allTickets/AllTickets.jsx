@@ -145,7 +145,7 @@ const AllTickets = () => {
                             <Column
                                 header="Actions"
                                 body={(rowData) => (
-                                    <Link to={`/ticketSpecific/${rowData.ticketID}`} className="p-button p-button-text">
+                                    <Link to={`/ticketSpecific/${rowData.ticketID}`} className="p-button p-button-text" style={{ width: '140px' }}>
                                         View Details
                                     </Link>
                                 )}
