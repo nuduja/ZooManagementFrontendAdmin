@@ -3,9 +3,10 @@
 /* Main container */
 .main-container {
   display: flex;
-  justify-content: space-between;
-  margin: 20px;
-  background: linear-gradient(to bottom, #f7f5f5, #e6e6e6);
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Adjust the height as needed */
+  background-color: #f4f4f4;
 }
 
 /* Left sidebar */

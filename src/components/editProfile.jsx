@@ -119,11 +119,11 @@ const EditProfile = () => {
                     {submitted && (
                         <Message severity="info" text="Profile updated successfully." />
                     )}
-                    <Button
+                    {/* <Button
                         label="Delete"
                         className="p-button-rounded p-button-lg p-button-danger"
                         onClick={handleDelete}
-                    />
+                    /> */}
                 </Card>
             </div>
         </div>
