@@ -26,6 +26,7 @@ export default function TemplateDemo() {
     { label: 'Create Animal Species', icon: 'pi pi-paw', url: '/createanimalspecies' },
     { label: 'Create Animal', icon: 'pi pi-plus', url: '/createAnimal' },
     { label: 'Create Customer', icon: 'pi pi-user-plus', url: '/createCustomer' },
+    { label: 'Create Employee', icon: 'pi pi-user-plus', url: '/createemployee' },
     { label: 'QR Scanner', icon: 'pi pi-user-plus', url: '/qrscanner' },
     { label: 'QR Generator', icon: 'pi pi-user-plus', url: '/qrgenerator' },
     { label: 'QR Uploader', icon: 'pi pi-user-plus', url: '/qruploader' }
