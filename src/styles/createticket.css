@@ -1,68 +1,58 @@
-/* createTicket.css */
+.container {
+  width: 70%;
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  /* height: 100%; */
+}
 
-/* Background */
+.ticket-section-container2 {
+  margin-top: 50px;
+  position: relative;
+  /* width: 100%; */
+}
+
 .ticket-section-background {
-  background-image: url('path/to/your/image.jpg');
-  background-size: cover;
   position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
+  background-color: #f0f0f0;
   z-index: -1;
 }
 
-/* Form Container */
 .create-ticket-container {
-  background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
-  padding: 10px;
+  background-color: #fff;
+  padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  max-width: 400px; /* Adjust based on your layout */
-  margin: 1px 500px; 
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Form Title */
-.create-ticket-container h2 {
-  text-align: center;
-  margin-bottom: 30px;
-  color: #333; /* Dark text color */
+.input-container {
+  margin-bottom: 20px;
 }
 
-/* Labels */
-.input-container label {
+.t {
   font-weight: bold;
-  color: #555; /* Medium dark text color */
 }
 
-/* Dropdown */
-.zoo-dropdown,
+.zoo-dropdown {
+  width: 100%;
+}
+
 .zoo-input {
   width: 100%;
   padding: 10px;
-  border: 1px solid #ccc; /* Light gray border */
+  border: 1px solid #ccc;
   border-radius: 5px;
-  margin-top: 5px;
-  box-sizing: border-box; /* Include padding in width */
 }
 
-/* Button */
 .zoo-button {
   width: 100%;
   margin-top: 20px;
-  background-color: #007bff; /* Primary button color */
-  color: #fff; /* Text color */
-  border: none;
-  border-radius: 5px;
-  padding: 12px 20px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
 }
 
-.zoo-button:hover {
-  background-color: #0056b3; /* Darker color on hover */
-}
-
-/* Error Message */
-.p-error {
-  color: #dc3545; /* Error text color */
-  margin-top: 10px;
+.custom-dialog {
+  width: 400px;
 }
