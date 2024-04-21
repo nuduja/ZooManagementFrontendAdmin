@@ -55,7 +55,7 @@ const EventSpecific = () => {
             if (!response.ok) {
                 throw new Error('Failed to delete Event');
             }
-            navigate('/');
+            navigate(-1);
         } catch (error) {
             console.error('Error deleting Event:', error);
         }
