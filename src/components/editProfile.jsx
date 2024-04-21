@@ -4,6 +4,7 @@ import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
 import { Message } from 'primereact/message';
 import { useNavigate } from 'react-router-dom';
+import '../styles/editProfile.css';
 
 const EditProfile = () => {
     let navigate = useNavigate();

@@ -47,44 +47,79 @@ const EmployeeSpecific = () => {
         navigate(`/employee/edit/${employeeId}`);
     };
 
+    const styles = {
+        container: {
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginTop: '20px',
+        },
+        title: {
+            fontSize: '24px',
+            marginBottom: '20px',
+        },
+        spinner: {
+            width: '50px',
+            height: '50px',
+            marginBottom: '20px',
+        },
+        card: {
+            width: '400px',
+            marginBottom: '20px',
+        },
+        content: {
+            padding: '10px',
+        },
+        item: {
+            marginBottom: '10px',
+        },
+        actions: {
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            padding: '10px',
+        },
+    };
+
     return (
-        <div className="p-d-flex p-flex-column p-jc-center p-ai-center">
-            <h1>Employee Specific Data</h1>
+        <div style={styles.container}>
+            <h1 style={styles.title}>Employee Specific Data</h1>
             {loading ? (
-                <ProgressSpinner style={{ width: '50px', height: '50px' }} />
+                <ProgressSpinner style={styles.spinner} />
             ) : (
-                <Card style={{ width: '400px' }} className="p-mb-2">
-                    <div className="p-grid p-dir-col p-p-2">
-                        <div className="p-col">
+                <Card style={styles.card}>
+                    <div style={styles.content}>
+                        <div style={styles.item}>
                             <strong>ID:</strong> {employeeData?.id}
                         </div>
-                        <div className="p-col">
+                        <div style={styles.item}>
                             <strong>Employee ID:</strong> {employeeData?.employeeId}
                         </div>
-                        <div className="p-col">
+                        <div style={styles.item}>
                             <strong>Name:</strong> {employeeData?.name}
                         </div>
-                        <div className="p-col">
+                        <div style={styles.item}>
                             <strong>NIC:</strong> {employeeData?.nic}
                         </div>
-                        <div className="p-col">
+                        <div style={styles.item}>
                             <strong>Position:</strong> {employeeData?.position}
                         </div>
-                        <div className="p-col">
+                        <div style={styles.item}>
                             <strong>Gender:</strong> {employeeData?.gender}
                         </div>
-                        <div className="p-col">
+                        <div style={styles.item}>
                             <strong>Address:</strong> {employeeData?.address}
                         </div>
-                        <div className="p-col">
+                        <div style={styles.item}>
                             <strong>Phone:</strong> {employeeData?.phone}
                         </div>
-                        <div className="p-col">
+                        <div style={styles.item}>
                             <strong>Date of Birth:</strong> {employeeData?.dob}
                         </div>
                     </div>
-                    <div className="p-col">
-                        <Button label="Edit" icon="pi pi-pencil" className="p-button-primary p-mr-2" onClick={handleEdit} />
+                    <div style={styles.actions}>
+                        <Button label="Edit" icon="pi pi-pencil" className="p-button-primary" onClick={handleEdit} />
                         <Button label="Delete" icon="pi pi-trash" className="p-button-danger" onClick={() => handleDelete(employeeData?.id)} />
                     </div>
                 </Card>

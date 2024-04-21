@@ -5,7 +5,6 @@ import { ProgressSpinner } from 'primereact/progressspinner';
 import { InputText } from 'primereact/inputtext';
 import { Dropdown } from 'primereact/dropdown';
 import { Dialog } from 'primereact/dialog';
-import '../styles/ticketSpecific.css';
 
 const TicketSpecific = () => {
     const navigate = useNavigate();
@@ -25,6 +24,32 @@ const TicketSpecific = () => {
     const [showErrorDialog, setShowErrorDialog] = useState(false);
 
     const ticketTypes = ['LOCAL_ADULT', 'LOCAL_KID', 'FOREIGN_ADULT', 'FOREIGN_KID'];
+
+    const styles = {
+        container: {
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+        },
+        header: {
+            marginBottom: '1rem',
+        },
+        formContainer: {
+            width: '100%',
+            maxWidth: '400px',
+        },
+        field: {
+            marginBottom: '1rem',
+        },
+        button: {
+            marginTop: '1rem',
+        },
+        errorMessage: {
+            color: 'red',
+            marginBottom: '1rem',
+        },
+    };
 
     useEffect(() => {
         const fetchTicketData = async () => {
@@ -95,16 +120,16 @@ const TicketSpecific = () => {
     };
 
     return (
-        <div className="p-d-flex p-flex-column p-jc-center p-ai-center">
-            <h1>Ticket Specific data</h1>
+        <div style={styles.container}>
+            <h1 style={styles.header}>Ticket Specific data</h1>
             {loading ? (
                 <ProgressSpinner style={{ width: '50px', height: '50px' }} />
             ) : 
              (
-                <div className="edit-profile-container">
+                <div style={styles.formContainer}>
                     <h2>Edit Ticket Details</h2>
                     <form onSubmit={handleSubmit}>
-                        <div className="p-field">
+                        <div style={styles.field}>
                             <label htmlFor="ticketType">Ticket Type:</label>
                             <Dropdown
                                 id="ticketType"
@@ -115,7 +140,7 @@ const TicketSpecific = () => {
                                 placeholder="Select a Ticket Type"
                             />
                         </div>
-                        <div className="p-field">
+                        <div style={styles.field}>
                             <label htmlFor="ticketDate">Ticket Date:</label>
                             <InputText
                                 id="ticketDate"
@@ -124,7 +149,7 @@ const TicketSpecific = () => {
                                 onChange={handleInputChange}
                             />
                         </div>
-                        <div className="p-field">
+                        <div style={styles.field}>
                             <label htmlFor="status">Status:</label>
                             <InputText
                                 id="status"
@@ -133,7 +158,7 @@ const TicketSpecific = () => {
                                 onChange={handleInputChange}
                             />
                         </div>
-                        <div className="p-field">
+                        <div style={styles.field}>
                             <label htmlFor="price">Price:</label>
                             <InputText
                                 id="price"
@@ -142,7 +167,7 @@ const TicketSpecific = () => {
                                 onChange={handleInputChange}
                             />
                         </div>
-                        <Button type="submit" label="Update" className="p-button-success" />
+                        <Button type="submit" label="Update" className="p-button-success" style={styles.button} />
                     </form>
 
                     <Dialog

@@ -3,12 +3,32 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { Card } from 'primereact/card';
 import { Button } from 'primereact/button';
 import { ProgressSpinner } from 'primereact/progressspinner';
-import '../styles/eventSpecific.css';
 
 const EventSpecific = () => {
     const navigate = useNavigate();
     const { eventID } = useParams();
     const [eventData, setEventData] = useState(null);
+
+    const styles = {
+        container: {
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+        },
+        card: {
+            width: '400px',
+        },
+        grid: {
+            padding: '8px',
+        },
+        column: {
+            marginBottom: '8px',
+        },
+        buttonGroup: {
+            marginTop: '8px',
+        },
+    };
 
     useEffect(() => {
         const fetchEventData = async () => {
@@ -42,42 +62,38 @@ const EventSpecific = () => {
     };
 
     return (
-        <div className="p-d-flex p-flex-column p-jc-center p-ai-center">
+        <div style={styles.container}>
             <h1>Event Specific data</h1>
             {eventData ? (
-                // <Card title="Admin Specific Details" className="event-card">
-                <Card style={{ width: '400px' }} className="p-mb-2">
-    <div className="p-grid p-dir-col p-p-2">
-        <div className="p-col">
-            <strong>Event ID:</strong> {eventData?.eventID}
-        </div>
-        <div className="p-col">
-            <strong>Event Name:</strong> {eventData?.eventName}
-        </div>
-        <div className="p-col">
-            <strong>Description:</strong> {eventData?.eventDescription}
-        </div>
-        <div className="p-col">
-            <strong>Date:</strong> {eventData?.eventDate}
-        </div>
-        <div className="p-col">
-            <strong>Location:</strong> {eventData?.eventLocation}
-        </div>
-        <div className="p-col">
-            <strong>Manager:</strong> {eventData?.eventManager}
-        </div>
-        <div className="p-col">
-            <strong>Capacity:</strong> {eventData?.capacity}
-        </div>
-        <div className="p-col">
-            {/* Edit button */}
-            <Button label="Edit" icon="pi pi-pencil" className="p-button-primary p-mr-2" onClick={() => navigate(`/editEvent/${eventData?.eventID}`)} />
-            {/* Delete button */}
-            <Button label="Delete" icon="pi pi-trash" className="p-button-danger" onClick={() => handleDelete(eventData?.eventID)} />
-        </div>
-    </div>
-</Card>
-
+                <Card style={styles.card} className="p-mb-2">
+                    <div style={styles.grid}>
+                        <div style={styles.column}>
+                            <strong>Event ID:</strong> {eventData?.eventID}
+                        </div>
+                        <div style={styles.column}>
+                            <strong>Event Name:</strong> {eventData?.eventName}
+                        </div>
+                        <div style={styles.column}>
+                            <strong>Description:</strong> {eventData?.eventDescription}
+                        </div>
+                        <div style={styles.column}>
+                            <strong>Date:</strong> {eventData?.eventDate}
+                        </div>
+                        <div style={styles.column}>
+                            <strong>Location:</strong> {eventData?.eventLocation}
+                        </div>
+                        <div style={styles.column}>
+                            <strong>Manager:</strong> {eventData?.eventManager}
+                        </div>
+                        <div style={styles.column}>
+                            <strong>Capacity:</strong> {eventData?.capacity}
+                        </div>
+                        <div style={styles.buttonGroup}>
+                            <Button label="Edit" icon="pi pi-pencil" className="p-button-primary p-mr-2" onClick={() => navigate(`/editEvent/${eventData?.eventID}`)} />
+                            <Button label="Delete" icon="pi pi-trash" className="p-button-danger" onClick={() => handleDelete(eventData?.eventID)} />
+                        </div>
+                    </div>
+                </Card>
             ) : (
                 <p>Loading Event data...</p>
             )}

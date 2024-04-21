@@ -4,22 +4,45 @@ import { Button } from 'primereact/button';
 import { ProgressSpinner } from 'primereact/progressspinner';
 import { InputText } from 'primereact/inputtext';
 import { Dialog } from 'primereact/dialog';
-import '../styles/editAdmin.css';
 
 const EditAdmin = () => {
     const navigate = useNavigate();
     const { adminId } = useParams();
-    // const { adminId } = useParams();
     const [adminData, setAdminData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [editing, setEditing] = useState(false);
     const [editedAdminData, setEditedAdminData] = useState({
         name: '',
         username: '',
-      
     });
     const [showDialog, setShowDialog] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
+
+    const styles = {
+        container: {
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+        },
+        header: {
+            marginBottom: '1rem',
+        },
+        formContainer: {
+            width: '100%',
+            maxWidth: '400px',
+        },
+        field: {
+            marginBottom: '1rem',
+        },
+        button: {
+            marginTop: '1rem',
+        },
+        errorMessage: {
+            color: 'red',
+            marginBottom: '1rem',
+        },
+    };
 
     useEffect(() => {
         const fetchAdminData = async () => {
@@ -33,10 +56,10 @@ const EditAdmin = () => {
                 setEditedAdminData({
                     name: data.name,
                     username: data.username,
-                    
                 });
             } catch (error) {
                 console.error('Error fetching Admin data:', error);
+                setErrorMessage('Failed to fetch Admin data');
             } finally {
                 setLoading(false);
             }
@@ -85,14 +108,14 @@ const EditAdmin = () => {
     };
 
     return (
-        <div className="p-d-flex p-flex-column p-jc-center p-ai-center">
-            <h1>Edit Admin Details</h1>
+        <div style={styles.container}>
+            <h1 style={styles.header}>Edit Admin Details</h1>
             {loading ? (
                 <ProgressSpinner style={{ width: '50px', height: '50px' }} />
             ) : (
-                <div className="edit-profile-container">
+                <div style={styles.formContainer}>
                     <form onSubmit={handleSubmit}>
-                        <div className="p-field">
+                        <div style={styles.field}>
                             <label htmlFor="name">Name:</label>
                             <InputText
                                 id="name"
@@ -101,7 +124,7 @@ const EditAdmin = () => {
                                 onChange={handleInputChange}
                             />
                         </div>
-                        <div className="p-field">
+                        <div style={styles.field}>
                             <label htmlFor="username">Username:</label>
                             <InputText
                                 id="username"
@@ -110,7 +133,7 @@ const EditAdmin = () => {
                                 onChange={handleInputChange}
                             />
                         </div>
-                        <Button type="submit" label="Update" className="p-button-success" />
+                        <Button type="submit" label="Update" className="p-button-success" style={styles.button} />
                     </form>
 
                     <Dialog
@@ -124,7 +147,7 @@ const EditAdmin = () => {
                     </Dialog>
 
                     {errorMessage && (
-                        <div className="error-message">
+                        <div style={styles.errorMessage}>
                             <p>{errorMessage}</p>
                         </div>
                     )}

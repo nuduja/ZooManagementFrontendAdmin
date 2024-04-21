@@ -3,13 +3,37 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { Card } from 'primereact/card';
 import { Button } from 'primereact/button';
 import { ProgressSpinner } from 'primereact/progressspinner';
-import '../styles/ticketSpecific.css';
 
 const TicketSpecific = () => {
     const navigate = useNavigate();
     const { ticketId } = useParams();
     const [ticketData, setTicketData] = useState(null);
     const [loading, setLoading] = useState(true);
+
+    const styles = {
+        container: {
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+        },
+        spinner: {
+            width: '50px',
+            height: '50px',
+        },
+        card: {
+            width: '400px',
+        },
+        grid: {
+            padding: '8px',
+        },
+        column: {
+            marginBottom: '8px',
+        },
+        buttonGroup: {
+            marginTop: '8px',
+        },
+    };
 
     useEffect(() => {
         const fetchTicketData = async () => {
@@ -44,44 +68,41 @@ const TicketSpecific = () => {
         }
     };
 
-    // Function to handle edit button click
     const handleEdit = () => {
         navigate(`/ticket/edit/${ticketId}`);
     };
 
     return (
-        <div className="p-d-flex p-flex-column p-jc-center p-ai-center">
+        <div style={styles.container}>
             <h1>Ticket Specific data</h1>
             {loading ? (
-                <ProgressSpinner style={{ width: '50px', height: '50px' }} />
+                <ProgressSpinner style={styles.spinner} />
             ) : (
-                <Card style={{ width: '400px' }} className="p-mb-2">
-                    <div className="p-grid p-dir-col p-p-2">
-                        <div className="p-col">
+                <Card style={styles.card} className="p-mb-2">
+                    <div style={styles.grid}>
+                        <div style={styles.column}>
                             <strong>ID:</strong> {ticketData?.id}
                         </div>
-                        <div className="p-col">
+                        <div style={styles.column}>
                             <strong>Ticket ID:</strong> {ticketData?.ticketID}
                         </div>
-                        <div className="p-col">
+                        <div style={styles.column}>
                             <strong>Ticket Type:</strong> {ticketData?.ticketType}
                         </div>
-                        <div className="p-col">
+                        <div style={styles.column}>
                             <strong>Availability:</strong> {ticketData?.status}
                         </div>
-                        <div className="p-col">
+                        <div style={styles.column}>
                             <strong>Price:</strong> {ticketData?.price}
                         </div>
-                        <div className="p-col">
+                        <div style={styles.column}>
                             <strong>Username:</strong> {ticketData?.username}
                         </div>
-                        <div className="p-col">
+                        <div style={styles.column}>
                             <strong>Ticket Date:</strong> {ticketData?.ticketDate}
                         </div>
-                        <div className="p-col">
-                            {/* Edit button */}
+                        <div style={styles.buttonGroup}>
                             <Button label="Edit" icon="pi pi-pencil" className="p-button-primary p-mr-2" onClick={handleEdit} />
-                            {/* Delete button */}
                             <Button label="Delete" icon="pi pi-trash" className="p-button-danger" onClick={() => handleDelete(ticketData?.id)} />
                         </div>
                     </div>

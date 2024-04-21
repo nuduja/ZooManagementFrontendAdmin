@@ -4,8 +4,6 @@ import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
 import { Card } from 'primereact/card';
 import { Dialog } from 'primereact/dialog';
-import { Message } from 'primereact/message';
-import '../styles/editAnimal.css';
 
 const EditAnimal = () => {
     const navigate = useNavigate();
@@ -22,6 +20,24 @@ const EditAnimal = () => {
     const [successMessage, setSuccessMessage] = useState('');
     const [showSuccessDialog, setShowSuccessDialog] = useState(false);
     const [showErrorDialog, setShowErrorDialog] = useState(false);
+
+    const styles = {
+        container: {
+            display: 'grid',
+            justifyContent: 'center',
+        },
+        card: {
+            marginTop: '1.5rem',
+            width: '100%',
+            padding: '1rem',
+        },
+        inputGroup: {
+            marginBottom: '1rem',
+        },
+        dialog: {
+            className: 'custom-dialog',
+        },
+    };
 
     useEffect(() => {
         const fetchAnimalData = async () => {
@@ -74,7 +90,6 @@ const EditAnimal = () => {
             }
             setSuccessMessage('Animal data updated successfully');
             setShowSuccessDialog(true);
-            // navigate(`/animalSpecific/${editedAnimalData.animalId}`);
         } catch (error) {
             console.error('Error updating Animal data:', error);
             setErrorMessage('Failed to update Animal data');
@@ -89,14 +104,14 @@ const EditAnimal = () => {
     };
 
     return (
-        <div className="p-grid p-justify-center">
+        <div style={styles.container}>
             <div className="p-col-10">
-                <Card title="Edit Animal Data" className="p-card p-mt-4">
+                <Card title="Edit Animal Data" style={styles.card}>
                     {loading ? (
                         <p>Loading animal data...</p>
                     ) : (
                         <form onSubmit={handleSubmit}>
-                            <div className="input-group">
+                            <div style={styles.inputGroup}>
                                 <label htmlFor="name">Name:</label>
                                 <InputText
                                     id="name"
@@ -105,7 +120,7 @@ const EditAnimal = () => {
                                     onChange={handleInputChange}
                                 />
                             </div>
-                            <div className="input-group">
+                            <div style={styles.inputGroup}>
                                 <label htmlFor="animalSpeciesName">Animal Species Name:</label>
                                 <InputText
                                     id="animalSpeciesName"
@@ -114,7 +129,7 @@ const EditAnimal = () => {
                                     onChange={handleInputChange}
                                 />
                             </div>
-                            <div className="input-group">
+                            <div style={styles.inputGroup}>
                                 <label htmlFor="enclosureId">Enclosure ID:</label>
                                 <InputText
                                     id="enclosureId"
@@ -123,8 +138,8 @@ const EditAnimal = () => {
                                     onChange={handleInputChange}
                                 />
                             </div>
-                            <div className="input-group">
-                                <label htmlFor="age">Age:</label>
+                            <div style={styles.inputGroup}>
+                                <label htmlFor="age">Birth Date:</label>
                                 <InputText
                                     id="age"
                                     name="age"
@@ -137,7 +152,7 @@ const EditAnimal = () => {
                                 visible={showSuccessDialog}
                                 onHide={onHideDialog}
                                 header="Success"
-                                className="custom-dialog"
+                                style={styles.dialog}
                                 footer={<Button label="OK" onClick={onHideDialog} />}
                             >
                                 <p>{successMessage}</p>
@@ -146,7 +161,7 @@ const EditAnimal = () => {
                                 visible={showErrorDialog}
                                 onHide={onHideDialog}
                                 header="Error"
-                                className="custom-dialog"
+                                style={styles.dialog}
                                 footer={<Button label="OK" onClick={onHideDialog} />}
                             >
                                 <p>{errorMessage}</p>
@@ -159,4 +174,4 @@ const EditAnimal = () => {
     );
 };
 
-export default EditAnimal
+export default EditAnimal;

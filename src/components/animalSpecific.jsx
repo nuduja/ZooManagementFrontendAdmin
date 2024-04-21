@@ -4,7 +4,6 @@ import { Card } from 'primereact/card';
 import { Button } from 'primereact/button';
 import { Message } from 'primereact/message';
 import { Dialog } from 'primereact/dialog';
-import '../styles/animalSpecific.css';
 import QRCode from "qrcode.react";
 
 const AnimalSpecific = () => {
@@ -16,6 +15,30 @@ const AnimalSpecific = () => {
     const [errorMessage, setErrorMessage] = useState('');
     const [showSuccessDialog, setShowSuccessDialog] = useState(false);
     const [showErrorDialog, setShowErrorDialog] = useState(false);
+
+    const styles = {
+        container: {
+            display: 'grid',
+            justifyContent: 'center',
+        },
+        card: {
+            marginTop: '1.5rem',
+        },
+        animalDataContainer: {
+            marginBottom: '1rem',
+        },
+        qrCodeContainer: {
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'end',
+        },
+        buttonContainer: {
+            marginTop: '1rem',
+        },
+        button: {
+            marginRight: '0.5rem',
+        },
+    };
 
     useEffect(() => {
         const fetchAnimalData = async () => {
@@ -78,13 +101,13 @@ const AnimalSpecific = () => {
     };
 
     return (
-        <div className="p-grid p-justify-center">
+        <div style={styles.container}>
             <div className="p-col-10">
-                <Card title="Animal Specific Data" className="p-card p-mt-4">
+                <Card title="Animal Specific Data" style={styles.card}>
                     {loading && <p>Loading animal data...</p>}
                     {errorMessage && <Message severity="error" text={errorMessage} />}
                     {animalData && (
-                        <div className="animal-data-container">
+                        <div style={styles.animalDataContainer}>
                             <p><strong>ID:</strong> {animalData.id}</p>
                             <p><strong>Animal Species ID:</strong> {animalData.animalSpeciesId}</p>
                             <p><strong>Animal Species Name:</strong> {animalData.animalSpeciesName}</p>
@@ -94,17 +117,17 @@ const AnimalSpecific = () => {
                             <p><strong>Birth Country:</strong> {animalData.birthCountry}</p>
                         </div>
                     )}
-                    <div className="p-d-flex p-flex-column p-ai-end qr-code-container">
+                    <div style={styles.qrCodeContainer}>
                         <button onClick={downloadQRCode} disabled={!animalId}>
                             Download QR Code
                         </button>
                         {animalId && (
-                            <div ref={qrRef} className="p-mt-2">
+                            <div ref={qrRef} style={styles.qrCodeContainer}>
                                 <QRCode value={animalId} size={256} level={"H"} includeMargin={true} />
                             </div>
                         )}
-                        <div className="button-container">
-                            <Button label="Edit" className="p-button-primary p-mr-2" onClick={handleEdit} />
+                        <div style={styles.buttonContainer}>
+                            <Button label="Edit" className="p-button-primary" style={styles.button} onClick={handleEdit} />
                             <Button label="Delete" className="p-button-danger" onClick={handleDelete} />
                         </div>
                     </div>

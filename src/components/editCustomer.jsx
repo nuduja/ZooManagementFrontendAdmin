@@ -4,7 +4,6 @@ import { Button } from 'primereact/button';
 import { ProgressSpinner } from 'primereact/progressspinner';
 import { InputText } from 'primereact/inputtext';
 import { Dialog } from 'primereact/dialog';
-import '../styles/editCustomer.css';
 
 const EditCustomer = () => {
     const navigate = useNavigate();
@@ -23,6 +22,36 @@ const EditCustomer = () => {
     const [successMsg, setSuccessMsg] = useState('');
     const [phoneError, setPhoneError] = useState('');
     const [emailError, setEmailError] = useState('');
+
+    const styles = {
+        container: {
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+        },
+        header: {
+            marginBottom: '1rem',
+        },
+        formContainer: {
+            width: '100%',
+            maxWidth: '400px',
+        },
+        field: {
+            marginBottom: '1rem',
+        },
+        button: {
+            marginTop: '1rem',
+        },
+        errorMessage: {
+            color: 'red',
+            marginBottom: '1rem',
+        },
+        successMessage: {
+            color: 'green',
+            marginBottom: '1rem',
+        },
+    };
 
     useEffect(() => {
         const fetchCustomerData = async () => {
@@ -107,16 +136,16 @@ const EditCustomer = () => {
     };
 
     return (
-        <div className="p-d-flex p-flex-column p-jc-center p-ai-center">
-            <h1>Edit Customer Details</h1>
+        <div style={styles.container}>
+            <h1 style={styles.header}>Edit Customer Details</h1>
             {loading ? (
                 <ProgressSpinner style={{ width: '50px', height: '50px' }} />
             ) : (
-                <div className="edit-profile-container">
-                    {errorMessage && <div className="error-message">{errorMessage}</div>}
-                    {successMsg && <div className="success-msg">{successMsg}</div>}
+                <div style={styles.formContainer}>
+                    {errorMessage && <div style={styles.errorMessage}>{errorMessage}</div>}
+                    {successMsg && <div style={styles.successMessage}>{successMsg}</div>}
                     <form onSubmit={handleSubmit}>
-                        <div className="p-field">
+                        <div style={styles.field}>
                             <label htmlFor="name">Name:</label>
                             <InputText
                                 id="name"
@@ -125,7 +154,7 @@ const EditCustomer = () => {
                                 onChange={handleInputChange}
                             />
                         </div>
-                        <div className="p-field">
+                        <div style={styles.field}>
                             <label htmlFor="username">Username:</label>
                             <InputText
                                 id="username"
@@ -134,7 +163,7 @@ const EditCustomer = () => {
                                 onChange={handleInputChange}
                             />
                         </div>
-                        <div className="p-field">
+                        <div style={styles.field}>
                             <label htmlFor="phone">Phone:</label>
                             <InputText
                                 id="phone"
@@ -143,9 +172,9 @@ const EditCustomer = () => {
                                 onChange={handleInputChange}
                                 className={phoneError ? 'p-invalid' : ''}
                             />
-                            <small className="p-error">{phoneError}</small>
+                            <small style={{ color: 'red' }}>{phoneError}</small>
                         </div>
-                        <div className="p-field">
+                        <div style={styles.field}>
                             <label htmlFor="email">Email:</label>
                             <InputText
                                 id="email"
@@ -154,9 +183,9 @@ const EditCustomer = () => {
                                 onChange={handleInputChange}
                                 className={emailError ? 'p-invalid' : ''}
                             />
-                            <small className="p-error">{emailError}</small>
+                            <small style={{ color: 'red' }}>{emailError}</small>
                         </div>
-                        <Button type="submit" label="Update" className="p-button-success" disabled={phoneError || emailError} />
+                        <Button type="submit" label="Update" className="p-button-success" style={styles.button} disabled={phoneError || emailError} />
                     </form>
 
                     <Dialog

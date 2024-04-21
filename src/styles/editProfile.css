@@ -1,0 +1,47 @@
+/* EditProfile.css */
+
+.edit-profile-container {
+    margin-right: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Adjust the height as needed */
+    background-color: #f4f4f4; /* Background color */
+  }
+  
+  .edit-profile-form {
+    width: 400px;
+  }
+  
+  .edit-profile-card {
+    width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .p-field {
+    margin-bottom: 20px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .p-inputtext-lg {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .p-button-rounded {
+    border-radius: 20px;
+    margin-right: 10px;
+  }
+  
+  .p-button-lg {
+    padding: 10px 20px;
+    font-size: 16px;
+  }
+  
