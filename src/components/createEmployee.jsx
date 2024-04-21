@@ -3,7 +3,9 @@ import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { Message } from 'primereact/message';
 import { Dialog } from 'primereact/dialog';
-// import '../styles/createEmployee.css'; // Import CSS file for custom styling
+import { Calendar } from 'primereact/calendar';
+import { Dropdown } from 'primereact/dropdown';
+import { Card } from 'primereact/card';
 
 function CreateEmployee() {
   const [name, setName] = useState('');
@@ -12,10 +14,15 @@ function CreateEmployee() {
   const [phone, setPhone] = useState('');
   const [position, setPosition] = useState('');
   const [gender, setGender] = useState('');
-  const [dob, setDob] = useState('');
+  const [dob, setDob] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
   const [showSuccessDialog, setShowSuccessDialog] = useState(false);
   const [showErrorDialog, setShowErrorDialog] = useState(false);
+
+  const genders = [
+    { label: 'Male', value: 'Male' },
+    { label: 'Female', value: 'Female' }
+  ];
 
   const validatePhone = (phone) => {
     const re = /^\d{10}$/;
@@ -50,7 +57,7 @@ function CreateEmployee() {
           phone: phone,
           position: position,
           gender: gender,
-          dob: dob
+          dob: dob.toISOString().split('T')[0]  // Convert Date object to yyyy-mm-dd format
         }),
       });
       if (!response.ok) {
@@ -63,7 +70,7 @@ function CreateEmployee() {
       setPhone('');
       setPosition('');
       setGender('');
-      setDob('');
+      setDob(null);
     } catch (error) {
       console.error('Error creating Employee:', error);
       setErrorMessage('Failed to create Employee. Please try again.');
@@ -83,96 +90,122 @@ function CreateEmployee() {
     setShowErrorDialog(false);
   };
 
+  const dialogStyles = {
+    customDialog: {
+      width: '300px',
+    }
+  };
+
+  const cardStyle = {
+    width: 500,
+    margin: 'auto',
+    padding: '20px',
+    boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2)',
+    borderRadius: '8px'
+  };
+
   return (
-    <div className="create-employee-container">
-      <h2>Enter Employee Details</h2>
-      {errorMessage && <Message severity="error" text={errorMessage} />}
-      <form onSubmit={handleSubmit} className="create-employee-form">
-        <div className="p-field">
-          <label htmlFor="name">Name:</label>
-          <InputText
-            id="name"
-            value={name}
-            onChange={handleInput(setName)}
-            className="p-inputtext p-component p-filled"
-          />
-        </div>
-        <div className="p-field">
-          <label htmlFor="nic">NIC:</label>
-          <InputText
-            id="nic"
-            value={nic}
-            onChange={handleInput(setNic)}
-            className="p-inputtext p-component p-filled"
-          />
-        </div>
-        <div className="p-field">
-          <label htmlFor="address">Address:</label>
-          <InputText
-            id="address"
-            value={address}
-            onChange={handleInput(setAddress)}
-            className="p-inputtext p-component p-filled"
-          />
-        </div>
-        <div className="p-field">
-          <label htmlFor="phone">Phone:</label>
-          <InputText
-            id="phone"
-            value={phone}
-            onChange={handleInput(setPhone)}
-            className="p-inputtext p-component p-filled"
-          />
-        </div>
-        <div className="p-field">
-          <label htmlFor="position">Position:</label>
-          <InputText
-            id="position"
-            value={position}
-            onChange={handleInput(setPosition)}
-            className="p-inputtext p-component p-filled"
-          />
-        </div>
-        <div className="p-field">
-          <label htmlFor="gender">Gender:</label>
-          <InputText
-            id="gender"
-            value={gender}
-            onChange={handleInput(setGender)}
-            className="p-inputtext p-component p-filled"
-          />
-        </div>
-        <div className="p-field">
-          <label htmlFor="dob">Date of Birth:</label>
-          <InputText
-            id="dob"
-            value={dob}
-            onChange={handleInput(setDob)}
-            className="p-inputtext p-component p-filled"
-          />
-        </div>
-        <Button label="Create Employee" type="submit" className="p-button p-component p-filled p-button-rounded p-button-success" />
-      </form>
+    <div className="create-employee-container" style={{ textAlign: 'center', paddingTop: '2rem' }}>
+      <Card title="" style={cardStyle}>
+        <h2 style={{ marginBottom: '20px' }}>Enter Employee Details</h2>
+        {errorMessage && <Message severity="error" text={errorMessage} style={{ marginBottom: '20px' }} />}
+        <form onSubmit={handleSubmit} className="create-employee-form" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <div className="p-field">
+            <label htmlFor="name">Name:</label>
+            <InputText
+              id="name"
+              value={name}
+              onChange={handleInput(setName)}
+              className="p-inputtext p-component p-filled"
+              style={{ marginBottom: '20px' }}
+            />
+          </div>
+          <div className="p-field">
+            <label htmlFor="nic">NIC:</label>
+            <InputText
+              id="nic"
+              value={nic}
+              onChange={handleInput(setNic)}
+              className="p-inputtext p-component p-filled"
+              style={{ marginBottom: '20px' }}
+            />
+          </div>
+          <div className="p-field">
+            <label htmlFor="address">Address:</label>
+            <InputText
+              id="address"
+              value={address}
+              onChange={handleInput(setAddress)}
+              className="p-inputtext p-component p-filled"
+              style={{ marginBottom: '20px' }}
+            />
+          </div>
+          <div className="p-field">
+            <label htmlFor="phone">Phone:</label>
+            <InputText
+              id="phone"
+              value={phone}
+              onChange={handleInput(setPhone)}
+              className="p-inputtext p-component p-filled"
+              style={{ marginBottom: '20px' }}
+            />
+          </div>
+          <div className="p-field">
+            <label htmlFor="position">Position:</label>
+            <InputText
+              id="position"
+              value={position}
+              onChange={handleInput(setPosition)}
+              className="p-inputtext p-component p-filled"
+              style={{ marginBottom: '20px' }}
+            />
+          </div>
+          <div className="p-field">
+            <label htmlFor="gender">Gender:</label>
+            <Dropdown
+              id="gender"
+              value={gender}
+              options={genders}
+              onChange={(e) => setGender(e.value)}
+              className="p-inputtext p-component p-filled"
+              style={{ marginBottom: '20px', width: '100%' }}
+              placeholder="Select Gender"
+            />
+          </div>
+          <div className="p-field">
+            <label htmlFor="dob">Date of Birth:</label>
+            <Calendar
+              id="dob"
+              value={dob}
+              onChange={(e) => setDob(e.value)}
+              dateFormat="yy-mm-dd"
+              className="p-inputtext p-component p-filled"
+              style={{ marginBottom: '20px' }}
+            />
+          </div>
+          <Button label="Create Employee" type="submit" className="p-button p-component p-filled p-button-rounded p-button-success" style={{ marginTop: '20px', width: '200px' }} />
+        </form>
 
-      <Dialog
-        visible={showSuccessDialog}
-        onHide={onHideDialog}
-        header="Success"
-        className="custom-dialog"
-        footer={<Button label="OK" onClick={onHideDialog} />}
-      >
-        <p>Employee created successfully</p>
-      </Dialog>
+        <Dialog
+          visible={showSuccessDialog}
+          onHide={onHideDialog}
+          header="Success"
+          style={dialogStyles.customDialog}
+          footer={<Button label="OK" onClick={onHideDialog} />}
+        >
+          <p>Employee created successfully</p>
+        </Dialog>
 
-      <Dialog
-        visible={showErrorDialog}
-        onHide={onHideDialog}
-        header="Error"
-        className="custom-dialog"
-        footer={<Button label="OK" onClick={onHideDialog} />}
-      >
-        <p>{errorMessage}</p>
-      </Dialog>
+        <Dialog
+          visible={showErrorDialog}
+          onHide={onHideDialog}
+          header="Error"
+          style={dialogStyles.customDialog}
+          footer={<Button label="OK" onClick={onHideDialog} />}
+        >
+          <p>{errorMessage}</p>
+        </Dialog>
+      </Card>
     </div>
   );
 }
