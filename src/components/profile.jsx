@@ -10,6 +10,7 @@ const Profile = () => {
     let navigate = useNavigate();
 
     const [userDetails, setUserDetails] = useState({
+        userId: '',
         name: '',
         username: '',
         // password: ''
@@ -23,6 +24,7 @@ const Profile = () => {
                 const response = await fetch(`http://localhost:8080/api/v1/admin/${loggedUserId}`);
                 const data = await response.json();
                 setUserDetails({
+                    userId: data.name || '',
                     name: data.name || '',
                     username: data.username || '',
                     // password: data.password || ''
@@ -38,7 +40,7 @@ const Profile = () => {
 
     const handleDelete = async (e) => {
         e.preventDefault();
-        deleteUser(userDetails.username);
+        deleteUser(userDetails.userId);
         navigate('/');
     };
 
