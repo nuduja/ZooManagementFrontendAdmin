@@ -39,6 +39,7 @@ import QRCodeGenerator from "./components/QRCodeGenerator.jsx";
 import QRScanner from "./components/QRScanner.jsx";
 import EditEvent from './components/editEvent.jsx';
 import EditProfile from "./components/editProfile.jsx";
+import CreateEmployee from './components/createEmployee.jsx';
 
 
 const queryClient = new QueryClient()
@@ -105,6 +106,11 @@ function App() {
                     <Route path="/allemployees" element={
                         <ProtectedRoute>
                             <AllEmployees/>
+                        </ProtectedRoute>
+                    }/>
+                    <Route path="/createEmployee" element={
+                        <ProtectedRoute>
+                            <CreateEmployee/>
                         </ProtectedRoute>
                     }/>
                     <Route path="/employeeSpecific/:employeeId" element={
