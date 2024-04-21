@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Card } from 'primereact/card';
 import { Button } from 'primereact/button';
@@ -84,49 +84,46 @@ const AnimalSpecific = () => {
                     {loading && <p>Loading animal data...</p>}
                     {errorMessage && <Message severity="error" text={errorMessage} />}
                     {animalData && (
-                        <div>
-                            <div>
-                                <p><strong>ID:</strong> {animalData.id}</p>
-                                <p><strong>Animal Species ID:</strong> {animalData.animalSpeciesId}</p>
-                                <p><strong>Animal Species Name:</strong> {animalData.animalSpeciesName}</p>
-                                <p><strong>Name:</strong> {animalData.name}</p>
-                                <p><strong>Enclosure ID:</strong> {animalData.enclosureId}</p>
-                                <p><strong>Birth Date:</strong> {animalData.birthDate}</p>
-                                <p><strong>Birth Country:</strong> {animalData.birthCountry}</p>
-                            </div>
-                            <div className="p-d-flex p-jc-end">
-                                <Button label="Edit" className="p-button-primary p-mr-2" onClick={handleEdit} />
-                                <Button label="Delete" className="p-button-danger" onClick={handleDelete} />
-                            </div>
-                            <Dialog
-                                visible={showSuccessDialog}
-                                onHide={onHideSuccessDialog}
-                                header="Success"
-                                footer={<Button label="OK" onClick={onHideSuccessDialog} />}
-                            >
-                                <p>Animal deleted successfully</p>
-                            </Dialog>
-                            <Dialog
-                                visible={showErrorDialog}
-                                onHide={onHideErrorDialog}
-                                header="Error"
-                                footer={<Button label="OK" onClick={onHideErrorDialog} />}
-                            >
-                                <p>Failed to delete Animal. Please try again.</p>
-                            </Dialog>
-                            <div>
-                                <button onClick={downloadQRCode} disabled={!animalId}>
-                                    Download QR Code
-                                </button>
-                                {animalId && (
-                                    <div ref={qrRef}>
-                                        <QRCode value={animalId} size={256} level={"H"} includeMargin={true} />
-                                    </div>
-                                )}
-                            </div>
+                        <div className="animal-data-container">
+                            <p><strong>ID:</strong> {animalData.id}</p>
+                            <p><strong>Animal Species ID:</strong> {animalData.animalSpeciesId}</p>
+                            <p><strong>Animal Species Name:</strong> {animalData.animalSpeciesName}</p>
+                            <p><strong>Name:</strong> {animalData.name}</p>
+                            <p><strong>Enclosure ID:</strong> {animalData.enclosureId}</p>
+                            <p><strong>Birth Date:</strong> {animalData.birthDate}</p>
+                            <p><strong>Birth Country:</strong> {animalData.birthCountry}</p>
                         </div>
-
                     )}
+                    <div className="p-d-flex p-flex-column p-ai-end qr-code-container">
+                        <button onClick={downloadQRCode} disabled={!animalId}>
+                            Download QR Code
+                        </button>
+                        {animalId && (
+                            <div ref={qrRef} className="p-mt-2">
+                                <QRCode value={animalId} size={256} level={"H"} includeMargin={true} />
+                            </div>
+                        )}
+                        <div className="button-container">
+                            <Button label="Edit" className="p-button-primary p-mr-2" onClick={handleEdit} />
+                            <Button label="Delete" className="p-button-danger" onClick={handleDelete} />
+                        </div>
+                    </div>
+                    <Dialog
+                        visible={showSuccessDialog}
+                        onHide={onHideSuccessDialog}
+                        header="Success"
+                        footer={<Button label="OK" onClick={onHideSuccessDialog} />}
+                    >
+                        <p>Animal deleted successfully</p>
+                    </Dialog>
+                    <Dialog
+                        visible={showErrorDialog}
+                        onHide={onHideErrorDialog}
+                        header="Error"
+                        footer={<Button label="OK" onClick={onHideErrorDialog} />}
+                    >
+                        <p>Failed to delete Animal. Please try again.</p>
+                    </Dialog>
                 </Card>
             </div>
         </div>

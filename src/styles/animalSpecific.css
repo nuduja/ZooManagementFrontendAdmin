@@ -1,48 +1,47 @@
+/* animalSpecific.css */
+
 .p-card {
-    margin: 0 auto; /* Center the card horizontally */
-    width: 500px;
-    /* height: 500px; */
-  }
-  /* animalSpecific.css */
+  /* max-height: 600px; Set maximum height */
+  /* overflow: auto; Add scroll if content exceeds height */
+  display: flex; /* Use flexbox */
+  flex-direction: column; /* Stack children vertically */
+  align-items: center; /* Center items horizontally */
+  justify-content: center; /* Center items vertically */
+  width: 500px;
+  margin-left: 400px;
+  margin-right: 400px;
+  /* margin-bottom: 100px; */
+  margin-bottom: 0; /* Remove the bottom margin */
+  padding-bottom: 0;
+  border: none; /* Remove any border */
+  box-shadow: none; 
+  
+}
+/* animalSpecific.css */
 
-/* Main container */
-.p-grid {
-  margin: 20px;
+.p-d-flex.p-flex-column.p-ai-end.qr-code-container {
+  margin-bottom: 0; /* Remove any bottom margin */
+  padding-bottom: 0; /* Remove any bottom padding */
+  border-bottom: none; /* Remove any bottom border */
 }
 
-/* Card */
-.p-card {
-  width: 100%;
-  max-width: 600px;
+.animal-data-container {
+  margin-bottom: 20px; /* Add margin to bottom of the data container */
+  text-align: center; /* Center text horizontally */
 }
 
-/* Loading message */
-.loading-message {
-  margin-top: 20px;
+
+.qr-code-container {
+  margin-top: 10px; /* Add margin to top of the QR code container */
+  display: flex; /* Use flexbox */
+  flex-direction: column; /* Stack children vertically */
+  align-items: center; /* Center items horizontally */
+
 }
 
-/* Error message */
-.error-message {
-  margin-top: 20px;
-}
-
-/* Details */
-.details {
-  margin-top: 20px;
-}
-
-.details p {
-  margin-bottom: 10px;
-}
-
-/* Button container */
 .button-container {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 20px;
-}
+  margin-top: 10px; /* Add margin to top of the button container */
+  display: flex; 
+  align-items: center; /* Center items horizontally */
 
-/* Dialog */
-.p-dialog {
-  width: 300px;
 }
