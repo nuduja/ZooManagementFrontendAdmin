@@ -36,6 +36,7 @@ const QRUploader = () => {
 
     return (
         <div className="qr-uploader-container">
+            <h2>Upload the QR code to see Animal Details</h2>
             <FileUpload mode="basic" accept="image/*" customUpload={true} uploadHandler={handleFileUpload} />
             {animal && <div className="animal-details">
                 <h3 className="qr-uploader-title">Animal Details</h3>

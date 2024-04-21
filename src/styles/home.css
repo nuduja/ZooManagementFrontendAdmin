@@ -9,7 +9,7 @@
 
 
 .statistics-cards-container {
-  margin-bottom: 200px;
+  margin-bottom: 100px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 50px;
@@ -26,7 +26,7 @@
 }
 
 .chart-section {
-  height: 100px;
+  height: 400px;
   padding: 20px;
 }
 

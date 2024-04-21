@@ -8,7 +8,6 @@ import '../styles/editCustomer.css';
 
 const EditCustomer = () => {
     const navigate = useNavigate();
-    const { username } = useParams();
     const { userId } = useParams();
     const [customerData, setCustomerData] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -22,6 +21,8 @@ const EditCustomer = () => {
     const [showErrorDialog, setShowErrorDialog] = useState(false);
     const [errorMessage, setErrorMessage] = useState(''); 
     const [successMsg, setSuccessMsg] = useState('');
+    const [phoneError, setPhoneError] = useState('');
+    const [emailError, setEmailError] = useState('');
 
     useEffect(() => {
         const fetchCustomerData = async () => {
@@ -56,6 +57,24 @@ const EditCustomer = () => {
             ...prevData,
             [name]: value
         }));
+
+        // Validate phone
+        if (name === 'phone') {
+            if (!/^\d{10}$/.test(value)) {
+                setPhoneError('Phone number must be 10 digits');
+            } else {
+                setPhoneError('');
+            }
+        }
+
+        // Validate email
+        if (name === 'email') {
+            if (!/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/.test(value)) {
+                setEmailError('Invalid email address');
+            } else {
+                setEmailError('');
+            }
+        }
     };
 
     const handleSubmit = async (e) => {
@@ -122,7 +141,9 @@ const EditCustomer = () => {
                                 name="phone"
                                 value={editedCustomerData.phone}
                                 onChange={handleInputChange}
+                                className={phoneError ? 'p-invalid' : ''}
                             />
+                            <small className="p-error">{phoneError}</small>
                         </div>
                         <div className="p-field">
                             <label htmlFor="email">Email:</label>
@@ -131,9 +152,11 @@ const EditCustomer = () => {
                                 name="email"
                                 value={editedCustomerData.email}
                                 onChange={handleInputChange}
+                                className={emailError ? 'p-invalid' : ''}
                             />
+                            <small className="p-error">{emailError}</small>
                         </div>
-                        <Button type="submit" label="Update" className="p-button-success" />
+                        <Button type="submit" label="Update" className="p-button-success" disabled={phoneError || emailError} />
                     </form>
 
                     <Dialog

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Card } from 'primereact/card';
-import { Menu } from 'primereact/menu';
 import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
 import { Message } from 'primereact/message';
@@ -8,12 +7,6 @@ import { useNavigate } from 'react-router-dom';
 
 const EditProfile = () => {
     let navigate = useNavigate();
-
-    const items = [
-        { label: 'Profile', icon: 'pi pi-palette', url: '/profile' },
-        { label: 'Booked Events', icon: 'pi pi-link', url: '/profile/event' },
-        { label: 'Booked Tickets', icon: 'pi pi-home', url: '/ticketprofile' }
-    ];
 
     const [userDetails, setUserDetails] = useState({
         adminId: '',
@@ -42,7 +35,6 @@ const EditProfile = () => {
         };
 
         const loggedUserId = sessionStorage.getItem('userId');
-        console.log("loggedUserId", loggedUserId)
         fetchData(loggedUserId);
     }, []);
 
@@ -59,18 +51,31 @@ const EditProfile = () => {
             if (!response.ok) {
                 throw new Error('Failed to update Admin data');
             }
-            setUserDetails(userDetails);
-            setError(null)
+            setError(null);
+            setSubmitted(true);
         } catch (error) {
             console.error('Error updating profile:', error);
             setError('Failed to update');
         }
-        setSubmitted(true);
+    };
+
+    const handleDelete = async () => {
+        try {
+            const response = await fetch(`http://localhost:8080/api/v1/adminId/${userDetails.adminId}`, {
+                method: 'DELETE',
+            });
+            if (!response.ok) {
+                throw new Error('Failed to delete Admin data');
+            }
+            navigate('/'); // Redirect to home page after successful deletion
+        } catch (error) {
+            console.error('Error deleting profile:', error);
+            setError('Failed to delete');
+        }
     };
 
     return (
         <div className="edit-profile-container">
-            <Menu model={items} />
             <div className="edit-profile-form">
                 <Card title="Edit Your Profile" className="edit-profile-card">
                     {error && <Message severity="error" text={`Error: ${error}`} />}
@@ -113,6 +118,11 @@ const EditProfile = () => {
                     {submitted && (
                         <Message severity="info" text="Profile updated successfully." />
                     )}
+                    <Button
+                        label="Delete"
+                        className="p-button-rounded p-button-lg p-button-danger"
+                        onClick={handleDelete}
+                    />
                 </Card>
             </div>
         </div>

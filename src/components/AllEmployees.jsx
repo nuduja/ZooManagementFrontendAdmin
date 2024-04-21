@@ -49,12 +49,13 @@ const AllEmployees = () => {
     const viewDetailsButton = (rowData) => {
         return (
             <Button
-                icon="pi pi-search"
+                label="View Details"
                 className="p-button-secondary"
                 onClick={() => viewDetails(rowData)}
             />
         );
     };
+    
 
     const viewDetails = (rowData) => {
         navigate(`/employeeSpecific/${rowData.employeeId}`);

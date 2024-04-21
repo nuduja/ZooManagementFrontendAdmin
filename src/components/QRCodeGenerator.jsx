@@ -25,7 +25,7 @@ const QRCodeGenerator = () => {
 
     return (
         <div className="qrcode-generator">
-            <h2>Generate QR Code</h2>
+            <h2>Enter a Animal ID to Generate a QR Code</h2>
             <InputText
                 value={inputId}
                 onChange={handleInputChange}
