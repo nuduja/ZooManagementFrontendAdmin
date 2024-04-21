@@ -20,6 +20,7 @@ export default function TemplateDemo() {
           icon: 'pi pi-plus',
           items: [
             { label: 'Create Animal', icon: 'pi pi-plus', url: '/createAnimal' },
+            { label: 'Create Animal Species', icon: 'pi pi-plus', url: '/createAnimalSpecies' },
             { label: 'Create Customer', icon: 'pi pi-user-plus', url: '/createCustomer' },
             { label: 'Create Employee', icon: 'pi pi-user-plus', url: '/createemployee' },
             { label: 'QR Scanner', icon: 'pi pi-user-plus', url: '/qrscanner' },
@@ -46,7 +47,7 @@ export default function TemplateDemo() {
             { label: 'All Animal Species', icon: 'pi pi-image', url: '/AllAnimalSpecies' }
           ]
         },
-        { label: 'Profile', icon: 'pi pi-user', url: '/profile' }
+        // { label: 'Profile', icon: 'pi pi-user', url: '/profile' }
       ];
       
       
