@@ -17,7 +17,7 @@ const QRScanner = () => {
     useEffect(() => {
         if (videoRef.current) {
             const scanner = new QrScanner(videoRef.current, (result) => {
-                console.log(result)
+                console.log(result);
                 fetchAnimalDetails(result);
                 scanner.stop();
             }, (error) => {
@@ -63,8 +63,15 @@ const QRScanner = () => {
                 <h3>Animal Details</h3>
                 {animal ? (
                     <>
+                        <p>ID: {animal.id}</p>
+                        <p>Animal ID: {animal.animalId}</p>
+                        <p>Species ID: {animal.animalSpeciesId}</p>
+                        <p>Species Name: {animal.animalSpeciesName}</p>
                         <p>Name: {animal.name}</p>
-                        <p>Species: {animal.species}</p>
+                        <p>Enclosure ID: {animal.enclosureId}</p>
+                        <p>Birth Date: {animal.birthDate}</p>
+                        <p>Birth Country: {animal.birthCountry}</p>
+                        <p>Description: {animal.description}</p>
                     </>
                 ) : (
                     <p className="qr-popup">{error}</p>
