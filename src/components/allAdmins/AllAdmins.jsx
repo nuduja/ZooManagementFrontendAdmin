@@ -13,7 +13,7 @@ const AllAdmins = () => {
     const [username, setUsername] = useState('');
     const [loading, setLoading] = useState(false);
     const [first, setFirst] = useState(0);
-    const [rows, setRows] = useState(5); // Change pagination step to 5
+    const [rows, setRows] = useState(5);
 
     useEffect(() => {
         fetchData();
@@ -71,10 +71,9 @@ const AllAdmins = () => {
 
     const columns = useMemo(
         () => [
-            { field: 'id', header: 'ID', sortable: true },
+            { field: 'adminId', header: 'Admin Id', sortable: true },
             { field: 'name', header: 'Name', sortable: true },
             { field: 'username', header: 'Username', sortable: true },
-            { field: 'adminId', header: 'Admin Id', sortable: true },
         ],
         []
     );
