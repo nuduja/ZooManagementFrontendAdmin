@@ -3,6 +3,7 @@ import { Card } from 'primereact/card';
 import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
 import { Message } from 'primereact/message';
+import { Dialog } from 'primereact/dialog';
 import { useNavigate } from 'react-router-dom';
 import '../styles/editProfile.css';
 
@@ -18,6 +19,8 @@ const EditProfile = () => {
 
     const [submitted, setSubmitted] = useState(false);
     const [error, setError] = useState(null);
+    const [successDialogVisible, setSuccessDialogVisible] = useState(false);
+    const [errorDialogVisible, setErrorDialogVisible] = useState(false);
 
     useEffect(() => {
         const fetchData = async (loggedUserId) => {
@@ -32,6 +35,7 @@ const EditProfile = () => {
                 });
             } catch (err) {
                 setError(err.message);
+                setErrorDialogVisible(true);
             }
         };
 
@@ -52,11 +56,14 @@ const EditProfile = () => {
             if (!response.ok) {
                 throw new Error('Failed to update Admin data');
             }
+            
             setError(null);
             setSubmitted(true);
+            setSuccessDialogVisible(true);
         } catch (error) {
             console.error('Error updating profile:', error);
             setError('Failed to update');
+            setErrorDialogVisible(true);
         }
     };
 
@@ -68,18 +75,54 @@ const EditProfile = () => {
             if (!response.ok) {
                 throw new Error('Failed to delete Admin data');
             }
-            navigate('/'); // Redirect to home page after successful deletion
+             // Redirect to home page after successful deletion
+            setSuccessDialogVisible(true);
         } catch (error) {
             console.error('Error deleting profile:', error);
             setError('Failed to delete');
+            setErrorDialogVisible(true);
         }
+    };
+
+    const onHideSuccessDialog = () => {
+        setSuccessDialogVisible(false);
+        navigate(-1);
+    };
+
+    const onHideErrorDialog = () => {
+        setErrorDialogVisible(false);
     };
 
     return (
         <div className="edit-profile-container">
             <div className="edit-profile-form">
                 <Card title="Edit Your Profile" className="edit-profile-card">
-                    {error && <Message severity="error" text={`Error: ${error}`} />}
+                    <Dialog
+                        visible={successDialogVisible}
+                        onHide={onHideSuccessDialog}
+                        header="Success"
+                        modal
+                        footer={
+                            <div>
+                                <Button onClick={onHideSuccessDialog} label="OK" className="p-button-text" />
+                            </div>
+                        }
+                    >
+                        <p>Profile updated successfully.</p>
+                    </Dialog>
+                    <Dialog
+                        visible={errorDialogVisible}
+                        onHide={onHideErrorDialog}
+                        header="Error"
+                        modal
+                        footer={
+                            <div>
+                                <Button onClick={onHideErrorDialog} label="OK" className="p-button-text" />
+                            </div>
+                        }
+                    >
+                        <p>Error: {error}</p>
+                    </Dialog>
                     <form className="p-fluid" onSubmit={handleSubmit}>
                         <div className="p-field">
                             <label htmlFor="name">Name</label>
@@ -116,9 +159,6 @@ const EditProfile = () => {
                             />
                         </div>
                     </form>
-                    {submitted && (
-                        <Message severity="info" text="Profile updated successfully." />
-                    )}
                     {/* <Button
                         label="Delete"
                         className="p-button-rounded p-button-lg p-button-danger"

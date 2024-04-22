@@ -10,13 +10,15 @@ const Profile = () => {
     let navigate = useNavigate();
 
     const [userDetails, setUserDetails] = useState({
-        userId: '',
+        adminId: '',
         name: '',
         username: '',
         // password: ''
     });
 
     const [error, setError] = useState(null);
+    const [errorDialogVisible, setErrorDialogVisible] = useState(false);
+    const [successDialogVisible, setSuccessDialogVisible] = useState(false);
 
     useEffect(() => {
         const fetchData = async (loggedUserId) => {
@@ -31,6 +33,7 @@ const Profile = () => {
                 });
             } catch (err) {
                 setError(err.message);
+                setErrorDialogVisible(true);
             }
         };
 
@@ -38,10 +41,23 @@ const Profile = () => {
         fetchData(loggedUserId);
     }, []);
 
-    const handleDelete = async (e) => {
-        e.preventDefault();
-        deleteUser(userDetails.userId);
-        navigate('/');
+    const handleDelete = async () => {
+        try {
+            const response = await fetch(`http://localhost:8080/api/v1/admin/${userDetails.adminId}`, {
+                method: 'DELETE',
+            });
+            if (!response.ok) {
+                throw new Error('Failed to delete Admin data');
+            }
+            
+            // Redirect to home page after successful deletion
+            setSuccessDialogVisible(true);
+            navigate(-1);
+        } catch (error) {
+            console.error('Error deleting profile:', error);
+            setError('Failed to delete');
+            setErrorDialogVisible(true);
+        }
     };
 
     const handleResetPassword = async () => {
