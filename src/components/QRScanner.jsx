@@ -18,7 +18,9 @@ const QRScanner = () => {
     useEffect(() => {
         if (videoRef.current) {
             const scanner = new QrScanner(videoRef.current, (result) => {
-                fetchAnimalDetails(result.data);
+                console.log(result)
+                // console.log(result.data)
+                fetchAnimalDetails(result);
                 scanner.stop();  // Stop scanning once a QR code is scanned
             }, (error) => {
                 console.error(error);
