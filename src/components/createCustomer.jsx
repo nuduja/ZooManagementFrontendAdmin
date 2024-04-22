@@ -3,7 +3,7 @@ import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { Message } from 'primereact/message';
 import { Dialog } from 'primereact/dialog';
-import '../styles/createCustomer.css'; // Import CSS file for custom styling
+import '../styles/createCustomer.css';
 
 function CreateCustomer() {
   const [name, setName] = useState('');
