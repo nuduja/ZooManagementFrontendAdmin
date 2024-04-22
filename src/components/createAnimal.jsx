@@ -66,7 +66,6 @@ function CreateAnimal() {
       name &&
       selectedAnimalSpeciesId &&
       enclosureId &&
-      age &&
       birthCountry &&
       birthDate &&
       description
@@ -94,7 +93,6 @@ function CreateAnimal() {
           birthDate: birthDate.toISOString().split('T')[0], // Format to YY-MM-DD
           birthCountry,
           description,
-          age: parseInt(age, 10)  // Convert age to integer
         }),
       });
       if (!response.ok) {
@@ -178,6 +176,7 @@ function CreateAnimal() {
               <label>Age:</label>
               <InputText
                 value={age}
+                disabled={true}
                 onChange={handleInput(setAge)}
                 className="zoo-input"
               />
