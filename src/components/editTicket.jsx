@@ -5,6 +5,7 @@ import { ProgressSpinner } from 'primereact/progressspinner';
 import { InputText } from 'primereact/inputtext';
 import { Dropdown } from 'primereact/dropdown';
 import { Dialog } from 'primereact/dialog';
+import {Calendar} from "primereact/calendar";
 
 const TicketSpecific = () => {
     const navigate = useNavigate();
@@ -13,7 +14,7 @@ const TicketSpecific = () => {
     const [loading, setLoading] = useState(true);
     const [editedTicketData, setEditedTicketData] = useState({
         ticketType: '',
-        ticketDate: '',
+        ticketDate: new Date(),
         status: '',
         price: ''
     });
@@ -62,7 +63,7 @@ const TicketSpecific = () => {
                 setTicketData(data);
                 setEditedTicketData({
                     ticketType: data.ticketType,
-                    ticketDate: data.ticketDate,
+                    ticketDate: new Date(data.ticketDate),
                     status: data.status,
                     price: data.price.toString()
                 });
@@ -80,10 +81,18 @@ const TicketSpecific = () => {
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
+        if(name == null){
+            const date = new Date(value);
+            const formattedDate = date.toISOString().split('T')[0];
+            setEditedTicketData({
+                ...editedTicketData,
+                ticketDate: formattedDate
+            });
+        }else{
         setEditedTicketData(prevData => ({
             ...prevData,
             [name]: value
-        }));
+        }));}
     };
 
     const handleSubmit = async (e) => {
@@ -142,11 +151,12 @@ const TicketSpecific = () => {
                         </div>
                         <div style={styles.field}>
                             <label htmlFor="ticketDate">Ticket Date:</label>
-                            <InputText
-                                id="ticketDate"
-                                name="ticketDate"
+                            <Calendar
                                 value={editedTicketData.ticketDate}
                                 onChange={handleInputChange}
+                                dateFormat="yy-mm-dd"
+                                className="zoo-input"
+                                required
                             />
                         </div>
                         <div style={styles.field}>
