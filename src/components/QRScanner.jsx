@@ -3,9 +3,8 @@ import QrScanner from 'qr-scanner';
 import axios from 'axios';
 import { Dialog } from 'primereact/dialog';
 import { Button } from 'primereact/button';
-import '../styles/QRScanner.css'; // Import the CSS file
+import '../styles/QRScanner.css';
 
-// Ensure the worker path is set correctly
 QrScanner.WORKER_PATH = '/qr-scanner-worker.min.js';
 
 const QRScanner = () => {
@@ -19,9 +18,8 @@ const QRScanner = () => {
         if (videoRef.current) {
             const scanner = new QrScanner(videoRef.current, (result) => {
                 console.log(result)
-                // console.log(result.data)
                 fetchAnimalDetails(result);
-                scanner.stop();  // Stop scanning once a QR code is scanned
+                scanner.stop();
             }, (error) => {
                 console.error(error);
                 setError('Failed to scan QR code');
@@ -67,7 +65,6 @@ const QRScanner = () => {
                     <>
                         <p>Name: {animal.name}</p>
                         <p>Species: {animal.species}</p>
-                        {/* You can add more fields here as needed */}
                     </>
                 ) : (
                     <p className="qr-popup">{error}</p>
