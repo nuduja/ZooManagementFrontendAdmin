@@ -120,7 +120,7 @@ const AllEvents = () => {
                             <Column
                                 header="Actions"
                                 body={(rowData) => (
-                                    <Link to={`/eventSpecific/${rowData.eventID}`} className="p-button p-button-text">
+                                    <Link to={`/eventSpecific/${rowData.eventID}`} className="p-button p-button-text" style={{ width: '140px' }}>
                                         View Details
                                     </Link>
                                 )}

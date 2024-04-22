@@ -7,6 +7,7 @@ import { ProgressSpinner } from 'primereact/progressspinner';
 import { Button } from 'primereact/button';
 import { Link } from 'react-router-dom';
 
+
 const AllTickets = () => {
     const [tickets, setTickets] = useState([]);
     const [ticketID, setTicketID] = useState('');
@@ -144,7 +145,7 @@ const AllTickets = () => {
                             <Column
                                 header="Actions"
                                 body={(rowData) => (
-                                    <Link to={`/ticketSpecific/${rowData.ticketID}`} className="p-button p-button-text">
+                                    <Link to={`/ticketSpecific/${rowData.ticketID}`} className="p-button p-button-text" style={{ width: '140px' }}>
                                         View Details
                                     </Link>
                                 )}

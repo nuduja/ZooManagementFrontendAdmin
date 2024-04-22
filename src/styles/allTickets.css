@@ -1,40 +1,66 @@
-.datatable-style {
-    font-family: 'Arial', sans-serif;
-    padding: 20px;
-    margin-bottom: -300px;
-  }
-  
-  .p-datatable-custom .p-datatable-thead > tr > th.ticket-id {
-    text-align: center;
-    background-color: #007bff;
-    color: #ffffff;
-  }
-  
-  .p-datatable-custom .p-datatable-thead > tr > th.ticket-type {
-    text-align: center;
-    background-color: #28a745;
-    color: #ffffff;
-  }
-  
-  .p-datatable-custom .p-datatable-tbody > tr > td.actions-column {
-    text-align: center;
-  }
-  
-  .p-datatable-custom .p-datatable-tbody > tr > td.actions-column > a {
-    color: #007bff;
-    text-decoration: none;
-    cursor: pointer;
-  }
-  
-  .p-datatable-custom .p-datatable-tbody > tr:hover {
-    background-color: #f0f0f0;
-  }
-  /* allTickets.css */
-
-.actions-column .p-button {
-  width: auto; /* Set the width to auto to fit the content */
-  padding: 0.5rem 1rem; /* Adjust padding for a smaller button */
-  font-size: 0.9rem; /* Decrease font size for a smaller button */
+.section-title {
+  margin-bottom: 20px;
 }
 
-  
+.p-formgrid {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.p-col-4 {
+  flex: 0 0 33.3333%;
+  max-width: 33.3333%;
+  padding-right: 10px;
+  padding-left: 10px;
+  margin-bottom: 20px;
+}
+
+.p-dropdown-sm,
+.p-inputtext-sm {
+  width: 100%;
+}
+
+.custom-table {
+  margin-top: 20px;
+}
+
+.p-datatable {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.p-datatable-header {
+  background-color: #f0f0f0;
+}
+
+.p-datatable .p-datatable-header th,
+.p-datatable .p-datatable-tbody td {
+  padding: 10px;
+}
+
+.p-datatable .p-datatable-header th {
+  text-align: left;
+  font-weight: bold;
+}
+
+.p-datatable .p-datatable-tbody td {
+  text-align: left;
+}
+
+.p-datatable-tbody tr:hover {
+  background-color: #f9f9f9;
+}
+
+.p-button-text {
+  text-decoration: none;
+  color: #007ad9;
+}
+
+.p-button-text:hover {
+  color: #0056b3;
+}
+
+.p-button-text:focus {
+  outline: none;
+}

@@ -8,6 +8,7 @@
   }
   
   .form-container {
+    margin-top: 50px;
     width: 300px; /* Adjust width as needed */
     border: 2px solid #ccc;
     padding: 20px;
@@ -48,5 +49,5 @@
   h2 {
     position: relative; /* Ensure relative positioning for z-index */
     z-index: 3; /* Ensure h2 appears above the background image */
-    margin-top: 20px; /* Adjust margin as needed */
+    margin-top: 50px; /* Adjust margin as needed */
   }
