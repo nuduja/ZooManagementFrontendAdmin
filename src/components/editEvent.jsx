@@ -3,7 +3,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
 import { Dialog } from 'primereact/dialog';
-import '../styles/editEvent.css'; // Import CSS file
+import '../styles/editEvent.css';
+import {Calendar} from "primereact/calendar"; // Import CSS file
 
 const EditEvent = () => {
     const navigate = useNavigate();
@@ -12,7 +13,7 @@ const EditEvent = () => {
     const [editedEventData, setEditedEventData] = useState({
         eventName: '',
         eventDescription: '',
-        eventDate: '',
+        eventDate: new Date(),
         eventLocation: '',
         eventManager: '',
         capacity: ''
@@ -34,7 +35,7 @@ const EditEvent = () => {
                 setEditedEventData({
                     eventName: data.eventName,
                     eventDescription: data.eventDescription,
-                    eventDate: data.eventDate,
+                    eventDate: new Date(data.eventDate),
                     eventLocation: data.eventLocation,
                     eventManager: data.eventManager,
                     capacity: data.capacity.toString()
@@ -51,10 +52,18 @@ const EditEvent = () => {
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        setEditedEventData(prevData => ({
-            ...prevData,
-            [name]: value
-        }));
+        if(name == null){
+            const date = new Date(value);
+            const formattedDate = date.toISOString().split('T')[0];
+            setEditedEventData({
+                ...editedEventData,
+                eventDate: formattedDate
+            });
+        }else{
+            setEditedEventData(prevData => ({
+                ...prevData,
+                [name]: value
+            }));}
     };
 
     const handleSubmit = async (e) => {
@@ -116,12 +125,14 @@ const EditEvent = () => {
                 </div>
                 <div className="p-field">
                     <label htmlFor="eventDate">Event Date:</label>
-                    <InputText
+                    <Calendar
                         id="eventDate"
                         name="eventDate"
                         value={editedEventData.eventDate}
                         onChange={handleInputChange}
-                        className="p-inputtext"
+                        dateFormat="yy-mm-dd"
+                        className="zoo-input"
+                        required
                     />
                 </div>
                 <div className="p-field">
