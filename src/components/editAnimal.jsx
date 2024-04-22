@@ -5,6 +5,7 @@ import { InputText } from 'primereact/inputtext';
 import { Card } from 'primereact/card';
 import { Dialog } from 'primereact/dialog';
 import {Calendar} from "primereact/calendar";
+import {Dropdown} from "primereact/dropdown";
 
 const EditAnimal = () => {
     const navigate = useNavigate();
@@ -17,6 +18,9 @@ const EditAnimal = () => {
         enclosureId: '',
         birthDate: new Date()
     });
+    const [animalSpecies, setAnimalSpecies] = useState([]);
+    const [selectedAnimalSpeciesId, setSelectedAnimalSpeciesId] = useState('');
+    const [selectedAnimalSpeciesName, setSelectedAnimalSpeciesName] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
     const [showSuccessDialog, setShowSuccessDialog] = useState(false);
@@ -54,10 +58,14 @@ const EditAnimal = () => {
                 setAnimalData(data);
                 
                 setEditedAnimalData({
-                    name: data.name,
+                    animalId: data.animalId,
+                    animalSpeciesId: data.animalSpeciesId,
                     animalSpeciesName: data.animalSpeciesName,
+                    name: data.name,
                     enclosureId: data.enclosureId,
-                    birthDate: new Date(data.birthDate)
+                    birthDate: new Date(data.birthDate),
+                    birthCountry: data.birthCountry,
+                    description: data.description,
                 });
             } catch (error) {
                 console.error('Error fetching Animal data:', error);
@@ -69,6 +77,23 @@ const EditAnimal = () => {
         };
 
         fetchAnimalData();
+
+        const fetchSpecies = async () => {
+            try {
+                const response = await fetch('http://localhost:8080/api/v1/animalspecies');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch animal species');
+                }
+                const data = await response.json();
+                setAnimalSpecies(data);
+            } catch (error) {
+                console.error('Error fetching species:', error);
+                setErrorMessage('Failed to fetch species data.');
+                setShowErrorDialog(true);
+            }
+        };
+
+        fetchSpecies();
     }, [animalId]);
 
     const handleInputChange = (e) => {
@@ -87,8 +112,27 @@ const EditAnimal = () => {
             }));}
     };
 
+    // const isFormValid = () => {
+    //     return (
+    //         editedAnimalData.animalId &&
+    //         selectedAnimalSpeciesId,
+    //         selectedAnimalSpeciesName,
+    //         editedAnimalData.name &&
+    //         selectedAnimalSpeciesId &&
+    //         editedAnimalData.enclosureId &&
+    //         editedAnimalData.birthDate &&
+    //         editedAnimalData.birthCountry &&
+    //         editedAnimalData.description
+    //     );
+    // };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+        // if (!isFormValid()) {
+        //     setErrorMessage('Please fill in all fields.');
+        //     setShowErrorDialog(true);
+        //     return;
+        // }
         try {
             if (!animalData) {
                 throw new Error('Animal data is not available');
@@ -98,7 +142,15 @@ const EditAnimal = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(editedAnimalData),
+                body: JSON.stringify({
+                    animalSpeciesId: selectedAnimalSpeciesId,
+                    animalSpeciesName: selectedAnimalSpeciesName,
+                    name: editedAnimalData.name,
+                    enclosureId: editedAnimalData.enclosureId,
+                    birthDate: editedAnimalData.birthDate,
+                    birthCountry: editedAnimalData.birthCountry,
+                    description: editedAnimalData.description,
+                }),
             });
             if (!response.ok) {
                 throw new Error('Failed to update Animal data');
@@ -110,6 +162,13 @@ const EditAnimal = () => {
             setErrorMessage('Failed to update Animal data');
             setShowErrorDialog(true);
         }
+    };
+
+    const handleDropdownChange = (e) => {
+        const { value } = e.target;
+        const selectedSpecies = animalSpecies.find(species => species.animalSpeciesId === value);
+        setSelectedAnimalSpeciesId(selectedSpecies.animalSpeciesId);
+        setSelectedAnimalSpeciesName(selectedSpecies.animalSpeciesName);
     };
 
     const onHideDialog = () => {
@@ -137,11 +196,15 @@ const EditAnimal = () => {
                             </div>
                             <div style={styles.inputGroup}>
                                 <label htmlFor="animalSpeciesName">Animal Species Name:</label>
-                                <InputText
-                                    id="animalSpeciesName"
-                                    name="animalSpeciesName"
-                                    value={editedAnimalData.animalSpeciesName}
-                                    onChange={handleInputChange}
+                                <Dropdown
+                                    value={selectedAnimalSpeciesId}
+                                    options={animalSpecies.map(species => ({
+                                        label: species.animalSpeciesName,
+                                        value: species.animalSpeciesId
+                                    }))}
+                                    onChange={handleDropdownChange}
+                                    placeholder="Select an Animal Species"
+                                    className="zoo-dropdown"
                                 />
                             </div>
                             <div style={styles.inputGroup}>
