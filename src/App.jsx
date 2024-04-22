@@ -33,7 +33,6 @@ import EditAnimal from './components/editAnimal.jsx';
 import AllEmployees from './components/AllEmployees.jsx';
 import EmployeeSpecific from './components/employeeSpecific.jsx';
 import EditEmployee from './components/editEmployee.jsx';
-import Dashboard from "./components/dashboard/Dashboard.jsx";
 import QRUploader from "./components/QRUploader.jsx";
 import QRCodeGenerator from "./components/QRCodeGenerator.jsx";
 import QRScanner from "./components/QRScanner.jsx";
@@ -49,8 +48,11 @@ function App() {
             <Router>
                 <Navbar/>
                 <Routes>
-                    <Route path="/" element={<Home/>}/>
-                    {/* <Route path="/" element={<Dashboard/>}/> */}
+                    <Route path="/" element={
+                        <ProtectedRoute>
+                            <Home/>
+                        </ProtectedRoute>
+                    }/>
                     <Route path="/login" element={<Login/>}/>
                     <Route path="/signup" element={<Signup/>}/>
                     <Route path="/profile" element={
@@ -93,11 +95,6 @@ function App() {
                             <Ticket/>
                         </ProtectedRoute>
                     }/>
-                    {/* <Route path="/events" element={
-                        <ProtectedRoute>
-                            <Event/>
-                        </ProtectedRoute>
-                    }/> */}
                     <Route path="/animals" element={
                         <ProtectedRoute>
                             <Animals/>
