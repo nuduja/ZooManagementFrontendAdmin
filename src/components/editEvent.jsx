@@ -4,7 +4,8 @@ import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
 import { Dialog } from 'primereact/dialog';
 import '../styles/editEvent.css';
-import {Calendar} from "primereact/calendar"; // Import CSS file
+import {Calendar} from "primereact/calendar";
+import {Dropdown} from "primereact/dropdown";
 
 const EditEvent = () => {
     const navigate = useNavigate();
@@ -18,6 +19,9 @@ const EditEvent = () => {
         eventManager: '',
         capacity: ''
     });
+    const [employees, setEmployees] = useState([]);
+    const [selectedEmployeeId, setSelectedEmployeeId] = useState('');
+    const [selectedEmployeeName, setSelectedEmployeeName] = useState('');
     const [errorMsg, setErrorMsg] = useState('');
     const [successMsg, setSuccessMsg] = useState('');
     const [showSuccessDialog, setShowSuccessDialog] = useState(false);
@@ -48,11 +52,30 @@ const EditEvent = () => {
         };
 
         fetchEventData();
+
+        const fetchEmployees = async () => {
+            try {
+                const response = await fetch('http://localhost:8080/api/v1/employee');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch employee species');
+                }
+                const data = await response.json();
+                setEmployees(data);
+            } catch (error) {
+                console.error('Error fetching employee:', error);
+                setErrorMessage('Failed to fetch employee data.');
+            }
+        };
+
+        fetchEmployees();
+
     }, [eventID]);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        if(name == null){
+        console.log(name)
+        console.log(value)
+        if(name == 'eventDate'){
             const date = new Date(value);
             const formattedDate = date.toISOString().split('T')[0];
             setEditedEventData({
@@ -91,6 +114,15 @@ const EditEvent = () => {
             setShowErrorDialog(true);
             setSuccessMsg('');
         }
+    };
+
+    const handleDropdownChange = (e) => {
+        const { value } = e.target;
+        console.log(value)
+        console.log(selectedEmployeeId)
+        const selectedEmployee = employees.find(employee => employee.employeeId === value);
+        setSelectedEmployeeId(selectedEmployee.employeeId);
+        setSelectedEmployeeName(selectedEmployee.name);
     };
 
     const onHideDialog = () => {
@@ -147,12 +179,15 @@ const EditEvent = () => {
                 </div>
                 <div className="p-field">
                     <label htmlFor="eventManager">Event Manager:</label>
-                    <InputText
-                        id="eventManager"
-                        name="eventManager"
-                        value={editedEventData.eventManager}
-                        onChange={handleInputChange}
-                        className="p-inputtext"
+                    <Dropdown
+                        value={selectedEmployeeId}
+                        options={employees.map(employee => ({
+                            label: employee.name,
+                            value: employee.employeeId
+                        }))}
+                        onChange={handleDropdownChange}
+                        placeholder="Select an Event Manager"
+                        className="zoo-dropdown"
                     />
                 </div>
                 <div className="p-field">
