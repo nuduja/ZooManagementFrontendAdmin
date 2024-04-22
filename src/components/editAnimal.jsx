@@ -137,7 +137,7 @@ const EditAnimal = () => {
             if (!animalData) {
                 throw new Error('Animal data is not available');
             }
-            const response = await fetch(`http://localhost:8080/api/v1/animal/updatebyanimalid/${animalData.animalId}`, {
+            const response = await fetch(`http://localhost:8080/api/v1/animal/updatebyanimalids/${animalData.animalId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
