@@ -4,6 +4,7 @@ import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
 import { Card } from 'primereact/card';
 import { Dialog } from 'primereact/dialog';
+import {Calendar} from "primereact/calendar";
 
 const EditAnimal = () => {
     const navigate = useNavigate();
@@ -14,7 +15,7 @@ const EditAnimal = () => {
         name: '',
         animalSpeciesName: '',
         enclosureId: '',
-        birthDate: ''
+        birthDate: new Date()
     });
     const [errorMessage, setErrorMessage] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
@@ -51,7 +52,13 @@ const EditAnimal = () => {
                     throw new Error('Empty response from server');
                 }
                 setAnimalData(data);
-                setEditedAnimalData(data);
+                
+                setEditedAnimalData({
+                    name: data.name,
+                    animalSpeciesName: data.animalSpeciesName,
+                    enclosureId: data.enclosureId,
+                    birthDate: new Date(data.birthDate)
+                });
             } catch (error) {
                 console.error('Error fetching Animal data:', error);
                 setErrorMessage(error.message);
@@ -66,10 +73,18 @@ const EditAnimal = () => {
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        setEditedAnimalData(prevData => ({
-            ...prevData,
-            [name]: value
-        }));
+        if(name == "birthdate"){
+            const date = new Date(value);
+            const formattedDate = date.toISOString().split('T')[0];
+            setEditedAnimalData({
+                ...editedAnimalData,
+                birthDate: formattedDate
+            });
+        }else{
+            setEditedAnimalData(prevData => ({
+                ...prevData,
+                [name]: value
+            }));}
     };
 
     const handleSubmit = async (e) => {
@@ -140,11 +155,14 @@ const EditAnimal = () => {
                             </div>
                             <div style={styles.inputGroup}>
                                 <label htmlFor="age">Birth Date:</label>
-                                <InputText
-                                    id="age"
-                                    name="age"
+                                <Calendar
+                                    id="birthdate"
+                                    name="birthdate"
                                     value={editedAnimalData.birthDate}
                                     onChange={handleInputChange}
+                                    dateFormat="yy-mm-dd"
+                                    className="zoo-input"
+                                    required
                                 />
                             </div>
                             <Button type="submit" label="Update" className="p-button-success" />
