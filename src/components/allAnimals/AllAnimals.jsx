@@ -121,7 +121,7 @@ const AllAnimals = () => {
                 <Link to={`../animalSpecific/${rowData.animalId}`} className="p-button p-button-text" style={{ width: '140px' }}>
                   View Details
                 </Link>
-                <Link to={`../medicalRecords/${rowData.id}`} className="p-button p-button-text p-ml-2" style={{ width: '140px' }}>
+                <Link to={`../medicalRecordsSpecific/${rowData.id}`} className="p-button p-button-text p-ml-2" style={{ width: '140px' }}>
                   Medical Records
                 </Link>
               </React.Fragment>
