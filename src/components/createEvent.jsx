@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Calendar } from 'primereact/calendar';
 import { Dialog } from 'primereact/dialog';
+import { Dropdown } from 'primereact/dropdown'; // Import Dropdown component
 import '../styles/createevent.css';
 import { Button } from 'primereact/button';
 
@@ -14,6 +15,18 @@ function CreateEvent() {
   const [username, setUsername] = useState('');
   const [displayDialog, setDisplayDialog] = useState(false);
   const [dialogMessage, setDialogMessage] = useState('');
+
+  // Define location options with zoo locations and park names
+  const locationOptions = [
+    { label: 'Safari Zone', value: 'Safari Zone' },
+    { label: 'Aquatic Pavilion', value: 'Aquatic Pavilion' },
+    { label: 'Bird Aviary', value: 'Bird Aviary' },
+    { label: 'Primate Enclosure', value: 'Primate Enclosure' },
+    { label: 'Central Park', value: 'Central Park' },
+    { label: 'Golden Gate Park', value: 'Golden Gate Park' },
+    { label: 'Hyde Park', value: 'Hyde Park' },
+    // Add more park names as needed
+  ];
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -78,7 +91,6 @@ function CreateEvent() {
             disabled={true}
             hidden={true}
             required
-            
           />
         </label>
         <label>
@@ -108,15 +120,17 @@ function CreateEvent() {
             required
           />
         </label>
-        <label>
-          Event Location:
-          <input
-            type="text"
+        <div>
+          {/* Dropdown for Event Location */}
+          <label>Event Location:</label>
+          <Dropdown
             value={eventLocation}
-            onChange={(e) => setEventLocation(e.target.value)}
+            options={locationOptions}
+            onChange={(e) => setEventLocation(e.value)}
+            placeholder="Select Location"
             required
           />
-        </label>
+        </div>
         <div className="calendar-container">
           <label>
             Select Date:
