@@ -56,7 +56,7 @@ const EditAnimal = () => {
                     throw new Error('Empty response from server');
                 }
                 setAnimalData(data);
-                
+
                 setEditedAnimalData({
                     animalId: data.animalId,
                     animalSpeciesId: data.animalSpeciesId,
@@ -67,6 +67,7 @@ const EditAnimal = () => {
                     birthCountry: data.birthCountry,
                     description: data.description,
                 });
+                setSelectedAnimalSpeciesId(data.animalSpeciesId)
             } catch (error) {
                 console.error('Error fetching Animal data:', error);
                 setErrorMessage(error.message);

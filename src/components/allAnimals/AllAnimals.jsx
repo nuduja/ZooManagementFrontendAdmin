@@ -4,7 +4,6 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
-import { classNames } from 'primereact/utils';
 
 const AllAnimals = () => {
   const [animals, setAnimals] = useState([]);
@@ -62,11 +61,10 @@ const AllAnimals = () => {
 
   const columns = useMemo(
     () => [
-      { field: 'id', header: 'ID' },
       { field: 'animalId', header: 'Animal ID' },
+      { field: 'name', header: 'Name' },
       { field: 'animalSpeciesId', header: 'Species ID' },
       { field: 'animalSpeciesName', header: 'Species Name' },
-      { field: 'name', header: 'Name' },
       { field: 'enclosureId', header: 'Enclosure ID' },
     ],
     []

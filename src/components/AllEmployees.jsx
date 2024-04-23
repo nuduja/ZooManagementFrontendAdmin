@@ -137,9 +137,9 @@ const AllEmployees = () => {
                         <Dropdown
                             value={gender}
                             options={[
-                                { label: 'Male', value: 'Male' },
-                                { label: 'Female', value: 'Female' },
-                                { label: 'Other', value: 'Other' }
+                                { label: 'MALE', value: 'MALE' },
+                                { label: 'FEMALE', value: 'FEMALE' },
+                                { label: 'OTHER', value: 'OTHER' }
                             ]}
                             onChange={(e) => setGender(e.target.value)}
                             placeholder="Select Gender"

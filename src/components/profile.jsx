@@ -13,9 +13,9 @@ const Profile = () => {
         adminId: '',
         name: '',
         username: '',
-        // password: ''
     });
 
+    const [loggedUserId, setLoggedUserId] = useState('');
     const [error, setError] = useState(null);
     const [errorDialogVisible, setErrorDialogVisible] = useState(false);
     const [successDialogVisible, setSuccessDialogVisible] = useState(false);
@@ -29,7 +29,6 @@ const Profile = () => {
                     userId: data.name || '',
                     name: data.name || '',
                     username: data.username || '',
-                    // password: data.password || ''
                 });
             } catch (err) {
                 setError(err.message);
@@ -38,19 +37,19 @@ const Profile = () => {
         };
 
         const loggedUserId = sessionStorage.getItem('userId');
+        setLoggedUserId(loggedUserId);
         fetchData(loggedUserId);
     }, []);
 
     const handleDelete = async () => {
         try {
-            const response = await fetch(`http://localhost:8080/api/v1/admin/${userDetails.adminId}`, {
+            const response = await fetch(`http://localhost:8080/api/v1/admin/${loggedUserId}`, {
                 method: 'DELETE',
             });
             if (!response.ok) {
                 throw new Error('Failed to delete Admin data');
             }
-            
-            // Redirect to home page after successful deletion
+
             setSuccessDialogVisible(true);
             navigate(-1);
         } catch (error) {
