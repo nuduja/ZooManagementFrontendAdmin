@@ -38,6 +38,7 @@ export default function TemplateDemo() {
             { label: 'All Employees', icon: 'pi pi-image', url: '/allemployees' },
             { label: 'All Tickets', icon: 'pi pi-ticket', url: '/tickets' },
             { label: 'All Events', icon: 'pi pi-ticket', url: '/event' },
+            { label: 'All Medical Records', icon: 'pi pi-ticket', url: '/allmedicalrecords' },
           ]
         },
         {

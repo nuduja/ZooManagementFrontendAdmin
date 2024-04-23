@@ -1,11 +1,12 @@
 import React, { useEffect, useState, useMemo } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom'; // Import useNavigate
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 
 const AllAnimals = () => {
+  const navigate = useNavigate(); // Define the navigate function
   const [animals, setAnimals] = useState([]);
   const [animalId, setAnimalId] = useState('');
   const [animalSpeciesId, setAnimalSpeciesId] = useState('');
@@ -70,6 +71,10 @@ const AllAnimals = () => {
     []
   );
 
+  const viewMedicalRecords = (rowData) => {
+    navigate(`../medicalRecordsSpecific/${rowData.animalId}`);
+  };
+
   const downloadButton = (
     <Button
       type="button"
@@ -121,9 +126,13 @@ const AllAnimals = () => {
                 <Link to={`../animalSpecific/${rowData.animalId}`} className="p-button p-button-text" style={{ width: '140px' }}>
                   View Details
                 </Link>
-                <Link to={`../medicalRecordsSpecific/${rowData.id}`} className="p-button p-button-text p-ml-2" style={{ width: '140px' }}>
-                  Medical Records
-                </Link>
+                <Button
+                  label="Medical Records"
+                  className="p-button-text p-ml-2"
+                  style={{ height: '40px', marginLeft:'50px',width: '140px' }}
+                  onClick={() => viewMedicalRecords(rowData)} // Pass rowData as an argument
+                  
+                />
               </React.Fragment>
             )}
           />

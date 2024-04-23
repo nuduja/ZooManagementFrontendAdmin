@@ -44,6 +44,8 @@ import ResetPasswordC from './components/resetPasswordC.jsx';
 import ResetPasswordA from './components/resetPasswordA.jsx';
 import MedicalRecordSpecific from './components/medicalRecordsSpecific.jsx';
 import CreateMedicalRecord from './components/createmedicalrecord.jsx';
+import AllMedicalRecords from './components/Allmedicalrecords.jsx';
+import EditMedicalRecord from './components/editMedicalRecord.jsx';
 
 
 const queryClient = new QueryClient()
@@ -246,7 +248,22 @@ function App() {
                         <ResetPasswordA />
                     </ProtectedRoute>
                 } />
-                 <Route path="/medicalRecordSpecific/:medicalRecordId" component={MedicalRecordSpecific} />
+                <Route path="/medicalRecordsSpecific/:animalId" element={
+                    <ProtectedRoute>
+                        <MedicalRecordSpecific />
+                    </ProtectedRoute>
+                } />
+                <Route path="/medicalrecord/edit/:medicalRecordId" element={
+                        <ProtectedRoute>
+                            <EditMedicalRecord/>
+                        </ProtectedRoute>
+                    }/>
+                <Route path="/allmedicalrecords" element={
+                        <ProtectedRoute>
+                            <AllMedicalRecords/>
+                        </ProtectedRoute>
+                    }/>
+                 {/* <Route path="/medicalRecordSpecific/:medicalRecordId" component={MedicalRecordSpecific} /> */}
 
                 </Routes>
                 <Footer/>
