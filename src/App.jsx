@@ -42,6 +42,7 @@ import CreateEmployee from './components/createEmployee.jsx';
 import ResetPassword from './components/resetPassword.jsx';
 import ResetPasswordC from './components/resetPasswordC.jsx';
 import ResetPasswordA from './components/resetPasswordA.jsx';
+import MedicalRecordSpecific from './components/medicalRecordsSpecific.jsx';
 import CreateMedicalRecord from './components/createmedicalrecord.jsx';
 
 
@@ -245,6 +246,8 @@ function App() {
                         <ResetPasswordA />
                     </ProtectedRoute>
                 } />
+                 <Route path="/medicalRecordSpecific/:medicalRecordId" component={MedicalRecordSpecific} />
+
                 </Routes>
                 <Footer/>
             </Router>
