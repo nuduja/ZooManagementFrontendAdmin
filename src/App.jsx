@@ -46,7 +46,7 @@ import MedicalRecordSpecific from './components/medicalRecordsSpecific.jsx';
 import CreateMedicalRecord from './components/createmedicalrecord.jsx';
 import AllMedicalRecords from './components/Allmedicalrecords.jsx';
 import EditMedicalRecord from './components/editMedicalRecord.jsx';
-
+import MedicalRecordSpecific1 from './components/medicalRecordsSpecific1.jsx';
 
 const queryClient = new QueryClient()
 function App() {
@@ -251,6 +251,11 @@ function App() {
                 <Route path="/medicalRecordsSpecific/:animalId" element={
                     <ProtectedRoute>
                         <MedicalRecordSpecific />
+                    </ProtectedRoute>
+                } />
+                <Route path="/medicalRecordsSpecific1/:medicalRecordId" element={
+                    <ProtectedRoute>
+                        <MedicalRecordSpecific1 />
                     </ProtectedRoute>
                 } />
                 <Route path="/medicalrecord/edit/:medicalRecordId" element={

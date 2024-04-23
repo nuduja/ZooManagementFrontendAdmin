@@ -60,7 +60,7 @@ const AllMedicalRecords = () => {
           header="Actions"
           body={(rowData) => (
             <React.Fragment>
-              <Link to={`../medicalRecordSpecific/${rowData.medicalRecordId}`} className="p-button p-button-text" style={{ width: '140px' }}>
+              <Link to={`../medicalRecordsSpecific/${rowData.medicalRecordId}`} className="p-button p-button-text" style={{ width: '140px' }}>
                 View Details
               </Link>
             </React.Fragment>

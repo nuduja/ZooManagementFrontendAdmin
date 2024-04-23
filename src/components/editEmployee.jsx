@@ -124,7 +124,7 @@ const EditEmployee = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // Check if there are any validation errors before submitting the form
+        
         const isValid = Object.values(validationErrors).every(error => !error);
         if (!isValid) {
             setErrorMsg('Please fill in all required fields correctly');
