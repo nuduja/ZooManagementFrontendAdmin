@@ -60,8 +60,7 @@ const Profile = () => {
     };
 
     const handleResetPassword = async () => {
-        // Implement the logic to reset the user's password here
-        // For example, you can send a request to the backend to reset the password
+        navigate('/resetpassword');
     };
 
     return (

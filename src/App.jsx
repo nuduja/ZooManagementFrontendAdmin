@@ -39,6 +39,9 @@ import QRScanner from "./components/QRScanner.jsx";
 import EditEvent from './components/editEvent.jsx';
 import EditProfile from "./components/editProfile.jsx";
 import CreateEmployee from './components/createEmployee.jsx';
+import ResetPassword from './components/resetPassword.jsx';
+import ResetPasswordC from './components/resetPasswordC.jsx';
+import ResetPasswordA from './components/resetPasswordA.jsx';
 
 
 const queryClient = new QueryClient()
@@ -221,6 +224,21 @@ function App() {
                             <AnimalSpecies/>
                         </ProtectedRoute>
                     }/>
+                    <Route path="/resetPassword" element={
+                    <ProtectedRoute>
+                        <ResetPassword />
+                    </ProtectedRoute>
+                } />
+                <Route path="/resetPasswordC" element={
+                    <ProtectedRoute>
+                        <ResetPasswordC />
+                    </ProtectedRoute>
+                } />
+                 <Route path="/resetPasswordA" element={
+                    <ProtectedRoute>
+                        <ResetPasswordA />
+                    </ProtectedRoute>
+                } />
                 </Routes>
                 <Footer/>
             </Router>

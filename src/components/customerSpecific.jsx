@@ -45,7 +45,7 @@ const CustomerSpecific = () => {
     };
 
     const handleResetPassword = () => {
-        navigate(`/customer/reset-password/${userId}`);
+        navigate('/resetpasswordC');
     };
 
     return (
