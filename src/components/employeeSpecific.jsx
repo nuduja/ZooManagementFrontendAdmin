@@ -37,7 +37,7 @@ const EmployeeSpecific = () => {
             if (!response.ok) {
                 throw new Error('Failed to delete Employee');
             }
-            navigate('/employees');
+            navigate(-1);
         } catch (error) {
             console.error('Error deleting Employee:', error);
         }
