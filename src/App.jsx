@@ -39,6 +39,13 @@ import QRScanner from "./components/QRScanner.jsx";
 import EditEvent from './components/editEvent.jsx';
 import EditProfile from "./components/editProfile.jsx";
 import CreateEmployee from './components/createEmployee.jsx';
+import ResetPassword from './components/resetPassword.jsx';
+import ResetPasswordC from './components/resetPasswordC.jsx';
+import ResetPasswordA from './components/resetPasswordA.jsx';
+import MedicalRecordSpecific from './components/medicalRecordsSpecific.jsx';
+import CreateMedicalRecord from './components/createmedicalrecord.jsx';
+import AllMedicalRecords from './components/Allmedicalrecords.jsx';
+import EditMedicalRecord from './components/editMedicalRecord.jsx';
 
 
 const queryClient = new QueryClient()
@@ -150,6 +157,11 @@ function App() {
                             <CreateEvent/>
                         </ProtectedRoute>
                     }/>
+                    <Route path="/createmedicalrecord" element={
+                        <ProtectedRoute>
+                            <CreateMedicalRecord/>
+                        </ProtectedRoute>
+                    }/>
                     <Route path="/adminSpecific/:adminId" element={
                         <ProtectedRoute>
                             <AdminSpecific/>
@@ -221,6 +233,38 @@ function App() {
                             <AnimalSpecies/>
                         </ProtectedRoute>
                     }/>
+                    <Route path="/resetPassword" element={
+                    <ProtectedRoute>
+                        <ResetPassword />
+                    </ProtectedRoute>
+                } />
+                <Route path="/resetPasswordC" element={
+                    <ProtectedRoute>
+                        <ResetPasswordC />
+                    </ProtectedRoute>
+                } />
+                 <Route path="/resetPasswordA" element={
+                    <ProtectedRoute>
+                        <ResetPasswordA />
+                    </ProtectedRoute>
+                } />
+                <Route path="/medicalRecordsSpecific/:animalId" element={
+                    <ProtectedRoute>
+                        <MedicalRecordSpecific />
+                    </ProtectedRoute>
+                } />
+                <Route path="/medicalrecord/edit/:medicalRecordId" element={
+                        <ProtectedRoute>
+                            <EditMedicalRecord/>
+                        </ProtectedRoute>
+                    }/>
+                <Route path="/allmedicalrecords" element={
+                        <ProtectedRoute>
+                            <AllMedicalRecords/>
+                        </ProtectedRoute>
+                    }/>
+                 {/* <Route path="/medicalRecordSpecific/:medicalRecordId" component={MedicalRecordSpecific} /> */}
+
                 </Routes>
                 <Footer/>
             </Router>

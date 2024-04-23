@@ -60,12 +60,11 @@ const Profile = () => {
     };
 
     const handleResetPassword = async () => {
-        // Implement the logic to reset the user's password here
-        // For example, you can send a request to the backend to reset the password
+        navigate('/resetpassword');
     };
 
     return (
-        <div className="main-container">
+        <div className="main-container1">
             <div className="profile-section">
                 <Divider />
                 <Card title={<Avatar label={userDetails.name.charAt(0)} style={{ width: '100px', height: '100px', fontSize: '50px'}} />} className="profile-card">

@@ -1,28 +1,26 @@
-/* profile.css */
 
-/* Main container */
-.main-container {
+.main-container1 {
+  max-width: 60%;
+  max-height: 60%; 
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh; /* Adjust the height as needed */
   background-color: #f4f4f4;
+  margin: 50px auto;
+  
 }
 
-/* Left sidebar */
-.left-sidebar {
-  flex: 0 0 20%;
-}
-
-/* Profile section */
 .profile-section {
-  flex: 20%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items:center ;
   padding: 20px;
 }
 
-/* Profile card */
 .profile-card {
-  width: 600px;
+  max-width: 100%;
+  width: 500px;
   background-color: #f9f9f9; /* Light gray background color */
   border: 1px solid #ddd; /* Light gray border */
   padding: 20px;
@@ -43,14 +41,15 @@
 /* Profile label */
 .profile-label {
   font-weight: bold;
-  font-size: 18px;
+  font-size: 22px;
   color: #333; /* Dark gray */
 }
 
 /* Profile buttons */
 .profile-buttons {
-  width: 200px;
-  margin-top: 20px;
+  display: flex;
+  margin-top: 30px;
+  
 }
 
 /* Zoo-themed button styles */

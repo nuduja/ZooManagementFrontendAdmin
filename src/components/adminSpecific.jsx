@@ -45,7 +45,7 @@ const AdminSpecific = () => {
     };
 
     const handleResetPassword = () => {
-        navigate(`/admin/reset-password/${adminId}`);
+        navigate('/resetpasswordA');
     };
 
     return (
