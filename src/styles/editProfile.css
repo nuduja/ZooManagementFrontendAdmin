@@ -1,12 +1,11 @@
-/* EditProfile.css */
+
 
 .edit-profile-container {
-    /* margin-right: 500px; */
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Adjust the height as needed */
-    background-color: #f4f4f4; /* Background color */
+    height: 100vh; 
+    background-color: #f4f4f4; 
   }
   
   .edit-profile-form {

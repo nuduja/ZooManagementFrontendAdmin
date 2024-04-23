@@ -53,17 +53,7 @@ body {
   flex-direction: column;
   gap: 1.5rem;
 }
-/* .footer__copyrights {
-  padding-top: 3rem;
-  margin-top: 3rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
-}
-.footer__copyrights p {
-  display: flex;
-}
-.footer__copyrights p a {
-  margin-left: 0.5rem;
-} */
+
 @keyframes parralax {
   0% {
     background-position: 260px;

@@ -51,8 +51,8 @@
   }
   
   .custom-dialog .p-dialog-header {
-    background-color: #007ad9; /* Header background color */
-    color: #ffffff; /* Header text color */
+    background-color: #007ad9; 
+    color: #ffffff; 
   }
   
   .custom-dialog .p-dialog-footer {

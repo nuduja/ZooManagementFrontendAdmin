@@ -1,51 +1,51 @@
-/* Custom Zoo-themed styles for the menu bar */
+
 .navbar-container {
-    width: 100%; /* Set Navbar container width to 100% */
+    width: 100%; 
     position:relative; 
     top: 0;
     z-index: 1000;
-    background-color: #ffffff; /* Set background color */
+    background-color: #ffffff;
   
   }
   
 .p-menubar {
     margin: auto;
     z-index: 1000;
-    background-color: #ffffff; /* Dark green background */
-    color: #000000; /* White text color */
-    border-bottom: 2px solid #24b844; /* Green border bottom */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
-    font-family: 'Arial', sans-serif; /* Choose a suitable font */
+    background-color: #ffffff; 
+    color: #000000; 
+    border-bottom: 2px solid #24b844; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+    font-family: 'Arial', sans-serif; 
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 20px; /* Add padding */
+    padding: 0 20px; 
 }
 
 .p-menubar .p-menuitem-link {
-    color: #000000; /* White text color for menu items */
-    font-weight: bold; /* Make menu item text bold */
-    text-transform: uppercase; /* Convert text to uppercase */
+    color: #000000; 
+    font-weight: bold;
+    text-transform: uppercase; 
 }
 
 .p-menubar .p-menuitem-link:hover {
     border-radius: 40px;
-    background-color: #1ccc24; /* Dark green background on hover */
+    background-color: #1ccc24; 
 }
 
 .p-menubar .p-menuitem-end .p-menuitem-link {
-    margin-right: 20px; /* Add margin between menu items */
+    margin-right: 20px; 
 }
 
 .p-menubar .p-menuitem-end .p-menuitem-link:hover {
-    background-color: transparent; /* Remove background color on hover for end menu items */
+    background-color: transparent; 
 }
 
 .p-menubar .p-menuitem-end .p-menuitem-link i {
-    margin-right: 10px; /* Add margin between icon and text */
+    margin-right: 10px; 
 }
 
-/* Media Queries */
+
 @media screen and (max-width: 768px) {
     .p-menubar {
         flex-direction: column;
@@ -53,6 +53,6 @@
     }
 
     .p-menubar .p-menuitem-end {
-        margin-top: 20px; /* Add margin at the top for end menu items */
+        margin-top: 20px; 
     }
 }
