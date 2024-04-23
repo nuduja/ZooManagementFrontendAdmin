@@ -23,6 +23,7 @@ export default function TemplateDemo() {
             { label: 'Create Animal Species', icon: 'pi pi-plus', url: '/createAnimalSpecies' },
             { label: 'Create Customer', icon: 'pi pi-user-plus', url: '/createCustomer' },
             { label: 'Create Employee', icon: 'pi pi-user-plus', url: '/createemployee' },
+            { label: 'Create Medical Records', icon: 'pi pi-user-plus', url: '/createmedicalrecord' },
             { label: 'QR Scanner', icon: 'pi pi-user-plus', url: '/qrscanner' },
             { label: 'QR Generator', icon: 'pi pi-user-plus', url: '/qrgenerator' },
             { label: 'QR Uploader', icon: 'pi pi-user-plus', url: '/qruploader' }
@@ -37,6 +38,7 @@ export default function TemplateDemo() {
             { label: 'All Employees', icon: 'pi pi-image', url: '/allemployees' },
             { label: 'All Tickets', icon: 'pi pi-ticket', url: '/tickets' },
             { label: 'All Events', icon: 'pi pi-ticket', url: '/event' },
+            { label: 'All Medical Records', icon: 'pi pi-ticket', url: '/allmedicalrecords' },
           ]
         },
         {

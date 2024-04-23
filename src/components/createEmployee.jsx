@@ -14,14 +14,14 @@ function CreateEmployee() {
   const [phone, setPhone] = useState('');
   const [position, setPosition] = useState('');
   const [gender, setGender] = useState('');
-  const [dob, setDob] = useState(null);
+  const [dob, setDob] = useState(new Date());
   const [errorMessage, setErrorMessage] = useState('');
   const [showSuccessDialog, setShowSuccessDialog] = useState(false);
   const [showErrorDialog, setShowErrorDialog] = useState(false);
 
   const genders = [
-    { label: 'Male', value: 'Male' },
-    { label: 'Female', value: 'Female' }
+    { label: 'MALE', value: 'MALE' },
+    { label: 'FEMALE', value: 'FEMALE' }
   ];
 
   const validatePhone = (phone) => {
@@ -57,7 +57,8 @@ function CreateEmployee() {
           phone: phone,
           position: position,
           gender: gender,
-          dob: dob.toISOString().split('T')[0]  // Convert Date object to yyyy-mm-dd format
+          // dob: dob.toISOString().split('T')[0]  // Convert Date object to yyyy-mm-dd format
+          dob: dob.toISOString().split('T')[0]
         }),
       });
       if (!response.ok) {
@@ -70,7 +71,7 @@ function CreateEmployee() {
       setPhone('');
       setPosition('');
       setGender('');
-      setDob(null);
+      setDob(new Date());
     } catch (error) {
       console.error('Error creating Employee:', error);
       setErrorMessage('Failed to create Employee. Please try again.');
@@ -177,7 +178,7 @@ function CreateEmployee() {
             <Calendar
               id="dob"
               value={dob}
-              onChange={(e) => setDob(e.value)}
+              onChange={(e) => setDob(new Date(e.value))}
               dateFormat="yy-mm-dd"
               className="p-inputtext p-component p-filled"
               style={{ marginBottom: '20px' }}
