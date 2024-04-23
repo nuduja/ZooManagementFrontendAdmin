@@ -57,6 +57,21 @@ const EditAnimalSpeciesSpecific = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (
+            !editedAnimalSpeciesData.animalSpeciesName ||
+            !editedAnimalSpeciesData.taxonomy_kingdom ||
+            !editedAnimalSpeciesData.taxonomy_scientific_name ||
+            !editedAnimalSpeciesData.characteristics_group_behavior ||
+            !editedAnimalSpeciesData.characteristics_diet ||
+            !editedAnimalSpeciesData.characteristics_skin_type ||
+            !editedAnimalSpeciesData.characteristics_top_speed ||
+            !editedAnimalSpeciesData.characteristics_lifespan ||
+            !editedAnimalSpeciesData.characteristics_weight
+        ) {
+            setErrorMessage('Please fill in all fields.');
+            setShowErrorDialog(true);
+            return;
+        }
         try {
             const response = await fetch(`http://localhost:8080/api/v1/animalspecies/updatebyanimalspeciesid/${animalSpeciesId}`, {
                 method: 'PUT',

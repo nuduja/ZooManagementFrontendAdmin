@@ -17,6 +17,8 @@ const EditAdmin = () => {
     });
     const [showDialog, setShowDialog] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
+    const [nameError, setNameError] = useState('');
+    const [usernameError, setUsernameError] = useState('');
 
     const styles = {
         container: {
@@ -78,10 +80,31 @@ const EditAdmin = () => {
             ...prevData,
             [name]: value
         }));
+
+        // Validate name
+        if (name === 'name') {
+            if (!value.trim()) {
+                setNameError('Name is required');
+            } else {
+                setNameError('');
+            }
+        }
+
+        // Validate username
+        if (name === 'username') {
+            if (!value.trim()) {
+                setUsernameError('Username is required');
+            } else {
+                setUsernameError('');
+            }
+        }
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        // Add form-level validation here if needed
+        // For example, checking if all fields are filled
+
         try {
             const response = await fetch(`http://localhost:8080/api/v1/admin/updatebyadminid/${adminData.adminId}`, {
                 method: 'PUT',
@@ -122,7 +145,9 @@ const EditAdmin = () => {
                                 name="name"
                                 value={editedAdminData.name}
                                 onChange={handleInputChange}
+                                className={nameError ? 'p-invalid' : ''}
                             />
+                            <small style={{ color: 'red' }}>{nameError}</small>
                         </div>
                         <div style={styles.field}>
                             <label htmlFor="username">Username:</label>
@@ -131,7 +156,9 @@ const EditAdmin = () => {
                                 name="username"
                                 value={editedAdminData.username}
                                 onChange={handleInputChange}
+                                className={usernameError ? 'p-invalid' : ''}
                             />
+                            <small style={{ color: 'red' }}>{usernameError}</small>
                         </div>
                         <Button type="submit" label="Update" className="p-button-success" style={styles.button} />
                     </form>

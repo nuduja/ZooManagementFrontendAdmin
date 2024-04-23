@@ -91,7 +91,7 @@ const EditMedicalRecord = () => {
                 },
                 body: JSON.stringify({
                     animalId: editedRecordData.animalId,
-                    recordDate: editedRecordData.recordDate,
+                    recordDate: editedRecordData.recordDate.toISOString().split('T')[0],
                     description: editedRecordData.description,
                 }),
             });
