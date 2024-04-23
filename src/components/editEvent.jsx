@@ -44,6 +44,8 @@ const EditEvent = () => {
                     eventManager: data.eventManager,
                     capacity: data.capacity.toString()
                 });
+                setSelectedEmployeeName(data.eventManager)
+
             } catch (error) {
                 console.error('Error fetching Event data:', error);
                 setErrorMsg('Failed to fetch Event data');
@@ -82,7 +84,13 @@ const EditEvent = () => {
                 ...editedEventData,
                 eventDate: formattedDate
             });
-        }else{
+        }
+        else if(name == 'eventManager'){
+            setEditedEventData({
+                ...editedEventData,
+                eventManager: value
+            });
+        } else{
             setEditedEventData(prevData => ({
                 ...prevData,
                 [name]: value

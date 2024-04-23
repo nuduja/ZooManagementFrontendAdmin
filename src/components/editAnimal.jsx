@@ -4,8 +4,8 @@ import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
 import { Card } from 'primereact/card';
 import { Dialog } from 'primereact/dialog';
-import {Calendar} from "primereact/calendar";
-import {Dropdown} from "primereact/dropdown";
+import { Calendar } from "primereact/calendar";
+import { Dropdown } from "primereact/dropdown";
 
 const EditAnimal = () => {
     const navigate = useNavigate();
@@ -68,6 +68,7 @@ const EditAnimal = () => {
                     description: data.description,
                 });
                 setSelectedAnimalSpeciesId(data.animalSpeciesId)
+                setSelectedAnimalSpeciesName(data.animalSpeciesName)
             } catch (error) {
                 console.error('Error fetching Animal data:', error);
                 setErrorMessage(error.message);
@@ -99,9 +100,10 @@ const EditAnimal = () => {
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        if(name == "birthdate"){
+        if(name === "birthdate"){
             const date = new Date(value);
-            const formattedDate = date.toISOString().split('T')[0];
+            // const formattedDate = date.toISOString().split('T')[0];
+            const formattedDate = new Date(date);
             setEditedAnimalData({
                 ...editedAnimalData,
                 birthDate: formattedDate
@@ -110,35 +112,23 @@ const EditAnimal = () => {
             setEditedAnimalData(prevData => ({
                 ...prevData,
                 [name]: value
-            }));}
+            }));
+        }
     };
-
-    // const isFormValid = () => {
-    //     return (
-    //         editedAnimalData.animalId &&
-    //         selectedAnimalSpeciesId,
-    //         selectedAnimalSpeciesName,
-    //         editedAnimalData.name &&
-    //         selectedAnimalSpeciesId &&
-    //         editedAnimalData.enclosureId &&
-    //         editedAnimalData.birthDate &&
-    //         editedAnimalData.birthCountry &&
-    //         editedAnimalData.description
-    //     );
-    // };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // if (!isFormValid()) {
-        //     setErrorMessage('Please fill in all fields.');
-        //     setShowErrorDialog(true);
-        //     return;
-        // }
+        // Field-level validation
+        if (!editedAnimalData.name || !editedAnimalData.animalSpeciesName || !editedAnimalData.enclosureId || !editedAnimalData.birthDate) {
+            setErrorMessage('Please fill in all fields.');
+            setShowErrorDialog(true);
+            return;
+        }
         try {
             if (!animalData) {
                 throw new Error('Animal data is not available');
             }
-            const response = await fetch(`http://localhost:8080/api/v1/animal/updatebyanimalids/${animalData.animalId}`, {
+            const response = await fetch(`http://localhost:8080/api/v1/animal/updatebyanimalid/${animalData.animalId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -148,7 +138,7 @@ const EditAnimal = () => {
                     animalSpeciesName: selectedAnimalSpeciesName,
                     name: editedAnimalData.name,
                     enclosureId: editedAnimalData.enclosureId,
-                    birthDate: editedAnimalData.birthDate,
+                    birthDate: editedAnimalData.birthDate.toISOString().split('T')[0],
                     birthCountry: editedAnimalData.birthCountry,
                     description: editedAnimalData.description,
                 }),
@@ -193,7 +183,11 @@ const EditAnimal = () => {
                                     name="name"
                                     value={editedAnimalData.name}
                                     onChange={handleInputChange}
+                                    className={!editedAnimalData.name ? 'p-invalid' : ''}
                                 />
+                                {!editedAnimalData.name && (
+                                    <small style={{ color: 'red' }}>Name is required</small>
+                                )}
                             </div>
                             <div style={styles.inputGroup}>
                                 <label htmlFor="animalSpeciesName">Animal Species Name:</label>
@@ -205,8 +199,12 @@ const EditAnimal = () => {
                                     }))}
                                     onChange={handleDropdownChange}
                                     placeholder="Select an Animal Species"
-                                    className="zoo-dropdown"
+                                    // className="zoo-dropdown"
+                                    className={!selectedAnimalSpeciesId ? 'p-invalid' : ''}
                                 />
+                                {!selectedAnimalSpeciesId && (
+                                    <small style={{ color: 'red' }}>Animal Species is required</small>
+                                )}
                             </div>
                             <div style={styles.inputGroup}>
                                 <label htmlFor="enclosureId">Enclosure ID:</label>
@@ -215,7 +213,11 @@ const EditAnimal = () => {
                                     name="enclosureId"
                                     value={editedAnimalData.enclosureId}
                                     onChange={handleInputChange}
+                                    className={!editedAnimalData.enclosureId ? 'p-invalid' : ''}
                                 />
+                                {!editedAnimalData.enclosureId && (
+                                    <small style={{ color: 'red' }}>Enclosure ID is required</small>
+                                )}
                             </div>
                             <div style={styles.inputGroup}>
                                 <label htmlFor="age">Birth Date:</label>
@@ -225,9 +227,13 @@ const EditAnimal = () => {
                                     value={editedAnimalData.birthDate}
                                     onChange={handleInputChange}
                                     dateFormat="yy-mm-dd"
-                                    className="zoo-input"
+                                    // className="zoo-input"
+                                    className={!editedAnimalData.birthDate ? 'p-invalid' : ''}
                                     required
                                 />
+                                {!editedAnimalData.birthDate && (
+                                    <small style={{ color: 'red' }}>Birth Date is required</small>
+                                )}
                             </div>
                             <Button type="submit" label="Update" className="p-button-success" />
                             <Dialog

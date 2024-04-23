@@ -87,6 +87,28 @@ const EditCustomer = () => {
             [name]: value
         }));
 
+        // Validate name
+        if (name === 'name') {
+            if (!value.trim()) {
+                setErrorMessage('Name is required');
+                setShowErrorDialog(true);
+            } else {
+                setErrorMessage('');
+                setShowErrorDialog(false);
+            }
+        }
+
+        // Validate username
+        if (name === 'username') {
+            if (!value.trim()) {
+                setErrorMessage('Username is required');
+                setShowErrorDialog(true);
+            } else {
+                setErrorMessage('');
+                setShowErrorDialog(false);
+            }
+        }
+
         // Validate phone
         if (name === 'phone') {
             if (!/^\d{10}$/.test(value)) {
@@ -108,6 +130,9 @@ const EditCustomer = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        // Add form-level validation here if needed
+        // For example, checking if all fields are filled
+
         try {
             const response = await fetch(`http://localhost:8080/api/v1/user/updatebyuserid/${customerData.userId}`, {
                 method: 'PUT',

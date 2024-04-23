@@ -1,14 +1,17 @@
 /* createevent.css */
 
-.container {
+.container1 {
+  margin: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
-    position: relative; /* Set position to relative to contain absolute positioned elements */
+    justify-content: center;
+    margin: auto;
+    
   }
   
   .form-container {
-    margin-top: 50px;
+    /* margin-top: 50px; */
     width: 300px; /* Adjust width as needed */
     border: 2px solid #ccc;
     padding: 20px;

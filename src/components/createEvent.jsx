@@ -38,6 +38,21 @@ function CreateEvent() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Validation checks
+    if (!eventName || !eventDescription || !eventLocation || !capacity || !eventDate) {
+      setErrorMessage('Please fill in all fields.');
+      setDisplayDialog(true);
+      return;
+    }
+    
+    const parsedCapacity = parseInt(capacity);
+    if (isNaN(parsedCapacity) || parsedCapacity <= 0) {
+      setErrorMessage('Capacity should be a positive number.');
+      setDisplayDialog(true);
+      return;
+    }
+
     try {
       const response = await fetch(`http://localhost:8080/api/v1/event`, {
         method: 'POST',
@@ -49,7 +64,7 @@ function CreateEvent() {
           eventDescription,
           eventDate: eventDate.toISOString(),
           eventLocation,
-          capacity: parseInt(capacity),
+          capacity: parsedCapacity,
           username,
         }),
       });
@@ -68,7 +83,6 @@ function CreateEvent() {
       console.error('Error creating event:', error);
       setErrorMessage('Failed to create event. Please try again.');
       setDisplayDialog(true);
-      setDialogMessage(errorMessage);
     }
   };
 
@@ -79,7 +93,7 @@ function CreateEvent() {
   );
 
   return (
-    <div className="container">
+    <div className="container1">
       <h2>Book Online</h2>
       {errorMessage && <p>{errorMessage}</p>}
       <form className="form-container" onSubmit={handleSubmit}>
