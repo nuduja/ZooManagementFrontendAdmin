@@ -128,7 +128,7 @@ const EditEvent = () => {
     const onHideDialog = () => {
         setShowSuccessDialog(false);
         setShowErrorDialog(false);
-        navigate(`/event/${eventID}`);
+        navigate(-1);
     };
 
     return (

@@ -75,6 +75,8 @@ const AllEvents = () => {
             { field: 'eventDate', header: 'Event Date', sortable: true },
             { field: 'eventLocation', header: 'Location', sortable: true },
             { field: 'username', header: 'Username', sortable: true },
+            { field: 'eventManager', header: 'Manager', sortable: true },
+
         ],
         []
     );
