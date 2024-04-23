@@ -42,6 +42,7 @@ import CreateEmployee from './components/createEmployee.jsx';
 import ResetPassword from './components/resetPassword.jsx';
 import ResetPasswordC from './components/resetPasswordC.jsx';
 import ResetPasswordA from './components/resetPasswordA.jsx';
+import CreateMedicalRecord from './components/createmedicalrecord.jsx';
 
 
 const queryClient = new QueryClient()
@@ -151,6 +152,11 @@ function App() {
                     <Route path="/createEvent" element={
                         <ProtectedRoute>
                             <CreateEvent/>
+                        </ProtectedRoute>
+                    }/>
+                    <Route path="/createmedicalrecord" element={
+                        <ProtectedRoute>
+                            <CreateMedicalRecord/>
                         </ProtectedRoute>
                     }/>
                     <Route path="/adminSpecific/:adminId" element={
